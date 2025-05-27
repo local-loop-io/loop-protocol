@@ -1,0 +1,161 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://loop-protocol.org/schemas/v1/loopcoin.schema.json",
+  "title": "LoopCoin",
+  "description": "Schema for LoopCoin configuration and transactions",
+  "oneOf": [
+    {"$ref": "#/definitions/LoopCoinConfig"},
+    {"$ref": "#/definitions/LoopCoinTransfer"},
+    {"$ref": "#/definitions/InterNodeSettlement"}
+  ],
+  "definitions": {
+    "LoopCoinConfig": {
+      "type": "object",
+      "required": [
+        "@context",
+        "@type",
+        "issuer",
+        "currency_code",
+        "backed_by",
+        "exchange_rate",
+        "expiry_months"
+      ],
+      "properties": {
+        "@context": {
+          "type": "string",
+          "const": "https://loop-protocol.org/v1"
+        },
+        "@type": {
+          "type": "string",
+          "const": "LoopCoinConfig"
+        },
+        "issuer": {
+          "description": "Node that issues this LoopCoin",
+          "type": "string",
+          "pattern": "^[a-z0-9\\-]+\\.loop$",
+          "examples": ["munich.loop"]
+        },
+        "currency_code": {
+          "description": "Currency identifier",
+          "type": "string",
+          "pattern": "^LC-[A-Z]{3}$",
+          "examples": ["LC-MUC"]
+        },
+        "backed_by": {
+          "description": "Backing currency",
+          "type": "string",
+          "enum": ["EUR", "USD", "GBP", "CHF", "SEK", "NOK", "DKK"],
+          "examples": ["EUR"]
+        },
+        "exchange_rate": {
+          "description": "Exchange rate to backing currency",
+          "type": "number",
+          "minimum": 0,
+          "examples": [1.0]
+        },
+        "local_bonus": {
+          "description": "Bonus percentage for local spending",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.5,
+          "default": 0.05,
+          "examples": [0.05]
+        },
+        "expiry_months": {
+          "description": "Months until LoopCoin expires",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12,
+          "examples": [6]
+        },
+        "decay_rate": {
+          "description": "Monthly decay rate after expiry",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.2,
+          "default": 0.05,
+          "examples": [0.05]
+        },
+        "max_issuance": {
+          "description": "Maximum LoopCoins that can be issued",
+          "type": "integer",
+          "minimum": 0,
+          "examples": [1000000]
+        },
+        "current_supply": {
+          "description": "Current circulating supply",
+          "type": "integer",
+          "minimum": 0,
+          "examples": [450000]
+        },
+        "reserve_ratio": {
+          "description": "Reserve ratio (backing currency / issued)",
+          "type": "number",
+          "minimum": 0,
+          "default": 1.0,
+          "examples": [1.0]
+        }
+      },
+      "additionalProperties": false
+    },
+    "LoopCoinTransfer": {
+      "type": "object",
+      "required": [
+        "@context",
+        "@type",
+        "id",
+        "from",
+        "to",
+        "amount",
+        "currency",
+        "timestamp"
+      ],
+      "properties": {
+        "@context": {
+          "type": "string",
+          "const": "https://loop-protocol.org/v1"
+        },
+        "@type": {
+          "type": "string",
+          "const": "LoopCoinTransfer"
+        },
+        "id": {
+          "description": "Unique transaction ID (UUID)",
+          "type": "string",
+          "format": "uuid",
+          "examples": ["550e8400-e29b-41d4-a716-446655440000"]
+        },
+        "from": {
+          "description": "Sender identifier",
+          "type": "string",
+          "pattern": "^(user|business|node):[^@]+@[a-z0-9\\-]+\\.loop$",
+          "examples": ["user:maria@munich.loop"]
+        },
+        "to": {
+          "description": "Recipient identifier",
+          "type": "string",
+          "pattern": "^(user|business|node):[^@]+@[a-z0-9\\-]+\\.loop$",
+          "examples": ["business:brewery@munich.loop"]
+        },
+        "amount": {
+          "description": "Transfer amount",
+          "type": "number",
+          "minimum": 0.01,
+          "examples": [50]
+        },
+        "currency": {
+          "description": "LoopCoin currency code",
+          "type": "string",
+          "pattern": "^LC-[A-Z]{3}$",
+          "examples": ["LC-MUC"]
+        },
+        "material_ref": {
+          "description": "Related MaterialDNA ID",
+          "type": "string",
+          "pattern": "^[A-Z]{2}-[A-Z]{3}-\\d{4}-[A-Z]+-[A-Z0-9]{6,}$",
+          "examples": ["DE-MUC-2025-GRAIN-B847F3"]
+        },
+        "timestamp": {
+          "description": "Transaction timestamp",
+          "type": "string",
+          "format": "date-time",
