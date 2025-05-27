@@ -159,3 +159,108 @@
           "description": "Transaction timestamp",
           "type": "string",
           "format": "date-time",
+          "examples": ["2025-05-27T14:30:00Z"]
+        },
+        "memo": {
+          "description": "Transaction description",
+          "type": "string",
+          "maxLength": 200,
+          "examples": ["Payment for spent grain"]
+        },
+        "signature": {
+          "description": "Digital signature",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "InterNodeSettlement": {
+      "type": "object",
+      "required": [
+        "@context",
+        "@type",
+        "from_node",
+        "to_node",
+        "transfers",
+        "settlement_method"
+      ],
+      "properties": {
+        "@context": {
+          "type": "string",
+          "const": "https://loop-protocol.org/v1"
+        },
+        "@type": {
+          "type": "string",
+          "const": "InterNodeSettlement"
+        },
+        "from_node": {
+          "type": "string",
+          "pattern": "^[a-z0-9\\-]+\\.loop$"
+        },
+        "to_node": {
+          "type": "string",
+          "pattern": "^[a-z0-9\\-]+\\.loop$"
+        },
+        "transfers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["from", "to", "amount", "from_currency", "to_currency"],
+            "properties": {
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "number",
+                "minimum": 0
+              },
+              "from_currency": {
+                "type": "string",
+                "pattern": "^LC-[A-Z]{3}$"
+              },
+              "to_currency": {
+                "type": "string",
+                "pattern": "^LC-[A-Z]{3}$"
+              },
+              "exchange_rate": {
+                "type": "number",
+                "minimum": 0,
+                "default": 1.0
+              },
+              "fees": {
+                "type": "object",
+                "properties": {
+                  "export_penalty": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "import_penalty": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "distance_cost": {
+                    "type": "number",
+                    "minimum": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        "settlement_method": {
+          "type": "string",
+          "enum": ["clearing", "gross", "netting"],
+          "default": "clearing"
+        },
+        "settlement_period": {
+          "type": "string",
+          "enum": ["immediate", "hourly", "daily", "weekly"],
+          "default": "daily"
+        }
+      }
+    }
+  }
+}
