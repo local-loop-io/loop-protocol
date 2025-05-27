@@ -1,3 +1,4 @@
+```
 loop-protocol/
 ├── README.md
 ├── LICENSE
@@ -38,3 +39,4 @@ loop-protocol/
     │   └── rfc_proposal.md
     └── workflows/
         └── validate-schemas.yml
+```
