@@ -11,9 +11,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Smart contract integration planning in RFC-004
 - Multi-material bundle specification draft
 - WebSocket support for real-time updates
+- Schema validation script and CI workflow
+- Example JSON payloads for schemas
+- RFC template and RFC 0004 draft
+- Documentation: glossary, FAQ, implementation guide, security guides
 
 ### Changed
 - Clarified LoopSignal voting weight calculations
+- Updated project structure documentation
+- Adjusted README to remove unverified deployment claims
+- Updated maintainer contact details
 
 ### Deprecated
 - Nothing yet
@@ -23,6 +30,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Typo in MaterialDNA regex pattern example
+- Repaired truncated MaterialDNA schema JSON
+- Corrected LoopCost reference implementation variables
+- Aligned specification examples with schema-required fields and types
 
 ### Security
 - Nothing yet

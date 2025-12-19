@@ -1,0 +1,115 @@
+[
+  {
+    "@context": "https://loop-protocol.org/v1",
+    "@type": "MaterialDNA",
+    "id": "DE-MUC-2025-FOOD-B847F3",
+    "category": "organic-food",
+    "quantity": {
+      "value": 500,
+      "unit": "kg"
+    },
+    "location": {
+      "lat": 48.1372,
+      "lon": 11.5755,
+      "address": "Augustiner Brewery"
+    },
+    "available_from": "2025-05-27T08:00:00Z",
+    "expires": "2025-05-30T08:00:00Z"
+  },
+  {
+    "@context": "https://loop-protocol.org/v1",
+    "@type": "LoopSignalConfig",
+    "node": "munich.loop",
+    "signals": {
+      "organic-food": 0.4,
+      "plastic-pet": 0.2,
+      "default": 0.05
+    },
+    "valid_from": "2025-06-01T00:00:00Z",
+    "valid_until": "2025-06-30T23:59:59Z"
+  },
+  {
+    "@context": "https://loop-protocol.org/v1",
+    "@type": "LoopCoinConfig",
+    "issuer": "munich.loop",
+    "currency_code": "LC-MUC",
+    "backed_by": "EUR",
+    "exchange_rate": 1.0,
+    "expiry_months": 6
+  },
+  {
+    "@context": "https://loop-protocol.org/v1",
+    "@type": "MaterialTransaction",
+    "id": "TXN-2025-05-27-002",
+    "material": "DE-MUC-2025-FOOD-B847F3",
+    "seller": "munich.loop",
+    "buyer": "vienna.loop",
+    "offer": {
+      "base_price": 60,
+      "loop_cost": 104,
+      "breakdown": {
+        "export_penalty": 24,
+        "import_penalty": 12,
+        "distance_cost": 8
+      }
+    },
+    "timestamp": "2025-05-27T10:30:00Z",
+    "status": "confirmed"
+  },
+  {
+    "@context": "https://loop-protocol.org/v1",
+    "@type": "Settlement",
+    "transaction_id": "TXN-2025-05-27-002",
+    "material": "DE-MUC-2025-FOOD-B847F3",
+    "seller": "munich.loop",
+    "buyer": "vienna.loop",
+    "final_cost": 104,
+    "distribution": {
+      "seller_receives": 36,
+      "seller_community_fund": 24,
+      "buyer_community_fund": 12,
+      "transport_cost": 32
+    },
+    "settled_at": "2025-05-27T11:00:00Z"
+  },
+  {
+    "@context": "https://loop-protocol.org/v1",
+    "@type": "TransactionStatus",
+    "transaction_id": "TXN-2025-05-27-002",
+    "status": "completed",
+    "updated_at": "2025-05-27T11:00:00Z"
+  },
+  {
+    "@context": "https://loop-protocol.org/v1",
+    "@type": "NodeInfo",
+    "id": "munich.loop",
+    "name": "Munich LOOP Node",
+    "version": "0.1.0",
+    "location": {
+      "lat": 48.1351,
+      "lon": 11.5820,
+      "city": "Munich",
+      "country": "DE"
+    },
+    "capabilities": ["material-registry", "loopcoin", "loopsignal"],
+    "endpoint": "https://munich.loop/api/v1"
+  },
+  {
+    "@context": "https://loop-protocol.org/v1",
+    "@type": "NodeRegistry",
+    "version": "2025-05-27",
+    "nodes": [
+      {
+        "id": "munich.loop",
+        "endpoint": "https://munich.loop/api/v1",
+        "location": {
+          "lat": 48.1351,
+          "lon": 11.5820
+        },
+        "status": "active",
+        "last_seen": "2025-05-27T15:00:00Z",
+        "capabilities": ["loopcoin", "loopsignal"]
+      }
+    ]
+  }
+]

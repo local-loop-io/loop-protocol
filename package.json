@@ -1,0 +1,16 @@
+{
+  "name": "@local-loop/loop-protocol",
+  "version": "0.1.0",
+  "private": true,
+  "description": "LOOP Protocol specification and schemas",
+  "license": "MIT",
+  "scripts": {
+    "validate:schemas": "node scripts/validate-schemas.js",
+    "test": "npm run validate:schemas"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "fast-glob": "^3.3.2"
+  }
+}

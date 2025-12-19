@@ -1,0 +1,25 @@
+{
+  "@context": "https://loop-protocol.org/v1",
+  "@type": "LoopVote",
+  "node": "munich.loop",
+  "vote_id": "2025-06-plastic-increase",
+  "proposals": [
+    {
+      "category": "plastic-pet",
+      "current_value": 0.20,
+      "proposed_value": 0.30,
+      "rationale": "Increase local plastic recycling"
+    }
+  ],
+  "voting_period": {
+    "start": "2025-06-01T00:00:00Z",
+    "end": "2025-06-07T23:59:59Z"
+  },
+  "results": {
+    "total_eligible": 150000,
+    "total_voted": 52500,
+    "votes_for": 35700,
+    "votes_against": 16800,
+    "status": "passed"
+  }
+}

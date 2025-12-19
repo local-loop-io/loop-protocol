@@ -1,0 +1,19 @@
+{
+  "@context": "https://loop-protocol.org/v1",
+  "@type": "MaterialTransaction",
+  "id": "TXN-2025-05-27-001",
+  "material": "DE-MUC-2025-PLASTIC-B847F3",
+  "seller": "munich.loop",
+  "buyer": "berlin.loop",
+  "offer": {
+    "base_price": 120,
+    "loop_cost": 156,
+    "breakdown": {
+      "export_penalty": 24,
+      "import_penalty": 12,
+      "distance_cost": 0
+    }
+  },
+  "timestamp": "2025-05-27T16:00:00Z",
+  "status": "pending"
+}

@@ -162,3 +162,8 @@
           "type": "string",
           "maxLength": 500,
           "examples": ["Clean, sorted PET bottles"]
+        }
+      }
+    }
+  }
+}

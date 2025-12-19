@@ -26,7 +26,7 @@ Project maintainers will remove, edit, or reject contributions that violate this
 
 ## Reporting
 
-Report violations to: conduct@local-loop.io
+Report violations to: alphinctom@gmail.com (GitHub: @alpha912)
 
 ## Attribution
 

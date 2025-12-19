@@ -1,0 +1,13 @@
+{
+  "@context": "https://loop-protocol.org/v1",
+  "@type": "LoopCoinTransfer",
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "from": "user:maria@munich.loop",
+  "to": "business:brewery@munich.loop",
+  "amount": 50,
+  "currency": "LC-MUC",
+  "material_ref": "DE-MUC-2025-FOOD-B847F3",
+  "timestamp": "2025-05-27T14:30:00Z",
+  "memo": "Payment for spent grain",
+  "signature": "MEUCIQDmexampleSignature..."
+}

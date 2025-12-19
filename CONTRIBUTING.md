@@ -64,7 +64,6 @@ See rfcs/0000-template.md for the RFC template.
 
 ## ❓ Questions?
 
-- Discord: [#development](https://discord.gg/localloop)
-- Forum: [forum.local-loop.io](https://forum.local-loop.io)
+- GitHub Discussions or email: alphinctom@gmail.com
 
 Thank you for helping build the future of circular economy! 🌍

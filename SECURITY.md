@@ -9,9 +9,7 @@ The LOOP Protocol team takes security seriously. We appreciate your efforts to r
 **DO NOT** create public GitHub issues for security vulnerabilities.
 
 Please report security vulnerabilities by emailing:
-- **security@local-loop.io**
-- GPG Key: `https://local-loop.io/security-pgp.asc`
-- Key fingerprint: `XXXX XXXX XXXX XXXX XXXX  XXXX XXXX XXXX XXXX XXXX`
+- **alphinctom@gmail.com** (GitHub: @alpha912)
 
 ### What to Include
 
@@ -184,11 +182,10 @@ We thank the following security researchers for responsibly disclosing vulnerabi
 
 ## 📞 Contact
 
-- **Security Issues**: security@local-loop.io
-- **General Support**: support@local-loop.io
-- **Bug Bounty Program**: https://local-loop.io/security/bug-bounty
+- **Security Issues**: alphinctom@gmail.com
+- **General Support**: alphinctom@gmail.com
 
 ---
 
-*Last Updated: May 2025*  
-*Next Review: August 2025*
+*Last Updated: December 2025*  
+*Next Review: March 2026*

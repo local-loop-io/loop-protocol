@@ -210,7 +210,7 @@ DE-MUC-2025-PLASTIC-B847F3
     "notes": "Clean, sorted PET bottles"
   }
 }
-````
+```
 
 ### 4.3 Required Fields
 
@@ -306,7 +306,7 @@ Each node's LoopCoin configuration:
   "to": "business:brewery@munich.loop",
   "amount": 50,
   "currency": "LC-MUC",
-  "material_ref": "DE-MUC-2025-GRAIN-B847F3",
+  "material_ref": "DE-MUC-2025-FOOD-B847F3",
   "timestamp": "2025-05-27T14:30:00Z",
   "memo": "Payment for spent grain",
   "signature": "..."
@@ -319,6 +319,7 @@ When LoopCoins cross node boundaries:
 
 ```json
 {
+  "@context": "https://loop-protocol.org/v1",
   "@type": "InterNodeSettlement",
   "from_node": "munich.loop",
   "to_node": "berlin.loop",
@@ -386,6 +387,7 @@ Community preferences for material categories:
 
 ```json
 {
+  "@context": "https://loop-protocol.org/v1",
   "@type": "LoopVote",
   "node": "munich.loop",
   "vote_id": "2025-05-plastic-increase",
@@ -444,24 +446,27 @@ function calculateLoopCost(offer) {
   const { basePrice, origin, destination, materialType, distance } = offer;
   
   let loopCost = basePrice;
+  let exportPenalty = 0;
+  let importPenalty = 0;
+  let distanceCost = 0;
   
   // Export penalty if material leaves origin
   if (origin.node !== destination.node) {
     const exportSignal = origin.getSignal(materialType);
-    const exportPenalty = basePrice * exportSignal;
+    exportPenalty = basePrice * exportSignal;
     loopCost += exportPenalty;
   }
   
   // Import penalty if material enters destination
   if (destination.node !== origin.node) {
     const importSignal = destination.getSignal(materialType);
-    const importPenalty = basePrice * importSignal;
+    importPenalty = basePrice * importSignal;
     loopCost += importPenalty;
   }
   
   // Distance cost (simplified)
   if (distance > 0) {
-    const distanceCost = distance * 0.02;
+    distanceCost = distance * 0.02;
     loopCost += distanceCost;
   }
   
@@ -469,9 +474,9 @@ function calculateLoopCost(offer) {
     total: loopCost,
     breakdown: {
       base: basePrice,
-      export: exportPenalty || 0,
-      import: importPenalty || 0,
-      distance: distanceCost || 0
+      export: exportPenalty,
+      import: importPenalty,
+      distance: distanceCost
     }
   };
 }
@@ -507,7 +512,9 @@ Content-Type: application/ld+json
 Authorization: Bearer {token}
 
 {
+  "@context": "https://loop-protocol.org/v1",
   "@type": "MaterialDNA",
+  "id": "DE-MUC-2025-PLASTIC-B847F3",
   "category": "plastic-pet",
   "quantity": {"value": 1000, "unit": "kg"},
   ...
@@ -515,6 +522,8 @@ Authorization: Bearer {token}
 
 Response: 201 Created
 {
+  "@context": "https://loop-protocol.org/v1",
+  "@type": "MaterialDNA",
   "id": "DE-MUC-2025-PLASTIC-B847F3",
   "status": "registered",
   ...
@@ -528,6 +537,7 @@ GET /api/v1/material/DE-MUC-2025-PLASTIC-B847F3
 
 Response: 200 OK
 {
+  "@context": "https://loop-protocol.org/v1",
   "@type": "MaterialDNA",
   "id": "DE-MUC-2025-PLASTIC-B847F3",
   ...
@@ -564,12 +574,14 @@ GET /api/v1/node/info
 
 Response: 200 OK
 {
+  "@context": "https://loop-protocol.org/v1",
   "@type": "NodeInfo",
   "id": "munich.loop",
   "name": "Munich LOOP Node",
   "version": "0.1.0",
   "location": {"lat": 48.1351, "lon": 11.5820},
   "capabilities": ["material-registry", "loopcoin", "loopsignal"],
+  "endpoint": "https://munich.loop/api/v1",
   "statistics": {
     "materials_active": 1247,
     "transactions_daily": 89,
@@ -585,11 +597,15 @@ GET /api/v1/signals
 
 Response: 200 OK
 {
+  "@context": "https://loop-protocol.org/v1",
   "@type": "LoopSignalConfig",
+  "node": "munich.loop",
   "signals": {
     "plastic-pet": 0.30,
     ...
-  }
+  },
+  "valid_from": "2025-06-01T00:00:00Z",
+  "valid_until": "2025-06-30T23:59:59Z"
 }
 ```
 
@@ -603,19 +619,26 @@ Content-Type: application/ld+json
 Authorization: Bearer {token}
 
 {
+  "@context": "https://loop-protocol.org/v1",
   "@type": "MaterialTransaction",
+  "id": "TXN-2025-05-27-001",
   "material": "DE-MUC-2025-PLASTIC-B847F3",
+  "seller": "munich.loop",
   "buyer": "berlin.loop",
   "offer": {
     "base_price": 120,
     "loop_cost": 156
-  }
+  },
+  "timestamp": "2025-05-27T16:00:00Z"
 }
 
 Response: 201 Created
 {
-  "id": "TXN-2025-05-27-001",
+  "@context": "https://loop-protocol.org/v1",
+  "@type": "TransactionStatus",
+  "transaction_id": "TXN-2025-05-27-001",
   "status": "pending",
+  "updated_at": "2025-05-27T16:00:00Z",
   "settlement_url": "/api/v1/transaction/TXN-2025-05-27-001"
 }
 ```
@@ -631,6 +654,7 @@ POST /api/v1/federate/announce
 X-Node-Signature: {signature}
 
 {
+  "@context": "https://loop-protocol.org/v1",
   "@type": "MaterialAnnouncement",
   "material": "DE-MUC-2025-PLASTIC-B847F3",
   "origin": "munich.loop",
@@ -645,6 +669,7 @@ POST /api/v1/federate/offer
 X-Node-Signature: {signature}
 
 {
+  "@context": "https://loop-protocol.org/v1",
   "@type": "MaterialOffer",
   "material": "DE-MUC-2025-PLASTIC-B847F3",
   "from": "berlin.loop",
@@ -690,6 +715,7 @@ Nodes maintain a registry of peers:
 
 ```json
 {
+  "@context": "https://loop-protocol.org/v1",
   "@type": "NodeRegistry",
   "version": "2025-05-27",
   "nodes": [
@@ -819,8 +845,10 @@ Test suite MUST cover:
 ```json
 POST munich.loop/api/v1/material
 {
+  "@context": "https://loop-protocol.org/v1",
   "@type": "MaterialDNA",
-  "category": "organic-grain",
+  "id": "DE-MUC-2025-FOOD-B847F3",
+  "category": "organic-food",
   "quantity": {"value": 500, "unit": "kg"},
   "quality": 0.90,
   "location": {
@@ -834,7 +862,9 @@ POST munich.loop/api/v1/material
 
 Response:
 {
-  "id": "DE-MUC-2025-GRAIN-B847F3",
+  "@context": "https://loop-protocol.org/v1",
+  "@type": "MaterialDNA",
+  "id": "DE-MUC-2025-FOOD-B847F3",
   "status": "registered"
 }
 ```
@@ -844,10 +874,11 @@ Response:
 ```json
 POST vienna.loop/api/v1/federate/announce
 {
+  "@context": "https://loop-protocol.org/v1",
   "@type": "MaterialAnnouncement",
-  "material": "DE-MUC-2025-GRAIN-B847F3",
+  "material": "DE-MUC-2025-FOOD-B847F3",
   "origin": "munich.loop",
-  "category": "organic-grain",
+  "category": "organic-food",
   "quantity": 500,
   "available": true
 }
@@ -868,8 +899,9 @@ Total LoopCost: 104 LC
 ```json
 POST munich.loop/api/v1/federate/offer
 {
+  "@context": "https://loop-protocol.org/v1",
   "@type": "MaterialOffer",
-  "material": "DE-MUC-2025-GRAIN-B847F3",
+  "material": "DE-MUC-2025-FOOD-B847F3",
   "from": "vienna.loop",
   "base_price": 60,
   "loop_cost": 104,
@@ -896,6 +928,7 @@ POST munich.loop/api/v1/federate/offer
 ```json
 // Proposal
 {
+  "@context": "https://loop-protocol.org/v1",
   "@type": "SignalProposal",
   "node": "munich.loop",
   "changes": [
@@ -910,24 +943,31 @@ POST munich.loop/api/v1/federate/offer
   "voting_closes": "2025-06-07T23:59:59Z"
 }
 
-// Vote
+// Vote result
 {
-  "@type": "SignalVote",
-  "voter": "citizen:12345@munich.loop",
-  "proposal": "PROP-2025-06-PLASTIC",
-  "vote": "yes",
-  "weight": 2.5
-}
-
-// Result
-{
-  "@type": "SignalResult",
-  "proposal": "PROP-2025-06-PLASTIC",
-  "total_votes": 52500,
-  "votes_for": 35700,
-  "votes_against": 16800,
-  "status": "passed",
-  "new_signal": 0.30
+  "@context": "https://loop-protocol.org/v1",
+  "@type": "LoopVote",
+  "node": "munich.loop",
+  "vote_id": "2025-06-plastic-increase",
+  "proposals": [
+    {
+      "category": "plastic-pet",
+      "current_value": 0.20,
+      "proposed_value": 0.30,
+      "rationale": "Increase local plastic recycling"
+    }
+  ],
+  "voting_period": {
+    "start": "2025-06-01T00:00:00Z",
+    "end": "2025-06-07T23:59:59Z"
+  },
+  "results": {
+    "total_eligible": 150000,
+    "total_voted": 52500,
+    "votes_for": 35700,
+    "votes_against": 16800,
+    "status": "passed"
+  }
 }
 ```
 

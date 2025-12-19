@@ -8,6 +8,11 @@ loop-protocol/
 ├── CODE_OF_CONDUCT.md
 ├── SECURITY.md
 ├── CHANGELOG.md
+├── PROJECT_STRUCTURE.md
+├── package.json
+├── package-lock.json
+├── scripts/
+│   └── validate-schemas.js
 ├── schemas/
 │   ├── README.md
 │   ├── material-dna.schema.json
@@ -25,18 +30,15 @@ loop-protocol/
 ├── rfcs/
 │   ├── README.md
 │   ├── 0000-template.md
-│   ├── 0001-material-categories.md
-│   ├── 0002-penalty-calculation.md
-│   └── 0003-federation-discovery.md
+│   └── 0004-smart-contract-integration.md
 ├── docs/
 │   ├── glossary.md
 │   ├── faq.md
-│   └── implementation-guide.md
+│   ├── implementation-guide.md
+│   ├── security-guide.md
+│   ├── secure-coding.md
+│   └── incident-response.md
 └── .github/
-    ├── ISSUE_TEMPLATE/
-    │   ├── bug_report.md
-    │   ├── feature_request.md
-    │   └── rfc_proposal.md
     └── workflows/
         └── validate-schemas.yml
 ```
