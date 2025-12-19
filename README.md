@@ -29,11 +29,11 @@ LOOP Protocol enables cities to create federated circular economy networks while
 ### For Developers
 
 ```javascript
-// Install the SDK
-npm install @local-loop/sdk
+// Proposed SDK interface (no public SDK published yet)
+// npm install @local-loop/sdk
 
-// Connect to a node
-const loop = new LoopClient('https://munich.loop');
+// Example client usage (illustrative only)
+const loop = new LoopClient('https://example.loop');
 
 // Register material
 const material = await loop.registerMaterial({
@@ -114,7 +114,6 @@ the repository documentation.
 
 There are no public pilots or deployments at this time. We are actively seeking
 collaboration partners and research contributors.
-- **Development**: 12 contributors, 4 implementations
 
 ## ⚖️ License
 
