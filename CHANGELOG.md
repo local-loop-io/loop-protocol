@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated project structure documentation
 - Adjusted README to remove unverified deployment claims
 - Updated maintainer contact details
+- Updated roadmap to remove unverified test network/pilot claims
 
 ### Deprecated
 - Nothing yet

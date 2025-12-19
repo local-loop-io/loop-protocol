@@ -93,9 +93,8 @@ the repository documentation.
 ### v0.1 (Current)
 
 - ✅ Core protocol specification
-- ✅ Reference implementation
-- ✅ Test network
-- 🔄 First pilot cities
+- ✅ Reference documentation and schemas
+- ⏳ Prototype implementations (in progress)
 
 ### v0.2 (Planned)
 
