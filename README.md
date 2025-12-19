@@ -9,14 +9,14 @@
 
 ## 🌍 What is LOOP Protocol?
 
-LOOP Protocol enables cities to create federated circular economy networks while maintaining local sovereignty. Think of it as "email for materials" - any city can run a node, and materials can flow between cities using standardized protocols.
+LOOP Protocol proposes a federated circular economy network that preserves local sovereignty. Think of it as "email for materials" — a conceptual framework where cities could run interoperable nodes and exchange materials via shared standards.
 
 ### Core Components
 
-- **🧬 MaterialDNA**: Universal identification for any material or batch
-- **💰 LoopCoin**: Expiring local currency that incentivizes circulation
-- **📡 LoopSignal**: Democratic preferences that shape material flows
-- **💸 LoopCost**: Transparent calculation including all penalties
+- **🧬 MaterialDNA (proposed)**: Universal identification for any material or batch
+- **💰 LoopCoin (proposed)**: Expiring local currency that incentivizes circulation
+- **📡 LoopSignal (proposed)**: Democratic preferences that shape material flows
+- **💸 LoopCost (proposed)**: Transparent calculation including all penalties
 
 ## 🚀 Quick Start
 
@@ -54,7 +54,7 @@ npm test
 
 Read the full LOOP Protocol Specification v0.1
 
-### Key Features
+### Design Goals
 
 - **Federated Architecture**: No central authority required
 - **Economic Incentives**: Communities keep value from circular behaviors
@@ -78,9 +78,9 @@ We welcome contributions! See CONTRIBUTING.md for guidelines.
 
 ### How to Contribute
 
-1. Join our [Discord](https://discord.gg/localloop)
-2. Read the specification
-3. Check [open issues](https://github.com/local-loop-io/loop-protocol/issues)
+1. Read the specification
+2. Check [open issues](https://github.com/local-loop-io/loop-protocol/issues)
+3. Start a discussion in GitHub Discussions
 4. Submit RFCs for protocol changes
 
 ## 📚 Resources
@@ -101,12 +101,12 @@ the repository documentation.
 - Smart contract integration
 - Advanced routing algorithms
 - Mobile SDKs
-- Production deployments
+- Pilot deployments with research partners (if/when available)
 
 ### v1.0 (Planned)
 
 - Stable protocol
-- 100+ cities connected
+- Aspirational multi-city adoption
 - Ecosystem marketplace
 - Carbon credit integration
 
