@@ -69,7 +69,7 @@ are building one, open an issue or RFC so we can link it here.
 
 ## 🧪 Test Network
 
-No public test network is available yet. This is an early, low‑TRL concept and the
+No public test network is available yet. This is an early, low-TRL concept and the
 reference materials here are for specification and research only.
 
 ## 🤝 Contributing
