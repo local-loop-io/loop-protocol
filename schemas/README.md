@@ -17,3 +17,19 @@ npm test
 ```
 
 This validates all JSON files in `examples/` against the schemas.
+
+## How to Cite
+
+If you reference this repository, please cite:
+Alphin Tom. "LOOP Protocol Schemas." LocalLoop, GitHub repository, 2025-2026. https://github.com/local-loop-io/loop-protocol
+
+```bibtex
+@misc{localloop_protocol_schemas_2025,
+  author = {Alphin Tom},
+  title = {LOOP Protocol Schemas},
+  year = {2025},
+  howpublished = {GitHub repository},
+  url = {https://github.com/local-loop-io/loop-protocol},
+  note = {Accessed 2025-12-19}
+}
+```
