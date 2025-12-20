@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Documentation: glossary, FAQ, implementation guide, security guides
 - Governance RFC workflow and RFC-0001 process
 - Compliance docs: threat model and DPIA-lite baseline
+- Lab-only federation handshake schema + RFC-0002
 
 ### Changed
 - Clarified LoopSignal voting weight calculations

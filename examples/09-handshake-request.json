@@ -1,0 +1,11 @@
+{
+  "@context": "https://loop-protocol.org/v0.1.1",
+  "@type": "NodeHandshake",
+  "schema_version": "0.1.1",
+  "node_id": "munich.loop",
+  "name": "DEMO Munich Node",
+  "endpoint": "https://demo-munich.loop/api",
+  "capabilities": ["material-registry", "lab-relay"],
+  "timestamp": "2025-12-20T10:00:00Z",
+  "public_key": "-----BEGIN PUBLIC KEY-----MIIB...END PUBLIC KEY-----"
+}
