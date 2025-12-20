@@ -1,0 +1,12 @@
+{
+  "@context": "https://loop-protocol.org/v0.1.1",
+  "@type": "Match",
+  "schema_version": "0.1.1",
+  "id": "MCH-9B3C8A12",
+  "material_id": "DE-MUC-2025-PLASTIC-B847F3",
+  "offer_id": "OFR-2F7A6B9C",
+  "from_city": "Munich",
+  "to_city": "Berlin",
+  "status": "accepted",
+  "matched_at": "2025-06-01T12:15:00Z"
+}

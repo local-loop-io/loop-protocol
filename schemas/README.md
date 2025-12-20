@@ -3,7 +3,10 @@
 JSON Schema definitions for LOOP Protocol payloads.
 
 ## Files
-- `material-dna.schema.json`
+- `material-dna.schema.json` (v0.1.1 minimal interop)
+- `offer.schema.json` (v0.1.1 minimal interop)
+- `match.schema.json` (v0.1.1 minimal interop)
+- `transfer.schema.json` (v0.1.1 minimal interop)
 - `loopcoin.schema.json`
 - `loopsignal.schema.json`
 - `transaction.schema.json`

@@ -1,0 +1,16 @@
+{
+  "@context": "https://loop-protocol.org/v0.1.1",
+  "@type": "Transfer",
+  "schema_version": "0.1.1",
+  "id": "TRF-5D8A23F1",
+  "material_id": "DE-MUC-2025-PLASTIC-B847F3",
+  "match_id": "MCH-9B3C8A12",
+  "status": "completed",
+  "handoff_at": "2025-06-02T09:00:00Z",
+  "received_at": "2025-06-02T18:00:00Z",
+  "route": {
+    "from_city": "Munich",
+    "to_city": "Berlin",
+    "mode": "road"
+  }
+}

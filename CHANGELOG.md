@@ -38,6 +38,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 - Nothing yet
 
+## [0.1.1] - 2025-12-20
+
+### Added
+- Minimal interop flow definition (MaterialDNA → Offer → Match → Transfer) for lab demos
+- JSON schemas for Offer, Match, and Transfer (v0.1.1)
+- v0.1.1 examples for lab demo payloads
+- MaterialDNA schema versioning field for interop validation
+
+### Changed
+- MaterialDNA example payloads updated for schema version 0.1.1
+- Documentation updates to clarify lab-only scope and demo status
+
+### Security
+- Added STRIDE-lite and GDPR data-minimization notes in the security guide
+
 ## [0.1.0] - 2025-05-27
 
 ### Added
@@ -103,7 +118,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Status | Key Changes |
 |---------|------|---------|------------|
-| 0.1.0 | 2025-05-27 | **Current** | Initial public release |
+| 0.1.1 | 2025-12-20 | **Current** | Minimal interop lab demo baseline |
+| 0.1.0 | 2025-05-27 | Superseded | Initial public release |
 | 0.0.9-draft | 2025-05-15 | Superseded | Internal draft |
 | 0.0.1-concept | 2025-04-01 | Archived | Concept document |
 
@@ -160,7 +176,8 @@ This changelog is maintained by the LOOP Protocol core team.
 
 ---
 
-[Unreleased]: https://github.com/local-loop-io/loop-protocol/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/local-loop-io/loop-protocol/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/local-loop-io/loop-protocol/releases/tag/v0.1.1
 [0.1.0]: https://github.com/local-loop-io/loop-protocol/releases/tag/v0.1.0
 [0.0.9-draft]: https://github.com/local-loop-io/loop-protocol/releases/tag/v0.0.9-draft
 [0.0.1-concept]: https://github.com/local-loop-io/loop-protocol/releases/tag/v0.0.1-concept

@@ -1,13 +1,16 @@
 [
   {
-    "@context": "https://loop-protocol.org/v1",
+    "@context": "https://loop-protocol.org/v0.1.1",
     "@type": "MaterialDNA",
+    "schema_version": "0.1.1",
     "id": "DE-MUC-2025-FOOD-B847F3",
     "category": "organic-food",
     "quantity": {
       "value": 500,
       "unit": "kg"
     },
+    "origin_city": "Munich",
+    "current_city": "Munich",
     "location": {
       "lat": 48.1372,
       "lon": 11.5755,

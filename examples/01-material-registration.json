@@ -1,6 +1,7 @@
 {
-  "@context": "https://loop-protocol.org/v1",
+  "@context": "https://loop-protocol.org/v0.1.1",
   "@type": "MaterialDNA",
+  "schema_version": "0.1.1",
   "id": "DE-MUC-2025-PLASTIC-B847F3",
   "category": "plastic-pet",
   "quantity": {
@@ -8,6 +9,8 @@
     "unit": "kg"
   },
   "quality": 0.95,
+  "origin_city": "Munich",
+  "current_city": "Munich",
   "location": {
     "lat": 48.1351,
     "lon": 11.5820,

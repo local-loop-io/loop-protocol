@@ -1,28 +1,35 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://loop-protocol.org/schemas/v1/material-dna.schema.json",
+  "$id": "https://loop-protocol.org/schemas/v0.1.1/material-dna.schema.json",
   "title": "MaterialDNA",
-  "description": "Universal identifier and metadata for any material item or batch in the LOOP Protocol",
+  "description": "Universal identifier and metadata for any material item or batch in the LOOP Protocol (v0.1.1 minimal interop)",
   "type": "object",
   "required": [
     "@context",
     "@type",
+    "schema_version",
     "id",
     "category",
     "quantity",
-    "location",
+    "origin_city",
+    "current_city",
     "available_from"
   ],
   "properties": {
     "@context": {
       "description": "JSON-LD context",
       "type": "string",
-      "const": "https://loop-protocol.org/v1"
+      "const": "https://loop-protocol.org/v0.1.1"
     },
     "@type": {
       "description": "Object type identifier",
       "type": "string",
       "const": "MaterialDNA"
+    },
+    "schema_version": {
+      "description": "Schema version for the minimal interop flow",
+      "type": "string",
+      "const": "0.1.1"
     },
     "id": {
       "description": "Unique MaterialDNA identifier",
@@ -69,6 +76,20 @@
       "minimum": 0,
       "maximum": 1,
       "examples": [0.95]
+    },
+    "origin_city": {
+      "description": "City that registered the material",
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 80,
+      "examples": ["Munich"]
+    },
+    "current_city": {
+      "description": "City currently holding custody of the material",
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 80,
+      "examples": ["Munich"]
     },
     "location": {
       "description": "Geographic location of material",

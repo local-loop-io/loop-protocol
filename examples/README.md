@@ -8,6 +8,9 @@ This directory contains JSON examples that validate against the schemas in `sche
 - `03-signal-voting.json`: LoopVote record.
 - `04-cross-city-trade.json`: MaterialTransaction example.
 - `05-complete-flow.json`: Array of objects representing a full flow.
+- `06-offer.json`: Minimal interop offer payload (v0.1.1).
+- `07-match.json`: Minimal interop match payload (v0.1.1).
+- `08-transfer.json`: Minimal interop transfer payload (v0.1.1).
 
 ## Validation
 Run `npm test` from the repository root to validate all examples.

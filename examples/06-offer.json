@@ -1,0 +1,16 @@
+{
+  "@context": "https://loop-protocol.org/v0.1.1",
+  "@type": "Offer",
+  "schema_version": "0.1.1",
+  "id": "OFR-2F7A6B9C",
+  "material_id": "DE-MUC-2025-PLASTIC-B847F3",
+  "from_city": "Munich",
+  "to_city": "Berlin",
+  "quantity": {
+    "value": 800,
+    "unit": "kg"
+  },
+  "status": "open",
+  "available_until": "2025-06-05T10:00:00Z",
+  "terms": "Ready for pickup within 48 hours"
+}

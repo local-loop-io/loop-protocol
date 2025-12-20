@@ -1,12 +1,12 @@
-# LOOP Protocol Specification v0.1
+# LOOP Protocol Specification v0.1.1
 
 **Local Optimization with Overflow Protocol**
 
 *Draft Specification - Request for Comments*
 
-**Version:** 0.1.0  
-**Status:** Draft  
-**Updated:** May 2025  
+**Version:** 0.1.1  
+**Status:** Draft (Lab Demo Baseline)  
+**Updated:** December 2025  
 **License:** CC BY-SA 4.0  
 
 ## Table of Contents
@@ -14,6 +14,7 @@
 1. [Introduction](#1-introduction)
 2. [Terminology](#2-terminology)
 3. [Protocol Overview](#3-protocol-overview)
+3.5. [Minimal Interop Flow v0.1.1](#35-minimal-interop-flow-v011)
 4. [MaterialDNA Specification](#4-materialdna-specification)
 5. [LoopCoin Specification](#5-loopcoin-specification)
 6. [LoopSignal Specification](#6-loopsignal-specification)
@@ -39,7 +40,7 @@ LOOP allows cities to:
 - Calculate optimal material routing (LoopCost)
 - Settle transactions across municipal boundaries
 
-This document specifies LOOP Protocol version 0.1, focusing on core functionality required for basic interoperability.
+This document specifies LOOP Protocol version 0.1.1, focusing on core functionality required for basic interoperability and lab-only demos.
 
 ---
 
@@ -154,6 +155,35 @@ All protocol messages MUST use:
 
 ---
 
+### 3.5 Minimal Interop Flow v0.1.1
+
+This subsection defines the smallest interoperable flow required for lab-only demonstrations. It is intentionally minimal, scoped to controlled environments, and **does not represent a public pilot**.
+
+#### Flow sequence
+1. **MaterialDNA** is registered by a node.
+2. **Offer** is published for that material.
+3. **Match** is accepted between two nodes.
+4. **Transfer** is completed and recorded.
+
+#### Required entities
+
+All payloads MUST include `@context`, `@type`, and `schema_version` set to `0.1.1`.
+
+- **MaterialDNA**  
+  Schema: `https://loop-protocol.org/schemas/v0.1.1/material-dna.schema.json`
+- **Offer**  
+  Schema: `https://loop-protocol.org/schemas/v0.1.1/offer.schema.json`
+- **Match**  
+  Schema: `https://loop-protocol.org/schemas/v0.1.1/match.schema.json`
+- **Transfer**  
+  Schema: `https://loop-protocol.org/schemas/v0.1.1/transfer.schema.json`
+
+#### Data minimization
+
+To remain GDPR-aligned for lab demos, payloads **MUST NOT** include personal data. Node identifiers, city names, and organization identifiers are permitted; emails, phone numbers, and names are not permitted in these entities.
+
+---
+
 ## 4. MaterialDNA Specification
 
 ### 4.1 Identifier Format
@@ -181,8 +211,9 @@ DE-MUC-2025-PLASTIC-B847F3
 
 ```json
 {
-  "@context": "https://loop-protocol.org/v1",
+  "@context": "https://loop-protocol.org/v0.1.1",
   "@type": "MaterialDNA",
+  "schema_version": "0.1.1",
   "id": "DE-MUC-2025-PLASTIC-B847F3",
   "category": "plastic-pet",
   "quantity": {
@@ -190,6 +221,8 @@ DE-MUC-2025-PLASTIC-B847F3
     "unit": "kg"
   },
   "quality": 0.95,
+  "origin_city": "Munich",
+  "current_city": "Munich",
   "location": {
     "lat": 48.1351,
     "lon": 11.5820,
@@ -199,11 +232,6 @@ DE-MUC-2025-PLASTIC-B847F3
   "expires": "2025-06-03T10:00:00Z",
   "certifications": ["food-grade", "iso-14001"],
   "images": ["https://example.com/material-photo.jpg"],
-  "contact": {
-    "name": "Munich Recycling Center",
-    "email": "materials@munich.loop",
-    "phone": "+49-89-123456"
-  },
   "metadata": {
     "source": "consumer-collection",
     "batch_number": "2025-W22-01",
@@ -214,10 +242,12 @@ DE-MUC-2025-PLASTIC-B847F3
 
 ### 4.3 Required Fields
 
+- `schema_version`: Schema version (v0.1.1)
 - `id`: Unique MaterialDNA identifier
 - `category`: Standardized category code
 - `quantity`: Amount and unit
-- `location`: Geographic coordinates
+- `origin_city`: Registering city
+- `current_city`: Current custodian city
 - `available_from`: When material becomes available
 
 ### 4.4 Standard Categories

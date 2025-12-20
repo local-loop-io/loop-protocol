@@ -1,6 +1,6 @@
 # LOOP Protocol
 
-[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/local-loop-io/loop-protocol/releases)
+[![Version](https://img.shields.io/badge/version-0.1.1-blue.svg)](https://github.com/local-loop-io/loop-protocol/releases)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Discussions](https://img.shields.io/github/discussions/local-loop-io/loop-protocol)](https://github.com/local-loop-io/loop-protocol/discussions)
 [![Specification](https://img.shields.io/badge/spec-v0.1-orange.svg)](SPECIFICATION.md)
@@ -52,7 +52,7 @@ npm test
 
 ## 📋 Specification
 
-Read the full LOOP Protocol Specification v0.1
+Read the full LOOP Protocol Specification v0.1.1 (lab demo baseline)
 
 ### Design Goals
 
@@ -70,7 +70,7 @@ are building one, open an issue or RFC so we can link it here.
 ## 🧪 Test Network
 
 No public test network is available yet. This is an early, low-TRL concept and the
-reference materials here are for specification and research only.
+reference materials here are for specification and lab-only research demonstrations.
 
 ## 🤝 Contributing
 
@@ -90,11 +90,11 @@ the repository documentation.
 
 ## 🎯 Roadmap
 
-### v0.1 (Current)
+### v0.1.1 (Current)
 
-- ✅ Core protocol specification
+- ✅ Minimal interop flow (MaterialDNA → Offer → Match → Transfer)
 - ✅ Reference documentation and schemas
-- ⏳ Prototype implementations (in progress)
+- ⏳ Prototype implementations (lab demo in progress)
 
 ### v0.2 (Planned)
 
