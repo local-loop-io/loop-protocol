@@ -83,10 +83,21 @@ We welcome contributions! See CONTRIBUTING.md for guidelines.
 3. Start a discussion in GitHub Discussions
 4. Submit RFCs for protocol changes
 
+## 🧭 Governance (Lab Stage)
+
+- RFC workflow: `docs/governance/rfc-process.md`
+- RFC index: `rfcs/README.md`
+
 ## 📚 Resources
 
 Public resources are still being assembled. For now, use GitHub Discussions and
 the repository documentation.
+
+- Specification: `SPECIFICATION.md`
+- API reference: `openapi.json`
+- Security guide: `docs/security-guide.md`
+- Threat model: `docs/compliance/threat-model.md`
+- DPIA lite: `docs/compliance/dpia-lite.md`
 
 ## 🎯 Roadmap
 
