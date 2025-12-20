@@ -96,6 +96,7 @@ the repository documentation.
 - Specification: `SPECIFICATION.md`
 - API reference: `openapi.json`
 - Security guide: `docs/security-guide.md`
+- Federation handshake: `docs/federation-handshake.md`
 - Threat model: `docs/compliance/threat-model.md`
 - DPIA lite: `docs/compliance/dpia-lite.md`
 

@@ -1,0 +1,11 @@
+{
+  "@context": "https://loop-protocol.org/v0.1.1",
+  "@type": "NodeHandshakeResponse",
+  "schema_version": "0.1.1",
+  "status": "accepted",
+  "peer_id": "lab-hub.loop",
+  "capabilities": ["lab-relay"],
+  "received_at": "2025-12-20T10:00:05Z",
+  "lab_only": true,
+  "message": "Lab handshake accepted."
+}
