@@ -1,6 +1,6 @@
 [
   {
-    "@context": "https://loop-protocol.org/v0.1.1",
+    "@context": "https://local-loop-io.github.io/projects/loop-protocol/v0.1.1",
     "@type": "MaterialDNA",
     "schema_version": "0.1.1",
     "id": "DE-MUC-2025-FOOD-B847F3",
@@ -20,7 +20,7 @@
     "expires": "2025-05-30T08:00:00Z"
   },
   {
-    "@context": "https://loop-protocol.org/v1",
+    "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
     "@type": "LoopSignalConfig",
     "node": "munich.loop",
     "signals": {
@@ -32,7 +32,7 @@
     "valid_until": "2025-06-30T23:59:59Z"
   },
   {
-    "@context": "https://loop-protocol.org/v1",
+    "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
     "@type": "LoopCoinConfig",
     "issuer": "munich.loop",
     "currency_code": "LC-MUC",
@@ -41,7 +41,7 @@
     "expiry_months": 6
   },
   {
-    "@context": "https://loop-protocol.org/v1",
+    "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
     "@type": "MaterialTransaction",
     "id": "TXN-2025-05-27-002",
     "material": "DE-MUC-2025-FOOD-B847F3",
@@ -60,7 +60,7 @@
     "status": "confirmed"
   },
   {
-    "@context": "https://loop-protocol.org/v1",
+    "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
     "@type": "Settlement",
     "transaction_id": "TXN-2025-05-27-002",
     "material": "DE-MUC-2025-FOOD-B847F3",
@@ -76,14 +76,14 @@
     "settled_at": "2025-05-27T11:00:00Z"
   },
   {
-    "@context": "https://loop-protocol.org/v1",
+    "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
     "@type": "TransactionStatus",
     "transaction_id": "TXN-2025-05-27-002",
     "status": "completed",
     "updated_at": "2025-05-27T11:00:00Z"
   },
   {
-    "@context": "https://loop-protocol.org/v1",
+    "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
     "@type": "NodeInfo",
     "id": "munich.loop",
     "name": "Munich LOOP Node",
@@ -98,7 +98,7 @@
     "endpoint": "https://munich.loop/api/v1"
   },
   {
-    "@context": "https://loop-protocol.org/v1",
+    "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
     "@type": "NodeRegistry",
     "version": "2025-05-27",
     "nodes": [

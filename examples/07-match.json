@@ -1,5 +1,5 @@
 {
-  "@context": "https://loop-protocol.org/v0.1.1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v0.1.1",
   "@type": "Match",
   "schema_version": "0.1.1",
   "id": "MCH-9B3C8A12",
