@@ -4,9 +4,15 @@
   "title": "Transaction",
   "description": "Schema for LOOP Protocol transactions",
   "oneOf": [
-    {"$ref": "#/definitions/MaterialTransaction"},
-    {"$ref": "#/definitions/Settlement"},
-    {"$ref": "#/definitions/TransactionStatus"}
+    {
+      "$ref": "#/definitions/MaterialTransaction"
+    },
+    {
+      "$ref": "#/definitions/Settlement"
+    },
+    {
+      "$ref": "#/definitions/TransactionStatus"
+    }
   ],
   "definitions": {
     "MaterialTransaction": {
@@ -24,7 +30,7 @@
       "properties": {
         "@context": {
           "type": "string",
-          "const": "https://local-loop-io.github.io/projects/loop-protocol/v1"
+          "const": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld"
         },
         "@type": {
           "type": "string",
@@ -34,7 +40,9 @@
           "description": "Transaction ID",
           "type": "string",
           "pattern": "^TXN-\\d{4}-\\d{2}-\\d{2}-\\d{3,}$",
-          "examples": ["TXN-2025-05-27-001"]
+          "examples": [
+            "TXN-2025-05-27-001"
+          ]
         },
         "material": {
           "description": "MaterialDNA reference",
@@ -53,7 +61,10 @@
         },
         "offer": {
           "type": "object",
-          "required": ["base_price", "loop_cost"],
+          "required": [
+            "base_price",
+            "loop_cost"
+          ],
           "properties": {
             "base_price": {
               "type": "number",
@@ -88,7 +99,13 @@
         },
         "status": {
           "type": "string",
-          "enum": ["pending", "confirmed", "completed", "cancelled", "disputed"],
+          "enum": [
+            "pending",
+            "confirmed",
+            "completed",
+            "cancelled",
+            "disputed"
+          ],
           "default": "pending"
         }
       },
@@ -110,7 +127,7 @@
       "properties": {
         "@context": {
           "type": "string",
-          "const": "https://local-loop-io.github.io/projects/loop-protocol/v1"
+          "const": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld"
         },
         "@type": {
           "type": "string",
@@ -138,7 +155,9 @@
         },
         "distribution": {
           "type": "object",
-          "required": ["seller_receives"],
+          "required": [
+            "seller_receives"
+          ],
           "properties": {
             "seller_receives": {
               "type": "number",
@@ -193,7 +212,7 @@
       "properties": {
         "@context": {
           "type": "string",
-          "const": "https://local-loop-io.github.io/projects/loop-protocol/v1"
+          "const": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld"
         },
         "@type": {
           "type": "string",
@@ -205,7 +224,15 @@
         },
         "status": {
           "type": "string",
-          "enum": ["pending", "confirmed", "in_transit", "delivered", "completed", "cancelled", "disputed"]
+          "enum": [
+            "pending",
+            "confirmed",
+            "in_transit",
+            "delivered",
+            "completed",
+            "cancelled",
+            "disputed"
+          ]
         },
         "updated_at": {
           "type": "string",
@@ -217,8 +244,12 @@
             "location": {
               "type": "object",
               "properties": {
-                "lat": {"type": "number"},
-                "lon": {"type": "number"}
+                "lat": {
+                  "type": "number"
+                },
+                "lon": {
+                  "type": "number"
+                }
               }
             },
             "estimated_arrival": {

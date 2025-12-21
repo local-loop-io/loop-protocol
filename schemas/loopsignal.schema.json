@@ -4,9 +4,15 @@
   "title": "LoopSignal",
   "description": "Schema for LoopSignal configuration and voting",
   "oneOf": [
-    {"$ref": "#/definitions/LoopSignalConfig"},
-    {"$ref": "#/definitions/LoopVote"},
-    {"$ref": "#/definitions/SignalProposal"}
+    {
+      "$ref": "#/definitions/LoopSignalConfig"
+    },
+    {
+      "$ref": "#/definitions/LoopVote"
+    },
+    {
+      "$ref": "#/definitions/SignalProposal"
+    }
   ],
   "definitions": {
     "LoopSignalConfig": {
@@ -22,7 +28,7 @@
       "properties": {
         "@context": {
           "type": "string",
-          "const": "https://local-loop-io.github.io/projects/loop-protocol/v1"
+          "const": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld"
         },
         "@type": {
           "type": "string",
@@ -32,43 +38,107 @@
           "description": "Node identifier",
           "type": "string",
           "pattern": "^[a-z0-9\\-]+\\.loop$",
-          "examples": ["munich.loop"]
+          "examples": [
+            "munich.loop"
+          ]
         },
         "signals": {
           "description": "Signal values by category",
           "type": "object",
           "properties": {
-            "plastic-pet": {"$ref": "#/definitions/signalValue"},
-            "plastic-hdpe": {"$ref": "#/definitions/signalValue"},
-            "plastic-pvc": {"$ref": "#/definitions/signalValue"},
-            "plastic-ldpe": {"$ref": "#/definitions/signalValue"},
-            "plastic-pp": {"$ref": "#/definitions/signalValue"},
-            "plastic-ps": {"$ref": "#/definitions/signalValue"},
-            "plastic-mixed": {"$ref": "#/definitions/signalValue"},
-            "metal-steel": {"$ref": "#/definitions/signalValue"},
-            "metal-aluminum": {"$ref": "#/definitions/signalValue"},
-            "metal-copper": {"$ref": "#/definitions/signalValue"},
-            "metal-mixed": {"$ref": "#/definitions/signalValue"},
-            "organic-food": {"$ref": "#/definitions/signalValue"},
-            "organic-garden": {"$ref": "#/definitions/signalValue"},
-            "organic-wood": {"$ref": "#/definitions/signalValue"},
-            "glass-clear": {"$ref": "#/definitions/signalValue"},
-            "glass-brown": {"$ref": "#/definitions/signalValue"},
-            "glass-green": {"$ref": "#/definitions/signalValue"},
-            "glass-mixed": {"$ref": "#/definitions/signalValue"},
-            "paper-clean": {"$ref": "#/definitions/signalValue"},
-            "paper-newsprint": {"$ref": "#/definitions/signalValue"},
-            "cardboard": {"$ref": "#/definitions/signalValue"},
-            "paper-mixed": {"$ref": "#/definitions/signalValue"},
-            "textile-cotton": {"$ref": "#/definitions/signalValue"},
-            "textile-wool": {"$ref": "#/definitions/signalValue"},
-            "textile-synthetic": {"$ref": "#/definitions/signalValue"},
-            "textile-mixed": {"$ref": "#/definitions/signalValue"},
-            "ewaste-computers": {"$ref": "#/definitions/signalValue"},
-            "ewaste-phones": {"$ref": "#/definitions/signalValue"},
-            "ewaste-batteries": {"$ref": "#/definitions/signalValue"},
-            "ewaste-mixed": {"$ref": "#/definitions/signalValue"},
-            "default": {"$ref": "#/definitions/signalValue"}
+            "plastic-pet": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "plastic-hdpe": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "plastic-pvc": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "plastic-ldpe": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "plastic-pp": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "plastic-ps": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "plastic-mixed": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "metal-steel": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "metal-aluminum": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "metal-copper": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "metal-mixed": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "organic-food": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "organic-garden": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "organic-wood": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "glass-clear": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "glass-brown": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "glass-green": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "glass-mixed": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "paper-clean": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "paper-newsprint": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "cardboard": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "paper-mixed": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "textile-cotton": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "textile-wool": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "textile-synthetic": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "textile-mixed": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "ewaste-computers": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "ewaste-phones": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "ewaste-batteries": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "ewaste-mixed": {
+              "$ref": "#/definitions/signalValue"
+            },
+            "default": {
+              "$ref": "#/definitions/signalValue"
+            }
           },
           "additionalProperties": false
         },
@@ -76,13 +146,17 @@
           "description": "When signals become active",
           "type": "string",
           "format": "date-time",
-          "examples": ["2025-06-01T00:00:00Z"]
+          "examples": [
+            "2025-06-01T00:00:00Z"
+          ]
         },
         "valid_until": {
           "description": "When signals expire",
           "type": "string",
           "format": "date-time",
-          "examples": ["2025-06-30T23:59:59Z"]
+          "examples": [
+            "2025-06-30T23:59:59Z"
+          ]
         },
         "approved_by": {
           "description": "Voting record",
@@ -90,19 +164,25 @@
           "properties": {
             "vote_id": {
               "type": "string",
-              "examples": ["2025-05-vote"]
+              "examples": [
+                "2025-05-vote"
+              ]
             },
             "turnout": {
               "type": "number",
               "minimum": 0,
               "maximum": 1,
-              "examples": [0.35]
+              "examples": [
+                0.35
+              ]
             },
             "approval": {
               "type": "number",
               "minimum": 0,
               "maximum": 1,
-              "examples": [0.68]
+              "examples": [
+                0.68
+              ]
             }
           }
         }
@@ -123,7 +203,7 @@
       "properties": {
         "@context": {
           "type": "string",
-          "const": "https://local-loop-io.github.io/projects/loop-protocol/v1"
+          "const": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld"
         },
         "@type": {
           "type": "string",
@@ -135,13 +215,19 @@
         },
         "vote_id": {
           "type": "string",
-          "examples": ["2025-05-plastic-increase"]
+          "examples": [
+            "2025-05-plastic-increase"
+          ]
         },
         "proposals": {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["category", "current_value", "proposed_value"],
+            "required": [
+              "category",
+              "current_value",
+              "proposed_value"
+            ],
             "properties": {
               "category": {
                 "type": "string"
@@ -161,7 +247,10 @@
         },
         "voting_period": {
           "type": "object",
-          "required": ["start", "end"],
+          "required": [
+            "start",
+            "end"
+          ],
           "properties": {
             "start": {
               "type": "string",
@@ -175,7 +264,13 @@
         },
         "results": {
           "type": "object",
-          "required": ["total_eligible", "total_voted", "votes_for", "votes_against", "status"],
+          "required": [
+            "total_eligible",
+            "total_voted",
+            "votes_for",
+            "votes_against",
+            "status"
+          ],
           "properties": {
             "total_eligible": {
               "type": "integer",
@@ -195,7 +290,11 @@
             },
             "status": {
               "type": "string",
-              "enum": ["passed", "failed", "pending"]
+              "enum": [
+                "passed",
+                "failed",
+                "pending"
+              ]
             }
           }
         }
@@ -214,7 +313,7 @@
       "properties": {
         "@context": {
           "type": "string",
-          "const": "https://local-loop-io.github.io/projects/loop-protocol/v1"
+          "const": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld"
         },
         "@type": {
           "type": "string",
@@ -229,7 +328,11 @@
           "minItems": 1,
           "items": {
             "type": "object",
-            "required": ["category", "current", "proposed"],
+            "required": [
+              "category",
+              "current",
+              "proposed"
+            ],
             "properties": {
               "category": {
                 "type": "string"

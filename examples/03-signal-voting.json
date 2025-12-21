@@ -1,13 +1,13 @@
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "LoopVote",
   "node": "munich.loop",
   "vote_id": "2025-06-plastic-increase",
   "proposals": [
     {
       "category": "plastic-pet",
-      "current_value": 0.20,
-      "proposed_value": 0.30,
+      "current_value": 0.2,
+      "proposed_value": 0.3,
       "rationale": "Increase local plastic recycling"
     }
   ],

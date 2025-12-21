@@ -4,8 +4,12 @@
   "title": "NodeHandshake",
   "description": "Lab-only federation handshake payload for LOOP Protocol v0.1.1",
   "oneOf": [
-    { "$ref": "#/definitions/HandshakeRequest" },
-    { "$ref": "#/definitions/HandshakeResponse" }
+    {
+      "$ref": "#/definitions/HandshakeRequest"
+    },
+    {
+      "$ref": "#/definitions/HandshakeResponse"
+    }
   ],
   "definitions": {
     "HandshakeRequest": {
@@ -23,7 +27,7 @@
       "properties": {
         "@context": {
           "type": "string",
-          "const": "https://local-loop-io.github.io/projects/loop-protocol/v0.1.1"
+          "const": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld"
         },
         "@type": {
           "type": "string",
@@ -36,19 +40,25 @@
         "node_id": {
           "type": "string",
           "pattern": "^[a-z0-9\\-]+\\.loop$",
-          "examples": ["munich.loop"]
+          "examples": [
+            "munich.loop"
+          ]
         },
         "name": {
           "type": "string",
           "minLength": 2,
           "maxLength": 120,
-          "examples": ["DEMO Munich Node"]
+          "examples": [
+            "DEMO Munich Node"
+          ]
         },
         "endpoint": {
           "type": "string",
           "format": "uri",
           "pattern": "^https?://",
-          "examples": ["https://demo-munich.loop/api"]
+          "examples": [
+            "https://demo-munich.loop/api"
+          ]
         },
         "capabilities": {
           "type": "array",
@@ -56,12 +66,19 @@
           "items": {
             "type": "string"
           },
-          "examples": [["material-registry", "lab-relay"]]
+          "examples": [
+            [
+              "material-registry",
+              "lab-relay"
+            ]
+          ]
         },
         "public_key": {
           "type": "string",
           "description": "Optional public key for lab validation",
-          "examples": ["-----BEGIN PUBLIC KEY-----...-----END PUBLIC KEY-----"]
+          "examples": [
+            "-----BEGIN PUBLIC KEY-----...-----END PUBLIC KEY-----"
+          ]
         },
         "timestamp": {
           "type": "string",
@@ -89,7 +106,7 @@
       "properties": {
         "@context": {
           "type": "string",
-          "const": "https://local-loop-io.github.io/projects/loop-protocol/v0.1.1"
+          "const": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld"
         },
         "@type": {
           "type": "string",
@@ -101,12 +118,17 @@
         },
         "status": {
           "type": "string",
-          "enum": ["accepted", "rejected"]
+          "enum": [
+            "accepted",
+            "rejected"
+          ]
         },
         "peer_id": {
           "type": "string",
           "pattern": "^[a-z0-9\\-]+\\.loop$",
-          "examples": ["lab-hub.loop"]
+          "examples": [
+            "lab-hub.loop"
+          ]
         },
         "capabilities": {
           "type": "array",

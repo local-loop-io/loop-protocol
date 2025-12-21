@@ -211,7 +211,7 @@ DE-MUC-2025-PLASTIC-B847F3
 
 ```json
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v0.1.1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialDNA",
   "schema_version": "0.1.1",
   "id": "DE-MUC-2025-PLASTIC-B847F3",
@@ -310,7 +310,7 @@ Each node's LoopCoin configuration:
 
 ```json
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "LoopCoinConfig",
   "issuer": "munich.loop",
   "currency_code": "LC-MUC",
@@ -329,7 +329,7 @@ Each node's LoopCoin configuration:
 
 ```json
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "LoopCoinTransfer",
   "id": "550e8400-e29b-41d4-a716-446655440000",
   "from": "user:maria@munich.loop",
@@ -349,7 +349,7 @@ When LoopCoins cross node boundaries:
 
 ```json
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "InterNodeSettlement",
   "from_node": "munich.loop",
   "to_node": "berlin.loop",
@@ -383,7 +383,7 @@ Community preferences for material categories:
 
 ```json
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "LoopSignalConfig",
   "node": "munich.loop",
   "signals": {
@@ -417,7 +417,7 @@ Community preferences for material categories:
 
 ```json
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "LoopVote",
   "node": "munich.loop",
   "vote_id": "2025-05-plastic-increase",
@@ -542,7 +542,7 @@ Content-Type: application/ld+json
 Authorization: Bearer {token}
 
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialDNA",
   "id": "DE-MUC-2025-PLASTIC-B847F3",
   "category": "plastic-pet",
@@ -552,7 +552,7 @@ Authorization: Bearer {token}
 
 Response: 201 Created
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialDNA",
   "id": "DE-MUC-2025-PLASTIC-B847F3",
   "status": "registered",
@@ -567,7 +567,7 @@ GET /api/v1/material/DE-MUC-2025-PLASTIC-B847F3
 
 Response: 200 OK
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialDNA",
   "id": "DE-MUC-2025-PLASTIC-B847F3",
   ...
@@ -604,7 +604,7 @@ GET /api/v1/node/info
 
 Response: 200 OK
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "NodeInfo",
   "id": "munich.loop",
   "name": "Munich LOOP Node",
@@ -627,7 +627,7 @@ GET /api/v1/signals
 
 Response: 200 OK
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "LoopSignalConfig",
   "node": "munich.loop",
   "signals": {
@@ -649,7 +649,7 @@ Content-Type: application/ld+json
 Authorization: Bearer {token}
 
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialTransaction",
   "id": "TXN-2025-05-27-001",
   "material": "DE-MUC-2025-PLASTIC-B847F3",
@@ -664,7 +664,7 @@ Authorization: Bearer {token}
 
 Response: 201 Created
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "TransactionStatus",
   "transaction_id": "TXN-2025-05-27-001",
   "status": "pending",
@@ -684,7 +684,7 @@ POST /api/v1/federate/announce
 X-Node-Signature: {signature}
 
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialAnnouncement",
   "material": "DE-MUC-2025-PLASTIC-B847F3",
   "origin": "munich.loop",
@@ -699,7 +699,7 @@ POST /api/v1/federate/offer
 X-Node-Signature: {signature}
 
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialOffer",
   "material": "DE-MUC-2025-PLASTIC-B847F3",
   "from": "berlin.loop",
@@ -745,7 +745,7 @@ Nodes maintain a registry of peers:
 
 ```json
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "NodeRegistry",
   "version": "2025-05-27",
   "nodes": [
@@ -875,7 +875,7 @@ Test suite MUST cover:
 ```json
 POST munich.loop/api/v1/material
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialDNA",
   "id": "DE-MUC-2025-FOOD-B847F3",
   "category": "organic-food",
@@ -892,7 +892,7 @@ POST munich.loop/api/v1/material
 
 Response:
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialDNA",
   "id": "DE-MUC-2025-FOOD-B847F3",
   "status": "registered"
@@ -904,7 +904,7 @@ Response:
 ```json
 POST vienna.loop/api/v1/federate/announce
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialAnnouncement",
   "material": "DE-MUC-2025-FOOD-B847F3",
   "origin": "munich.loop",
@@ -929,7 +929,7 @@ Total LoopCost: 104 LC
 ```json
 POST munich.loop/api/v1/federate/offer
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialOffer",
   "material": "DE-MUC-2025-FOOD-B847F3",
   "from": "vienna.loop",
@@ -958,7 +958,7 @@ POST munich.loop/api/v1/federate/offer
 ```json
 // Proposal
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "SignalProposal",
   "node": "munich.loop",
   "changes": [
@@ -975,7 +975,7 @@ POST munich.loop/api/v1/federate/offer
 
 // Vote result
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "LoopVote",
   "node": "munich.loop",
   "vote_id": "2025-06-plastic-increase",
@@ -1050,7 +1050,7 @@ Goal: Submit to standards body (W3C, IETF) after v1.0
 {
   "@context": {
     "@version": 1.1,
-    "loop": "https://local-loop-io.github.io/projects/loop-protocol/v1/",
+    "loop": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld/",
     "schema": "https://schema.org/",
     "MaterialDNA": "loop:MaterialDNA",
     "LoopCoin": "loop:LoopCoin",

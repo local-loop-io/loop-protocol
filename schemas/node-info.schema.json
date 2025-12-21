@@ -4,9 +4,15 @@
   "title": "NodeInfo",
   "description": "Schema for LOOP node information and registry",
   "oneOf": [
-    {"$ref": "#/definitions/NodeInfo"},
-    {"$ref": "#/definitions/NodeRegistry"},
-    {"$ref": "#/definitions/NodeStatus"}
+    {
+      "$ref": "#/definitions/NodeInfo"
+    },
+    {
+      "$ref": "#/definitions/NodeRegistry"
+    },
+    {
+      "$ref": "#/definitions/NodeStatus"
+    }
   ],
   "definitions": {
     "NodeInfo": {
@@ -24,7 +30,7 @@
       "properties": {
         "@context": {
           "type": "string",
-          "const": "https://local-loop-io.github.io/projects/loop-protocol/v1"
+          "const": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld"
         },
         "@type": {
           "type": "string",
@@ -34,23 +40,32 @@
           "description": "Unique node identifier",
           "type": "string",
           "pattern": "^[a-z0-9\\-]+\\.loop$",
-          "examples": ["munich.loop"]
+          "examples": [
+            "munich.loop"
+          ]
         },
         "name": {
           "description": "Human-readable node name",
           "type": "string",
-          "examples": ["Munich LOOP Node"]
+          "examples": [
+            "Munich LOOP Node"
+          ]
         },
         "version": {
           "description": "LOOP Protocol version",
           "type": "string",
           "pattern": "^\\d+\\.\\d+\\.\\d+$",
-          "examples": ["0.1.0"]
+          "examples": [
+            "0.1.0"
+          ]
         },
         "location": {
           "description": "Geographic location",
           "type": "object",
-          "required": ["lat", "lon"],
+          "required": [
+            "lat",
+            "lon"
+          ],
           "properties": {
             "lat": {
               "type": "number",
@@ -64,12 +79,16 @@
             },
             "city": {
               "type": "string",
-              "examples": ["Munich"]
+              "examples": [
+                "Munich"
+              ]
             },
             "country": {
               "type": "string",
               "pattern": "^[A-Z]{2}$",
-              "examples": ["DE"]
+              "examples": [
+                "DE"
+              ]
             }
           }
         },
@@ -95,7 +114,9 @@
           "type": "string",
           "format": "uri",
           "pattern": "^https://",
-          "examples": ["https://munich.loop/api/v1"]
+          "examples": [
+            "https://munich.loop/api/v1"
+          ]
         },
         "public_key": {
           "description": "Ed25519 public key for verification",
@@ -154,7 +175,9 @@
           "properties": {
             "operator": {
               "type": "string",
-              "examples": ["City of Munich"]
+              "examples": [
+                "City of Munich"
+              ]
             },
             "established": {
               "type": "string",
@@ -187,7 +210,7 @@
       "properties": {
         "@context": {
           "type": "string",
-          "const": "https://local-loop-io.github.io/projects/loop-protocol/v1"
+          "const": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld"
         },
         "@type": {
           "type": "string",
@@ -197,13 +220,20 @@
           "description": "Registry version date",
           "type": "string",
           "format": "date",
-          "examples": ["2025-05-27"]
+          "examples": [
+            "2025-05-27"
+          ]
         },
         "nodes": {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["id", "endpoint", "location", "status"],
+            "required": [
+              "id",
+              "endpoint",
+              "location",
+              "status"
+            ],
             "properties": {
               "id": {
                 "type": "string",
@@ -218,15 +248,27 @@
               },
               "location": {
                 "type": "object",
-                "required": ["lat", "lon"],
+                "required": [
+                  "lat",
+                  "lon"
+                ],
                 "properties": {
-                  "lat": {"type": "number"},
-                  "lon": {"type": "number"}
+                  "lat": {
+                    "type": "number"
+                  },
+                  "lon": {
+                    "type": "number"
+                  }
                 }
               },
               "status": {
                 "type": "string",
-                "enum": ["active", "inactive", "maintenance", "suspended"]
+                "enum": [
+                  "active",
+                  "inactive",
+                  "maintenance",
+                  "suspended"
+                ]
               },
               "last_seen": {
                 "type": "string",
@@ -234,7 +276,9 @@
               },
               "capabilities": {
                 "type": "array",
-                "items": {"type": "string"}
+                "items": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -253,7 +297,7 @@
       "properties": {
         "@context": {
           "type": "string",
-          "const": "https://local-loop-io.github.io/projects/loop-protocol/v1"
+          "const": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld"
         },
         "@type": {
           "type": "string",
@@ -265,7 +309,12 @@
         },
         "status": {
           "type": "string",
-          "enum": ["online", "offline", "degraded", "maintenance"]
+          "enum": [
+            "online",
+            "offline",
+            "degraded",
+            "maintenance"
+          ]
         },
         "timestamp": {
           "type": "string",
@@ -280,7 +329,11 @@
             },
             "database_status": {
               "type": "string",
-              "enum": ["healthy", "degraded", "error"]
+              "enum": [
+                "healthy",
+                "degraded",
+                "error"
+              ]
             },
             "disk_usage_percent": {
               "type": "number",

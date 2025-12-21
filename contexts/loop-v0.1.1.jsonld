@@ -1,0 +1,52 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "loop": "https://local-loop-io.github.io/projects/loop-protocol/contexts/",
+    "schema_version": "loop:schema_version",
+    "node_id": "loop:node_id",
+    "name": "loop:name",
+    "endpoint": "loop:endpoint",
+    "capabilities": "loop:capabilities",
+    "timestamp": {
+      "@id": "loop:timestamp",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "MaterialDNA": "loop:MaterialDNA",
+    "Offer": "loop:Offer",
+    "Match": "loop:Match",
+    "Transfer": "loop:Transfer",
+    "id": "@id",
+    "category": "loop:category",
+    "quantity": {
+      "@id": "loop:quantity",
+      "@type": "@id"
+    },
+    "value": "loop:value",
+    "unit": "loop:unit",
+    "origin_city": "loop:origin_city",
+    "current_city": "loop:current_city",
+    "available_from": {
+      "@id": "loop:available_from",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "available_until": {
+      "@id": "loop:available_until",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "from_city": "loop:from_city",
+    "to_city": "loop:to_city",
+    "status": "loop:status",
+    "matched_at": {
+      "@id": "loop:matched_at",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "handoff_at": {
+      "@id": "loop:handoff_at",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "received_at": {
+      "@id": "loop:received_at",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    }
+  }
+}
