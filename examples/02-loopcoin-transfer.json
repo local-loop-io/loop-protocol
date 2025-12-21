@@ -1,5 +1,5 @@
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "LoopCoinTransfer",
   "id": "550e8400-e29b-41d4-a716-446655440000",
   "from": "user:maria@munich.loop",

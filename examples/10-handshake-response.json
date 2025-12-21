@@ -1,10 +1,12 @@
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v0.1.1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "NodeHandshakeResponse",
   "schema_version": "0.1.1",
   "status": "accepted",
   "peer_id": "lab-hub.loop",
-  "capabilities": ["lab-relay"],
+  "capabilities": [
+    "lab-relay"
+  ],
   "received_at": "2025-12-20T10:00:05Z",
   "lab_only": true,
   "message": "Lab handshake accepted."
