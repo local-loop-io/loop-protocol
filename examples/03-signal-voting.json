@@ -1,5 +1,5 @@
 {
-  "@context": "https://loop-protocol.org/v1",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/v1",
   "@type": "LoopVote",
   "node": "munich.loop",
   "vote_id": "2025-06-plastic-increase",

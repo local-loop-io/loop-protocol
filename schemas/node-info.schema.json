@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://loop-protocol.org/schemas/v1/node-info.schema.json",
+  "$id": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v1/node-info.schema.json",
   "title": "NodeInfo",
   "description": "Schema for LOOP node information and registry",
   "oneOf": [
@@ -24,7 +24,7 @@
       "properties": {
         "@context": {
           "type": "string",
-          "const": "https://loop-protocol.org/v1"
+          "const": "https://local-loop-io.github.io/projects/loop-protocol/v1"
         },
         "@type": {
           "type": "string",
@@ -187,7 +187,7 @@
       "properties": {
         "@context": {
           "type": "string",
-          "const": "https://loop-protocol.org/v1"
+          "const": "https://local-loop-io.github.io/projects/loop-protocol/v1"
         },
         "@type": {
           "type": "string",
@@ -253,7 +253,7 @@
       "properties": {
         "@context": {
           "type": "string",
-          "const": "https://loop-protocol.org/v1"
+          "const": "https://local-loop-io.github.io/projects/loop-protocol/v1"
         },
         "@type": {
           "type": "string",
