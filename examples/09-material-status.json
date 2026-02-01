@@ -1,0 +1,15 @@
+{
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
+  "@type": "MaterialStatusUpdate",
+  "schema_version": "0.1.1",
+  "id": "3c9a6a0b-8c1a-4d3f-9c2c-3c1c2f9d5c2a",
+  "material_id": "DE-MUC-2025-PLASTIC-B847F3",
+  "status": "reserved",
+  "updated_at": "2025-06-03T09:15:00Z",
+  "reason": "Reserved by city exchange",
+  "notes": "Holding until pickup is confirmed",
+  "source_node": "lab-hub.loop",
+  "metadata": {
+    "ticket": "LAB-42"
+  }
+}

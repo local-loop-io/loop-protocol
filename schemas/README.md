@@ -7,6 +7,7 @@ JSON Schema definitions for LOOP Protocol payloads.
 - `offer.schema.json` (v0.1.1 minimal interop)
 - `match.schema.json` (v0.1.1 minimal interop)
 - `transfer.schema.json` (v0.1.1 minimal interop)
+- `material-status.schema.json` (v0.1.1 lab demo)
 - `handshake.schema.json` (v0.1.1 lab federation)
 - `loopcoin.schema.json`
 - `loopsignal.schema.json`

@@ -595,6 +595,38 @@ Response: 200 OK
 }
 ```
 
+#### Material Management (Lab Demo Extensions)
+
+The following endpoint is optional and used by the LocalLoop lab demo only. It is not required for protocol compliance.
+
+**POST /api/loop/material-status**
+
+```http
+POST /api/loop/material-status
+Content-Type: application/ld+json
+X-API-Key: {api-key}
+
+{
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
+  "@type": "MaterialStatusUpdate",
+  "schema_version": "0.1.1",
+  "id": "3c9a6a0b-8c1a-4d3f-9c2c-3c1c2f9d5c2a",
+  "material_id": "DE-MUC-2025-PLASTIC-B847F3",
+  "status": "reserved",
+  "updated_at": "2025-06-03T09:15:00Z",
+  "reason": "Reserved by city exchange",
+  "notes": "Holding until pickup is confirmed",
+  "source_node": "lab-hub.loop",
+  "metadata": { "ticket": "LAB-42" }
+}
+
+Response: 201 Created
+{
+  "id": "3c9a6a0b-8c1a-4d3f-9c2c-3c1c2f9d5c2a",
+  "created_at": "2025-06-03T09:15:05Z"
+}
+```
+
 #### Node Information
 
 **GET /api/v1/node/info**
