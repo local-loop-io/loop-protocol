@@ -1,0 +1,290 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "LOOP Protocol API",
+    "version": "0.1.1",
+    "description": "Reference API surface for LOOP Protocol v0.1.1 (lab demo baseline)."
+  },
+  "servers": [
+    {
+      "url": "https://{node}/api/v1",
+      "variables": {
+        "node": {
+          "default": "example.loop",
+          "description": "LOOP node host (e.g. munich.loop)"
+        }
+      }
+    }
+  ],
+  "tags": [
+    { "name": "Material" },
+    { "name": "Node" },
+    { "name": "Signals" },
+    { "name": "Transactions" },
+    { "name": "Federation" }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "MaterialDNA": {
+        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.1.1/material-dna.schema.json"
+      },
+      "Offer": {
+        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.1.1/offer.schema.json"
+      },
+      "Match": {
+        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.1.1/match.schema.json"
+      },
+      "Transfer": {
+        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.1.1/transfer.schema.json"
+      },
+      "NodeInfo": {
+        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v1/node-info.schema.json"
+      },
+      "LoopSignalConfig": {
+        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v1/loopsignal.schema.json"
+      },
+      "Transaction": {
+        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v1/transaction.schema.json"
+      },
+      "TransactionStatus": {
+        "type": "object",
+        "properties": {
+          "@context": { "type": "string" },
+          "@type": { "type": "string" },
+          "transaction_id": { "type": "string" },
+          "status": { "type": "string" },
+          "updated_at": { "type": "string", "format": "date-time" },
+          "settlement_url": { "type": "string" }
+        }
+      },
+      "MaterialSearchRequest": {
+        "type": "object",
+        "properties": {
+          "category": { "type": "string" },
+          "radius_km": { "type": "number" },
+          "min_quantity": { "type": "number" },
+          "max_loop_cost": { "type": "number" }
+        },
+        "additionalProperties": false
+      },
+      "MaterialSearchResponse": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/MaterialDNA" }
+          },
+          "total": { "type": "integer" },
+          "next": { "type": "string" }
+        }
+      },
+      "MaterialAnnouncement": {
+        "type": "object",
+        "properties": {
+          "@context": { "type": "string" },
+          "@type": { "type": "string" },
+          "material": { "type": "string" },
+          "origin": { "type": "string" },
+          "available": { "type": "boolean" }
+        },
+        "required": ["@context", "@type", "material", "origin", "available"]
+      },
+      "MaterialOffer": {
+        "type": "object",
+        "properties": {
+          "@context": { "type": "string" },
+          "@type": { "type": "string" },
+          "material": { "type": "string" },
+          "from": { "type": "string" },
+          "base_price": { "type": "number" },
+          "loop_cost": { "type": "number" },
+          "valid_until": { "type": "string", "format": "date-time" }
+        },
+        "required": ["@context", "@type", "material", "from", "base_price", "loop_cost", "valid_until"]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": { "type": "string" },
+              "message": { "type": "string" },
+              "details": { "type": "object" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    { "BearerAuth": [] }
+  ],
+  "paths": {
+    "/material": {
+      "post": {
+        "tags": ["Material"],
+        "summary": "Register MaterialDNA",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/ld+json": {
+              "schema": { "$ref": "#/components/schemas/MaterialDNA" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/ld+json": {
+                "schema": { "$ref": "#/components/schemas/MaterialDNA" }
+              }
+            }
+          },
+          "400": { "description": "Invalid request", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/material/{id}": {
+      "get": {
+        "tags": ["Material"],
+        "summary": "Get MaterialDNA by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/ld+json": {
+                "schema": { "$ref": "#/components/schemas/MaterialDNA" }
+              }
+            }
+          },
+          "404": { "description": "Not found", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/material/search": {
+      "post": {
+        "tags": ["Material"],
+        "summary": "Search materials",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/ld+json": {
+              "schema": { "$ref": "#/components/schemas/MaterialSearchRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MaterialSearchResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/node/info": {
+      "get": {
+        "tags": ["Node"],
+        "summary": "Get node information",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/ld+json": {
+                "schema": { "$ref": "#/components/schemas/NodeInfo" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/signals": {
+      "get": {
+        "tags": ["Signals"],
+        "summary": "Get LoopSignal configuration",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/ld+json": {
+                "schema": { "$ref": "#/components/schemas/LoopSignalConfig" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transaction": {
+      "post": {
+        "tags": ["Transactions"],
+        "summary": "Create transaction",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/ld+json": {
+              "schema": { "$ref": "#/components/schemas/Transaction" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/ld+json": {
+                "schema": { "$ref": "#/components/schemas/TransactionStatus" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/federate/announce": {
+      "post": {
+        "tags": ["Federation"],
+        "summary": "Announce material availability",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/ld+json": {
+              "schema": { "$ref": "#/components/schemas/MaterialAnnouncement" }
+            }
+          }
+        },
+        "responses": {
+          "202": { "description": "Accepted" }
+        }
+      }
+    },
+    "/federate/offer": {
+      "post": {
+        "tags": ["Federation"],
+        "summary": "Send offer to a node",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/ld+json": {
+              "schema": { "$ref": "#/components/schemas/MaterialOffer" }
+            }
+          }
+        },
+        "responses": {
+          "202": { "description": "Accepted" }
+        }
+      }
+    }
+  }
+}

@@ -11,6 +11,7 @@ This directory contains JSON examples that validate against the schemas in `sche
 - `06-offer.json`: Minimal interop offer payload (v0.1.1).
 - `07-match.json`: Minimal interop match payload (v0.1.1).
 - `08-transfer.json`: Minimal interop transfer payload (v0.1.1).
+- `09-material-status.json`: Material status update payload (v0.1.1 lab demo).
 
 ## Validation
 Run `npm test` from the repository root to validate all examples.
