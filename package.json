@@ -5,17 +5,14 @@
   "description": "LOOP Protocol specification and schemas",
   "license": "MIT",
   "engines": {
-    "node": ">=25.1.0"
-  },
-  "volta": {
-    "node": "25.1.0"
+    "node": ">=20.0.0"
   },
   "scripts": {
     "validate:schemas": "node scripts/validate-schemas.js",
     "test": "npm run validate:schemas"
   },
   "devDependencies": {
-    "ajv": "^8.17.1",
+    "ajv": "^8.18.0",
     "ajv-formats": "^3.0.1",
     "fast-glob": "^3.3.3"
   }
