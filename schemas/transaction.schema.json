@@ -1,48 +1,37 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v1/transaction.schema.json",
+  "$id": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/transaction.schema.json",
   "title": "Transaction",
-  "description": "Schema for LOOP Protocol transactions",
+  "description": "Transaction schema — LOOP v0.2.0",
   "oneOf": [
-    {
-      "$ref": "#/definitions/MaterialTransaction"
-    },
-    {
-      "$ref": "#/definitions/Settlement"
-    },
-    {
-      "$ref": "#/definitions/TransactionStatus"
-    }
+    { "$ref": "#/definitions/MaterialTransaction" },
+    { "$ref": "#/definitions/Settlement" },
+    { "$ref": "#/definitions/TransactionStatus" }
   ],
   "definitions": {
     "MaterialTransaction": {
       "type": "object",
-      "required": [
-        "@context",
-        "@type",
-        "id",
-        "material",
-        "seller",
-        "buyer",
-        "offer",
-        "timestamp"
-      ],
+      "required": ["@context", "@type", "id", "material", "seller", "buyer", "offer", "timestamp"],
       "properties": {
         "@context": {
           "type": "string",
-          "const": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld"
+          "enum": [
+            "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
+            "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld"
+          ]
         },
-        "@type": {
+        "@type": { "type": "string", "const": "MaterialTransaction" },
+        "schema_version": {
+          "description": "Optional schema version identifier.",
           "type": "string",
-          "const": "MaterialTransaction"
+          "pattern": "^0\\.[1-9]\\d*\\.\\d+$",
+          "examples": ["0.2.0"]
         },
         "id": {
           "description": "Transaction ID",
           "type": "string",
           "pattern": "^TXN-\\d{4}-\\d{2}-\\d{2}-\\d{3,}$",
-          "examples": [
-            "TXN-2025-05-27-001"
-          ]
+          "examples": ["TXN-2025-05-27-001"]
         },
         "material": {
           "description": "MaterialDNA reference",
@@ -61,208 +50,115 @@
         },
         "offer": {
           "type": "object",
-          "required": [
-            "base_price",
-            "loop_cost"
-          ],
+          "required": ["base_price", "loop_cost"],
           "properties": {
-            "base_price": {
-              "type": "number",
-              "minimum": 0
-            },
-            "loop_cost": {
-              "type": "number",
-              "minimum": 0
-            },
+            "base_price": { "type": "number", "minimum": 0 },
+            "loop_cost": { "type": "number", "minimum": 0 },
             "breakdown": {
               "type": "object",
               "properties": {
-                "export_penalty": {
-                  "type": "number",
-                  "minimum": 0
-                },
-                "import_penalty": {
-                  "type": "number",
-                  "minimum": 0
-                },
-                "distance_cost": {
-                  "type": "number",
-                  "minimum": 0
-                }
+                "export_penalty": { "type": "number", "minimum": 0 },
+                "import_penalty": { "type": "number", "minimum": 0 },
+                "distance_cost": { "type": "number", "minimum": 0 }
               }
             }
           }
         },
-        "timestamp": {
-          "type": "string",
-          "format": "date-time"
-        },
+        "timestamp": { "type": "string", "format": "date-time" },
         "status": {
           "type": "string",
-          "enum": [
-            "pending",
-            "confirmed",
-            "completed",
-            "cancelled",
-            "disputed"
-          ],
+          "enum": ["pending", "confirmed", "completed", "cancelled", "disputed"],
           "default": "pending"
         }
       },
-      "additionalProperties": false
+      "additionalProperties": true
     },
     "Settlement": {
       "type": "object",
-      "required": [
-        "@context",
-        "@type",
-        "transaction_id",
-        "material",
-        "seller",
-        "buyer",
-        "final_cost",
-        "distribution",
-        "settled_at"
-      ],
+      "required": ["@context", "@type", "transaction_id", "material", "seller", "buyer", "final_cost", "distribution", "settled_at"],
       "properties": {
         "@context": {
           "type": "string",
-          "const": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld"
+          "enum": [
+            "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
+            "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld"
+          ]
         },
-        "@type": {
+        "@type": { "type": "string", "const": "Settlement" },
+        "schema_version": {
+          "description": "Optional schema version identifier.",
           "type": "string",
-          "const": "Settlement"
+          "pattern": "^0\\.[1-9]\\d*\\.\\d+$",
+          "examples": ["0.2.0"]
         },
-        "transaction_id": {
-          "type": "string",
-          "pattern": "^TXN-\\d{4}-\\d{2}-\\d{2}-\\d{3,}$"
-        },
-        "material": {
-          "type": "string",
-          "pattern": "^[A-Z]{2}-[A-Z]{3}-\\d{4}-[A-Z]+-[A-Z0-9]{6,}$"
-        },
-        "seller": {
-          "type": "string",
-          "pattern": "^[a-z0-9\\-]+\\.loop$"
-        },
-        "buyer": {
-          "type": "string",
-          "pattern": "^[a-z0-9\\-]+\\.loop$"
-        },
-        "final_cost": {
-          "type": "number",
-          "minimum": 0
-        },
+        "transaction_id": { "type": "string", "pattern": "^TXN-\\d{4}-\\d{2}-\\d{2}-\\d{3,}$" },
+        "material": { "type": "string", "pattern": "^[A-Z]{2}-[A-Z]{3}-\\d{4}-[A-Z]+-[A-Z0-9]{6,}$" },
+        "seller": { "type": "string", "pattern": "^[a-z0-9\\-]+\\.loop$" },
+        "buyer": { "type": "string", "pattern": "^[a-z0-9\\-]+\\.loop$" },
+        "final_cost": { "type": "number", "minimum": 0 },
         "distribution": {
           "type": "object",
-          "required": [
-            "seller_receives"
-          ],
+          "required": ["seller_receives"],
           "properties": {
-            "seller_receives": {
-              "type": "number",
-              "minimum": 0
-            },
-            "seller_community_fund": {
-              "type": "number",
-              "minimum": 0
-            },
-            "buyer_community_fund": {
-              "type": "number",
-              "minimum": 0
-            },
-            "transport_cost": {
-              "type": "number",
-              "minimum": 0
-            }
+            "seller_receives": { "type": "number", "minimum": 0 },
+            "seller_community_fund": { "type": "number", "minimum": 0 },
+            "buyer_community_fund": { "type": "number", "minimum": 0 },
+            "transport_cost": { "type": "number", "minimum": 0 }
           }
         },
-        "settled_at": {
-          "type": "string",
-          "format": "date-time"
-        },
+        "settled_at": { "type": "string", "format": "date-time" },
         "confirmation": {
           "type": "object",
           "properties": {
-            "material_transferred": {
-              "type": "boolean"
-            },
-            "payment_completed": {
-              "type": "boolean"
-            },
-            "signatures": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
+            "material_transferred": { "type": "boolean" },
+            "payment_completed": { "type": "boolean" },
+            "signatures": { "type": "array", "items": { "type": "string" } }
           }
         }
-      }
+      },
+      "additionalProperties": true
     },
     "TransactionStatus": {
       "type": "object",
-      "required": [
-        "@context",
-        "@type",
-        "transaction_id",
-        "status",
-        "updated_at"
-      ],
+      "required": ["@context", "@type", "transaction_id", "status", "updated_at"],
       "properties": {
         "@context": {
           "type": "string",
-          "const": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld"
-        },
-        "@type": {
-          "type": "string",
-          "const": "TransactionStatus"
-        },
-        "transaction_id": {
-          "type": "string",
-          "pattern": "^TXN-\\d{4}-\\d{2}-\\d{2}-\\d{3,}$"
-        },
-        "status": {
-          "type": "string",
           "enum": [
-            "pending",
-            "confirmed",
-            "in_transit",
-            "delivered",
-            "completed",
-            "cancelled",
-            "disputed"
+            "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
+            "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld"
           ]
         },
-        "updated_at": {
+        "@type": { "type": "string", "const": "TransactionStatus" },
+        "schema_version": {
+          "description": "Optional schema version identifier.",
           "type": "string",
-          "format": "date-time"
+          "pattern": "^0\\.[1-9]\\d*\\.\\d+$",
+          "examples": ["0.2.0"]
         },
+        "transaction_id": { "type": "string", "pattern": "^TXN-\\d{4}-\\d{2}-\\d{2}-\\d{3,}$" },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "confirmed", "in_transit", "delivered", "completed", "cancelled", "disputed"]
+        },
+        "updated_at": { "type": "string", "format": "date-time" },
         "details": {
           "type": "object",
           "properties": {
             "location": {
               "type": "object",
               "properties": {
-                "lat": {
-                  "type": "number"
-                },
-                "lon": {
-                  "type": "number"
-                }
+                "lat": { "type": "number" },
+                "lon": { "type": "number" }
               }
             },
-            "estimated_arrival": {
-              "type": "string",
-              "format": "date-time"
-            },
-            "notes": {
-              "type": "string",
-              "maxLength": 500
-            }
+            "estimated_arrival": { "type": "string", "format": "date-time" },
+            "notes": { "type": "string", "maxLength": 500 }
           }
-        }
-      }
+        },
+        "settlement_url": { "type": "string" }
+      },
+      "additionalProperties": true
     }
   }
 }

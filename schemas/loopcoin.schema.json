@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v1/loopcoin.schema.json",
+  "$id": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/loopcoin.schema.json",
   "title": "LoopCoin",
   "description": "Schema for LoopCoin configuration and transactions",
   "oneOf": [
@@ -29,11 +29,20 @@
       "properties": {
         "@context": {
           "type": "string",
-          "const": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld"
+          "enum": [
+            "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
+            "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld"
+          ]
         },
         "@type": {
           "type": "string",
           "const": "LoopCoinConfig"
+        },
+        "schema_version": {
+          "description": "Optional schema version identifier.",
+          "type": "string",
+          "pattern": "^0\\.[1-9]\\d*\\.\\d+$",
+          "examples": ["0.2.0"]
         },
         "issuer": {
           "description": "Node that issues this LoopCoin",
@@ -130,7 +139,7 @@
           ]
         }
       },
-      "additionalProperties": false
+      "additionalProperties": true
     },
     "LoopCoinTransfer": {
       "type": "object",
@@ -147,11 +156,20 @@
       "properties": {
         "@context": {
           "type": "string",
-          "const": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld"
+          "enum": [
+            "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
+            "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld"
+          ]
         },
         "@type": {
           "type": "string",
           "const": "LoopCoinTransfer"
+        },
+        "schema_version": {
+          "description": "Optional schema version identifier.",
+          "type": "string",
+          "pattern": "^0\\.[1-9]\\d*\\.\\d+$",
+          "examples": ["0.2.0"]
         },
         "id": {
           "description": "Unique transaction ID (UUID)",
@@ -222,7 +240,7 @@
           "type": "string"
         }
       },
-      "additionalProperties": false
+      "additionalProperties": true
     },
     "InterNodeSettlement": {
       "type": "object",
@@ -237,11 +255,20 @@
       "properties": {
         "@context": {
           "type": "string",
-          "const": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld"
+          "enum": [
+            "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
+            "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld"
+          ]
         },
         "@type": {
           "type": "string",
           "const": "InterNodeSettlement"
+        },
+        "schema_version": {
+          "description": "Optional schema version identifier.",
+          "type": "string",
+          "pattern": "^0\\.[1-9]\\d*\\.\\d+$",
+          "examples": ["0.2.0"]
         },
         "from_node": {
           "type": "string",
@@ -325,7 +352,8 @@
           ],
           "default": "daily"
         }
-      }
+      },
+      "additionalProperties": true
     }
   }
 }

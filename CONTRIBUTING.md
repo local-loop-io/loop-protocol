@@ -1,6 +1,6 @@
-# Contributing to LOOP Protocol
+# Contributing to LOOP
 
-Thank you for your interest in contributing to LOOP Protocol! We're building this together as a community.
+Thank you for your interest in contributing to LOOP! We're building this together as a community.
 
 ## 🤝 Code of Conduct
 
@@ -64,6 +64,6 @@ See rfcs/0000-template.md for the RFC template.
 
 ## ❓ Questions?
 
-- GitHub Discussions or email: alphinctom@gmail.com
+- GitHub Discussions or email: alphin@mycel-ai.de
 
 Thank you for helping build the future of circular economy! 🌍

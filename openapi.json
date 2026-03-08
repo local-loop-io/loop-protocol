@@ -1,9 +1,9 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "LOOP Protocol API",
-    "version": "0.1.1",
-    "description": "Reference API surface for LOOP Protocol v0.1.1 (lab demo baseline)."
+    "title": "LOOP API",
+    "version": "0.2.0",
+    "description": "Reference API surface for LOOP v0.2.0 (DPP-compatible lab baseline)."
   },
   "servers": [
     {
@@ -32,25 +32,25 @@
     },
     "schemas": {
       "MaterialDNA": {
-        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.1.1/material-dna.schema.json"
+        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/material-dna.schema.json"
       },
       "Offer": {
-        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.1.1/offer.schema.json"
+        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/offer.schema.json"
       },
       "Match": {
-        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.1.1/match.schema.json"
+        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/match.schema.json"
       },
       "Transfer": {
-        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.1.1/transfer.schema.json"
+        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/transfer.schema.json"
       },
       "NodeInfo": {
-        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v1/node-info.schema.json"
+        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/node-info.schema.json"
       },
       "LoopSignalConfig": {
-        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v1/loopsignal.schema.json"
+        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/loopsignal.schema.json"
       },
       "Transaction": {
-        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v1/transaction.schema.json"
+        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/transaction.schema.json"
       },
       "TransactionStatus": {
         "type": "object",

@@ -1,12 +1,12 @@
-# LOOP Protocol Specification v0.1.1
+# LOOP Specification v0.2.0
 
 **Local Optimization with Overflow Protocol**
 
 *Draft Specification - Request for Comments*
 
-**Version:** 0.1.1  
-**Status:** Draft (Lab Demo Baseline)  
-**Updated:** December 2025  
+**Version:** 0.2.0
+**Status:** Draft (DPP-Compatible Lab Baseline)
+**Updated:** March 2026
 **License:** CC BY-SA 4.0  
 
 ## Table of Contents
@@ -40,7 +40,7 @@ LOOP allows cities to:
 - Calculate optimal material routing (LoopCost)
 - Settle transactions across municipal boundaries
 
-This document specifies LOOP Protocol version 0.1.1, focusing on core functionality required for basic interoperability and lab-only demos.
+This document specifies LOOP version 0.2.0, focusing on core functionality required for basic interoperability, DPP-compatible extensions, and lab-only demos.
 
 ---
 
@@ -50,7 +50,7 @@ This document specifies LOOP Protocol version 0.1.1, focusing on core functional
 
 Current material recovery systems operate in isolation, leading to suboptimal resource allocation and missed opportunities for circular economy implementation. Cities lack infrastructure to coordinate material flows while maintaining local control over their economies.
 
-The LOOP Protocol addresses these challenges by providing:
+LOOP addresses these challenges by providing:
 - Federated architecture that preserves local autonomy
 - Economic incentives for circular behaviors
 - Democratic mechanisms for community preferences
@@ -59,7 +59,7 @@ The LOOP Protocol addresses these challenges by providing:
 
 ### 1.2 Goals
 
-LOOP Protocol aims to:
+LOOP aims to:
 1. Enable any city to participate in global material exchange
 2. Preserve local economic sovereignty
 3. Optimize material flows through market mechanisms
@@ -155,7 +155,7 @@ All protocol messages MUST use:
 
 ---
 
-### 3.5 Minimal Interop Flow v0.1.1
+### 3.5 Minimal Interop Flow v0.2.0
 
 This subsection defines the smallest interoperable flow required for lab-only demonstrations. It is intentionally minimal, scoped to controlled environments, and **does not represent a public pilot**.
 
@@ -168,17 +168,20 @@ This subsection defines the smallest interoperable flow required for lab-only de
 #### Required entities
 
 All payloads MUST include `@context`, `@type`, and `schema_version`.
-Emitters targeting the v0.1.1 baseline MUST set `schema_version` to `0.1.1`.
-Receivers SHOULD accept additive `0.1.x` patch-line versions when unknown fields can be preserved or ignored without data loss.
+Emitters targeting the v0.2.0 baseline SHOULD set `schema_version` to `0.2.0`.
+Receivers SHOULD accept additive minor/patch versions when unknown fields can be preserved or ignored without data loss.
+Payloads using `schema_version: "0.1.1"` remain valid against v0.2.0 schemas (backward compatible).
 
-- **MaterialDNA**  
-  Schema: `https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.1.1/material-dna.schema.json`
-- **Offer**  
-  Schema: `https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.1.1/offer.schema.json`
-- **Match**  
-  Schema: `https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.1.1/match.schema.json`
-- **Transfer**  
-  Schema: `https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.1.1/transfer.schema.json`
+- **MaterialDNA**
+  Schema: `https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/material-dna.schema.json`
+- **Offer**
+  Schema: `https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/offer.schema.json`
+- **Match**
+  Schema: `https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/match.schema.json`
+- **Transfer**
+  Schema: `https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/transfer.schema.json`
+
+> **Note**: v0.1.1 schema URLs remain available for backward compatibility. See RFC-0003 for the versioning policy.
 
 #### Data minimization
 
@@ -609,12 +612,12 @@ Response: 200 OK
 
 #### Material Management (Lab Demo Extensions)
 
-The following endpoint is optional and used by the LocalLoop lab demo only. It is not required for protocol compliance.
+The following endpoint is optional and used by the localLOOP lab demo only. It is not required for protocol compliance.
 
-**POST /api/loop/material-status**
+**POST /api/v1/material-status**
 
 ```http
-POST /api/loop/material-status
+POST /api/v1/material-status
 Content-Type: application/ld+json
 X-API-Key: {api-key}
 
@@ -1000,7 +1003,6 @@ POST munich.loop/api/v1/federate/offer
 ### 12.2 Signal Voting Example
 
 ```json
-// Proposal
 {
   "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "SignalProposal",
@@ -1017,7 +1019,6 @@ POST munich.loop/api/v1/federate/offer
   "voting_closes": "2025-06-07T23:59:59Z"
 }
 
-// Vote result
 {
   "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "LoopVote",
@@ -1049,15 +1050,24 @@ POST munich.loop/api/v1/federate/offer
 
 ## 13. Future Considerations
 
-### 13.1 Planned Features (v0.2)
+### 13.1 v0.2.0 Deliverables
 
-- Smart contract integration for automated settlement
+- Comprehensive DPP extension fields (ESPR, UNTP, Battery Passport, PPWR, NKWS aligned)
+- Schema version consolidation (all 10 schemas unified under v0.2.0)
+- Complete JSON-LD context with all type and term mappings
+- Conformity claims model (UNTP-aligned)
+- EPCIS event references and W3C VC pointers in traceability blocks
+- Schema versioning policy (RFC-0003)
+
+### 13.2 Future Features
+
+- Smart contract integration for automated settlement (see RFC-0004)
 - Multi-material bundles for efficient trading
 - Reputation system for reliable traders
 - Advanced routing with machine learning
 - Mobile node implementations
 
-### 13.2 Research Areas
+### 13.3 Research Areas
 
 - Zero-knowledge proofs for private transactions
 - Decentralized identity for users
@@ -1065,7 +1075,7 @@ POST munich.loop/api/v1/federate/offer
 - IoT sensor integration
 - Cross-chain interoperability
 
-### 13.3 Standardization
+### 13.4 Standardization
 
 Goal: Submit to standards body (W3C, IETF) after v1.0
 
@@ -1084,28 +1094,59 @@ Goal: Submit to standards body (W3C, IETF) after v1.0
 5. IETF. (1997). "RFC 2119: Key words for use in RFCs to Indicate Requirement Levels". https://www.ietf.org/rfc/rfc2119.txt
     
 6. Bernstein, D. J. (2006). "Curve25519: new Diffie-Hellman speed records". Public Key Cryptography - PKC 2006. pp. 207–228.
+
+7. European Parliament and Council. (2024). "Regulation (EU) 2024/1781 on ecodesign requirements for sustainable products (ESPR)". https://eur-lex.europa.eu/eli/reg/2024/1781/oj/eng
+
+8. UN/CEFACT. (2024). "United Nations Transparency Protocol (UNTP) — Digital Product Passport". https://uncefact.github.io/spec-untp/
+
+9. German Federal Government. (2024). "National Circular Economy Strategy (Nationale Kreislaufwirtschaftsstrategie — NKWS)". https://www.bundesumweltministerium.de/en/topics/circular-economy/circular-economy-strategy
     
 
 ---
 
 ## Appendix A: JSON-LD Context
 
-The canonical JSON-LD context is published at:
+The canonical JSON-LD context for v0.2.0 is published at:
+
+`https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld`
+
+The v0.1.1 context remains available at:
 
 `https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld`
 
-Implementations MUST treat that file as the source of truth.
-This appendix is intentionally brief to avoid drift between the specification text and the published context file.
+Implementations MUST treat the published context files as the source of truth.
+This appendix is intentionally brief to avoid drift between the specification text and the published context files.
 
-Key properties of the canonical context:
+Key properties of the v0.2.0 context:
 
-- It defines stable mappings for the published v0.1.1 fields
+- It is a superset of the v0.1.1 context (all v0.1.1 mappings are preserved)
+- It adds type mappings for all 16+ entity types across all 10 schemas
+- It adds term mappings for all DPP extension fields (passport, classification, traceability, conformity claims)
+- It adds term mappings for v1-origin schema fields (settlement, voting, signals, transactions)
 - It sets `@vocab` to the LOOP terms namespace so additive fields expand predictably
 - It keeps date-time fields typed for interoperable processing
 
 ---
 
 ## Appendix B: Change Log
+
+### Version 0.2.0 (2026-03-08)
+
+- Unified all 10 schemas under v0.2.0 (eliminated v0.1.1/v1 split)
+- Added comprehensive DPP extension fields (ESPR, UNTP, Battery Passport, PPWR, NKWS aligned)
+- Added conformity claims model
+- Added EPCIS event references and W3C VC pointers
+- Completed JSON-LD context with all type and term mappings
+- Fixed factual errors (Green Claims Directive withdrawal, BMUV URL)
+- Clarified dual license (MIT for code, CC BY-SA 4.0 for prose)
+- Established schema versioning policy (RFC-0003)
+- Backend API paths aligned to `/api/v1/`
+
+### Version 0.1.1 (2025-12-20)
+
+- Minimal interop flow definition (MaterialDNA → Offer → Match → Transfer)
+- JSON schemas for Offer, Match, Transfer, MaterialStatusUpdate, NodeHandshake
+- Lab demo baseline with data minimization rules
 
 ### Version 0.1.0 (2025-05-27)
 
@@ -1118,5 +1159,5 @@ Key properties of the canonical context:
 
 _End of Specification_
 
-_This specification is released under Creative Commons BY-SA 4.0 license._  
+_This specification is released under Creative Commons BY-SA 4.0. Code and schemas are released under the MIT license._
 _Contributions welcome at https://github.com/local-loop-io/loop-protocol_

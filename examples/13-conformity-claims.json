@@ -1,0 +1,64 @@
+{
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+  "@type": "MaterialDNA",
+  "schema_version": "0.2.0",
+  "id": "DE-BER-2026-TEXTILE-D4E5F6",
+  "category": "textile-cotton",
+  "quantity": { "value": 200, "unit": "kg" },
+  "quality": 0.88,
+  "origin_city": "Berlin",
+  "current_city": "Berlin",
+  "available_from": "2026-03-10T09:00:00Z",
+  "conformity_claims": [
+    {
+      "claim_id": "CLM-ESPR-DUR-001",
+      "description": "Textile durability exceeds minimum cycles",
+      "reference_standard": "EN ISO 12945-2",
+      "reference_regulation": "Regulation (EU) 2024/1781",
+      "conformity_topic": "quality",
+      "declared_value": {
+        "metric": "pilling_resistance_cycles",
+        "value": 5000,
+        "unit": "cycles",
+        "accuracy": 100
+      },
+      "conformance": true,
+      "assessment_date": "2026-02-15T14:00:00Z",
+      "conformity_evidence_url": "https://example.com/conformity/textile-dur-001"
+    },
+    {
+      "claim_id": "CLM-SAFETY-SOC-001",
+      "description": "No substances of concern above threshold",
+      "reference_regulation": "Regulation (EU) 2024/1781 Art. 7(5)",
+      "conformity_topic": "safety",
+      "conformance": true,
+      "assessment_date": "2026-02-15T14:00:00Z"
+    },
+    {
+      "claim_id": "CLM-ENV-CF-001",
+      "description": "Carbon footprint per unit declared",
+      "conformity_topic": "environment",
+      "declared_value": {
+        "metric": "carbon_footprint",
+        "value": 8.3,
+        "unit": "kg_co2e_per_kg",
+        "accuracy": 0.5
+      },
+      "conformance": true,
+      "assessment_date": "2026-02-20T10:00:00Z",
+      "conformity_evidence_url": "https://example.com/conformity/cf-textile-001"
+    }
+  ],
+  "passport": {
+    "passport_id": "DPP-DE-BER-2026-TEX-001",
+    "passport_status": "available",
+    "access_scope": "public",
+    "supported_regimes": ["espr-dpp"],
+    "substances_of_concern": [],
+    "hazardous": false
+  },
+  "metadata": {
+    "source": "industrial",
+    "notes": "Conformity claims example for ESPR textile declarations"
+  }
+}
