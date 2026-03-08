@@ -121,11 +121,16 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 LOOP follows a federated architecture where each city operates an autonomous node. Nodes communicate using HTTPS and JSON-LD messages.
 
-```bash
-
-┌─────────────┐ ┌─────────────┐ │ Munich │◄────────┤ Berlin │ │ Node │ HTTPS │ Node │ └──────┬──────┘ └──────┬──────┘ │ │ │ ┌─────────────┐ │ └────┤ Vienna ├────┘ │ Node │ └─────────────┘
-
+```mermaid
+flowchart LR
+  Munich[Munich Node]
+  Berlin[Berlin Node]
+  Vienna[Vienna Node]
+  Munich <-->|HTTPS| Berlin
+  Munich --- Vienna
+  Berlin --- Vienna
 ```
+
 ### 3.2 Core Components
 
 Each LOOP node MUST implement:
@@ -213,10 +218,11 @@ These extensions:
 MaterialDNA identifiers MUST follow this pattern:
 
 ```bash
-{COUNTRY}-{CITY}-{YEAR}-{CATEGORY}-{UNIQUE}
+MAT-{COUNTRY}-{CITY}-{YEAR}-{CATEGORY}-{UNIQUE}
 ```
 
 Where:
+- `MAT`: Fixed prefix identifying a material
 - `COUNTRY`: ISO 3166-1 alpha-2 code
 - `CITY`: Three-letter city code (locally defined)
 - `YEAR`: Four-digit year of registration
@@ -226,7 +232,7 @@ Where:
 Example:
 
 ```bash
-DE-MUC-2025-PLASTIC-B847F3
+MAT-DE-MUC-2025-PLASTIC-B847F3
 ```
 
 ### 4.2 MaterialDNA Object
@@ -236,7 +242,7 @@ DE-MUC-2025-PLASTIC-B847F3
   "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialDNA",
   "schema_version": "0.1.1",
-  "id": "DE-MUC-2025-PLASTIC-B847F3",
+  "id": "MAT-DE-MUC-2025-PLASTIC-B847F3",
   "category": "plastic-pet",
   "quantity": {
     "value": 1000,
@@ -340,7 +346,7 @@ This separation aligns with:
 ```
 MaterialDNA (composition layer)     ProductDNA (product layer, DPP-facing)
   ├── category: plastic-hdpe          ├── product_category: electronics-laptop
-  ├── quantity: 2kg                   ├── material_ids: [DE-MUC-2025-PLASTIC-..., ...]
+  ├── quantity: 2kg                   ├── material_ids: [MAT-DE-MUC-2025-PLASTIC-..., ...]
   ├── origin_city: Munich             ├── condition: good
   └── passport (DPP fields)          ├── passport (DPP fields, ESPR-aligned)
                                       └── lifecycle_stage: in-use
@@ -390,8 +396,8 @@ PRD-DE-MUC-2025-DESK-F4A7B2
   "functional_status": "fully-functional",
   "lifecycle_stage": "end-of-first-use",
   "material_ids": [
-    "DE-MUC-2025-METAL-4EB84C",
-    "DE-MUC-2025-PLASTIC-96FE78"
+    "MAT-DE-MUC-2025-METAL-4EB84C",
+    "MAT-DE-MUC-2025-PLASTIC-96FE78"
   ]
 }
 ```
@@ -493,7 +499,7 @@ Each node's LoopCoin configuration:
   "to": "business:brewery@munich.loop",
   "amount": 50,
   "currency": "LC-MUC",
-  "material_ref": "DE-MUC-2025-FOOD-B847F3",
+  "material_ref": "MAT-DE-MUC-2025-FOOD-B847F3",
   "timestamp": "2025-05-27T14:30:00Z",
   "memo": "Payment for spent grain",
   "signature": "..."
@@ -703,7 +709,7 @@ Authorization: Bearer {token}
 {
   "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialDNA",
-  "id": "DE-MUC-2025-PLASTIC-B847F3",
+  "id": "MAT-DE-MUC-2025-PLASTIC-B847F3",
   "category": "plastic-pet",
   "quantity": {"value": 1000, "unit": "kg"},
   ...
@@ -713,7 +719,7 @@ Response: 201 Created
 {
   "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialDNA",
-  "id": "DE-MUC-2025-PLASTIC-B847F3",
+  "id": "MAT-DE-MUC-2025-PLASTIC-B847F3",
   "status": "registered",
   ...
 }
@@ -722,13 +728,13 @@ Response: 201 Created
 **GET /api/v1/material/{id}**
 
 ```http
-GET /api/v1/material/DE-MUC-2025-PLASTIC-B847F3
+GET /api/v1/material/MAT-DE-MUC-2025-PLASTIC-B847F3
 
 Response: 200 OK
 {
   "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialDNA",
-  "id": "DE-MUC-2025-PLASTIC-B847F3",
+  "id": "MAT-DE-MUC-2025-PLASTIC-B847F3",
   ...
 }
 ```
@@ -818,7 +824,7 @@ X-API-Key: {api-key}
   "@type": "MaterialStatusUpdate",
   "schema_version": "0.1.1",
   "id": "3c9a6a0b-8c1a-4d3f-9c2c-3c1c2f9d5c2a",
-  "material_id": "DE-MUC-2025-PLASTIC-B847F3",
+  "material_id": "MAT-DE-MUC-2025-PLASTIC-B847F3",
   "status": "reserved",
   "updated_at": "2025-06-03T09:15:00Z",
   "reason": "Reserved by city exchange",
@@ -891,7 +897,7 @@ Authorization: Bearer {token}
   "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialTransaction",
   "id": "TXN-2025-05-27-001",
-  "material": "DE-MUC-2025-PLASTIC-B847F3",
+  "material": "MAT-DE-MUC-2025-PLASTIC-B847F3",
   "seller": "munich.loop",
   "buyer": "berlin.loop",
   "offer": {
@@ -925,7 +931,7 @@ X-Node-Signature: {signature}
 {
   "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialAnnouncement",
-  "material": "DE-MUC-2025-PLASTIC-B847F3",
+  "material": "MAT-DE-MUC-2025-PLASTIC-B847F3",
   "origin": "munich.loop",
   "available": true
 }
@@ -940,7 +946,7 @@ X-Node-Signature: {signature}
 {
   "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialOffer",
-  "material": "DE-MUC-2025-PLASTIC-B847F3",
+  "material": "MAT-DE-MUC-2025-PLASTIC-B847F3",
   "from": "berlin.loop",
   "base_price": 120,
   "loop_cost": 156,
@@ -956,9 +962,9 @@ Standard error format:
 {
   "error": {
     "code": "MATERIAL_NOT_FOUND",
-    "message": "Material with ID DE-MUC-2025-PLASTIC-B847F3 not found",
+    "message": "Material with ID MAT-DE-MUC-2025-PLASTIC-B847F3 not found",
     "details": {
-      "searched_id": "DE-MUC-2025-PLASTIC-B847F3",
+      "searched_id": "MAT-DE-MUC-2025-PLASTIC-B847F3",
       "timestamp": "2025-05-27T15:30:00Z"
     }
   }
@@ -1116,7 +1122,7 @@ POST munich.loop/api/v1/material
 {
   "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialDNA",
-  "id": "DE-MUC-2025-FOOD-B847F3",
+  "id": "MAT-DE-MUC-2025-FOOD-B847F3",
   "category": "organic-food",
   "quantity": {"value": 500, "unit": "kg"},
   "quality": 0.90,
@@ -1133,7 +1139,7 @@ Response:
 {
   "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialDNA",
-  "id": "DE-MUC-2025-FOOD-B847F3",
+  "id": "MAT-DE-MUC-2025-FOOD-B847F3",
   "status": "registered"
 }
 ```
@@ -1145,7 +1151,7 @@ POST vienna.loop/api/v1/federate/announce
 {
   "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialAnnouncement",
-  "material": "DE-MUC-2025-FOOD-B847F3",
+  "material": "MAT-DE-MUC-2025-FOOD-B847F3",
   "origin": "munich.loop",
   "category": "organic-food",
   "quantity": 500,
@@ -1170,7 +1176,7 @@ POST munich.loop/api/v1/federate/offer
 {
   "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialOffer",
-  "material": "DE-MUC-2025-FOOD-B847F3",
+  "material": "MAT-DE-MUC-2025-FOOD-B847F3",
   "from": "vienna.loop",
   "base_price": 60,
   "loop_cost": 104,
