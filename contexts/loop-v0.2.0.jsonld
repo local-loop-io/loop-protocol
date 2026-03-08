@@ -18,6 +18,7 @@
     },
 
     "MaterialDNA": "loop:MaterialDNA",
+    "ProductDNA": "loop:ProductDNA",
     "Offer": "loop:Offer",
     "Match": "loop:Match",
     "Transfer": "loop:Transfer",
@@ -201,6 +202,27 @@
     "environmental_conditions": "loop:environmental_conditions",
     "temperature_c": "loop:temperature_c",
     "humidity_percent": "loop:humidity_percent",
+
+    "product_id": "loop:product_id",
+    "product_category": "loop:product_category",
+    "condition": "loop:condition",
+    "manufacturer": "loop:manufacturer",
+    "model": "loop:model",
+    "manufacture_year": "loop:manufacture_year",
+    "functional_status": "loop:functional_status",
+    "lifecycle_stage": "loop:lifecycle_stage",
+    "material_ids": "loop:material_ids",
+    "dimensions": "loop:dimensions",
+    "length_cm": "loop:length_cm",
+    "width_cm": "loop:width_cm",
+    "height_cm": "loop:height_cm",
+    "weight_kg": "loop:weight_kg",
+    "reuse_potential": "loop:reuse_potential",
+    "issued_at": {
+      "@id": "loop:issued_at",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "issuer_node": "loop:issuer_node",
 
     "material_id": "loop:material_id",
     "offer_id": "loop:offer_id",

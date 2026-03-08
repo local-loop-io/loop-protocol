@@ -1,0 +1,43 @@
+[
+  {
+    "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+    "@type": "Offer",
+    "schema_version": "0.2.0",
+    "id": "OFR-PRD-8C4F2A1B",
+    "product_id": "PRD-DE-MUC-2025-DESK-F4A7B2",
+    "from_city": "Munich",
+    "to_city": "Berlin",
+    "quantity": { "value": 12, "unit": "piece" },
+    "status": "open",
+    "available_until": "2026-03-20T18:00:00Z",
+    "terms": "Pickup from Munich office building. Palletized and ready for transport."
+  },
+  {
+    "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+    "@type": "Match",
+    "schema_version": "0.2.0",
+    "id": "MCH-PRD-3D7E9F45",
+    "product_id": "PRD-DE-MUC-2025-DESK-F4A7B2",
+    "offer_id": "OFR-PRD-8C4F2A1B",
+    "from_city": "Munich",
+    "to_city": "Berlin",
+    "status": "accepted",
+    "matched_at": "2026-03-16T14:30:00Z"
+  },
+  {
+    "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+    "@type": "Transfer",
+    "schema_version": "0.2.0",
+    "id": "TRF-PRD-1A5B8C2D",
+    "product_id": "PRD-DE-MUC-2025-DESK-F4A7B2",
+    "match_id": "MCH-PRD-3D7E9F45",
+    "status": "completed",
+    "handoff_at": "2026-03-18T09:00:00Z",
+    "received_at": "2026-03-18T17:30:00Z",
+    "route": {
+      "from_city": "Munich",
+      "to_city": "Berlin",
+      "mode": "road"
+    }
+  }
+]

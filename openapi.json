@@ -18,6 +18,7 @@
   ],
   "tags": [
     { "name": "Material" },
+    { "name": "Product" },
     { "name": "Node" },
     { "name": "Signals" },
     { "name": "Transactions" },
@@ -33,6 +34,9 @@
     "schemas": {
       "MaterialDNA": {
         "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/material-dna.schema.json"
+      },
+      "ProductDNA": {
+        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/product-dna.schema.json"
       },
       "Offer": {
         "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/offer.schema.json"
@@ -193,6 +197,51 @@
               }
             }
           }
+        }
+      }
+    },
+    "/product": {
+      "post": {
+        "tags": ["Product"],
+        "summary": "Register ProductDNA",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/ld+json": {
+              "schema": { "$ref": "#/components/schemas/ProductDNA" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/ld+json": {
+                "schema": { "$ref": "#/components/schemas/ProductDNA" }
+              }
+            }
+          },
+          "400": { "description": "Invalid request", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/product/{id}": {
+      "get": {
+        "tags": ["Product"],
+        "summary": "Get ProductDNA by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/ld+json": {
+                "schema": { "$ref": "#/components/schemas/ProductDNA" }
+              }
+            }
+          },
+          "404": { "description": "Not found", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
         }
       }
     },

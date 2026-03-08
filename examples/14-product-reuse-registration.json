@@ -1,0 +1,36 @@
+{
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+  "@type": "ProductDNA",
+  "schema_version": "0.2.0",
+  "id": "PRD-DE-MUC-2025-DESK-F4A7B2",
+  "product_category": "furniture-office",
+  "name": "Standing Desk — Ergotron WorkFit",
+  "condition": "good",
+  "quantity": { "value": 12, "unit": "piece" },
+  "origin_city": "Munich",
+  "current_city": "Munich",
+  "available_from": "2026-03-15T08:00:00Z",
+  "manufacturer": "Ergotron",
+  "model": "WorkFit-S",
+  "manufacture_year": 2021,
+  "functional_status": "fully-functional",
+  "lifecycle_stage": "end-of-first-use",
+  "material_ids": [
+    "DE-MUC-2025-METAL-4EB84C",
+    "DE-MUC-2025-PLASTIC-96FE78"
+  ],
+  "dimensions": {
+    "length_cm": 120,
+    "width_cm": 60,
+    "height_cm": 130,
+    "weight_kg": 18.5
+  },
+  "reuse_potential": "Fully functional standing desks from office clearance. Minor cosmetic wear.",
+  "passport": {
+    "passport_id": "PP-PRD-2026-F4A7B2",
+    "issued_at": "2026-03-10T10:00:00Z",
+    "issuer_node": "munich.loop",
+    "repair_score": 8,
+    "durability_score": 9
+  }
+}

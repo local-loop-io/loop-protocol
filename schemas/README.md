@@ -4,9 +4,10 @@ JSON Schema definitions for LOOP payloads.
 
 ## Files
 - `material-dna.schema.json` — Material identity and metadata (v0.2.0)
-- `offer.schema.json` — Offer payload definition (v0.2.0)
-- `match.schema.json` — Match payload definition (v0.2.0)
-- `transfer.schema.json` — Transfer payload definition (v0.2.0)
+- `product-dna.schema.json` — Product identity and metadata, DPP-aligned (v0.2.0)
+- `offer.schema.json` — Offer payload definition (v0.2.0, supports material_id or product_id)
+- `match.schema.json` — Match payload definition (v0.2.0, supports material_id or product_id)
+- `transfer.schema.json` — Transfer payload definition (v0.2.0, supports material_id or product_id)
 - `material-status.schema.json` — Material status updates (v0.2.0)
 - `handshake.schema.json` — Federation handshake protocol (v0.2.0)
 - `loopcoin.schema.json`

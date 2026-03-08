@@ -34,6 +34,7 @@ function inferSchemaName(payload) {
 
   const schemaMap = {
     MaterialDNA: 'material-dna.schema.json',
+    ProductDNA: 'product-dna.schema.json',
     Offer: 'offer.schema.json',
     Match: 'match.schema.json',
     Transfer: 'transfer.schema.json',

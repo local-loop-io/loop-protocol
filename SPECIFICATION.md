@@ -16,6 +16,7 @@
 3. [Protocol Overview](#3-protocol-overview)
 3.5. [Minimal Interop Flow v0.1.1](#35-minimal-interop-flow-v011)
 4. [MaterialDNA Specification](#4-materialdna-specification)
+4.5. [ProductDNA Specification](#45-productdna-specification)
 5. [LoopCoin Specification](#5-loopcoin-specification)
 6. [LoopSignal Specification](#6-loopsignal-specification)
 7. [LoopCost Calculation](#7-loopcost-calculation)
@@ -94,6 +95,8 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 **Node**: An autonomous LOOP implementation, typically operated by a municipality
 
 **MaterialDNA**: Globally unique identifier for any material item or batch
+
+**ProductDNA**: Globally unique identifier for a product or product batch, referencing constituent MaterialDNA entries
 
 **LoopCoin (LC)**: Local digital currency with expiry properties
 
@@ -174,6 +177,8 @@ Payloads using `schema_version: "0.1.1"` remain valid against v0.2.0 schemas (ba
 
 - **MaterialDNA**
   Schema: `https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/material-dna.schema.json`
+- **ProductDNA**
+  Schema: `https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/product-dna.schema.json`
 - **Offer**
   Schema: `https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/offer.schema.json`
 - **Match**
@@ -313,6 +318,141 @@ electronics/
   ewaste-phones   # Mobile phones
   ewaste-batteries # Batteries
   ewaste-mixed    # Mixed electronics
+```
+
+---
+
+## 4.5 ProductDNA Specification
+
+### 4.5.1 Overview
+
+ProductDNA represents the **product layer** in LOOP's two-tier hierarchy: materials compose products. While MaterialDNA tracks raw or processed materials (e.g., plastic-hdpe, metal-copper), ProductDNA tracks finished or semi-finished products (e.g., office desks, laptops) that contain those materials.
+
+This separation aligns with:
+- **EU ESPR (Art. 9-10)**: Digital Product Passports are defined at the product level
+- **UNTP ProductPassport**: Materials are nested inside product passports
+- **GS1/EPCIS**: Trade items (products) are the primary tracking unit
+
+### 4.5.2 Hierarchy
+
+```
+MaterialDNA (composition layer)     ProductDNA (product layer, DPP-facing)
+  ├── category: plastic-hdpe          ├── product_category: electronics-laptop
+  ├── quantity: 2kg                   ├── material_ids: [DE-MUC-2025-PLASTIC-..., ...]
+  ├── origin_city: Munich             ├── condition: good
+  └── passport (DPP fields)          ├── passport (DPP fields, ESPR-aligned)
+                                      └── lifecycle_stage: in-use
+```
+
+A ProductDNA entry MAY reference zero or more MaterialDNA entries via `material_ids`. This composition link enables traceability from product to constituent materials.
+
+### 4.5.3 Identifier Format
+
+ProductDNA identifiers MUST follow this pattern:
+
+```bash
+PRD-{COUNTRY}-{CITY}-{YEAR}-{CATEGORY}-{UNIQUE}
+```
+
+Where:
+- `PRD`: Fixed prefix identifying a product
+- `COUNTRY`: ISO 3166-1 alpha-2 code
+- `CITY`: Three-letter city code
+- `YEAR`: Four-digit year of registration
+- `CATEGORY`: Product category keyword
+- `UNIQUE`: Alphanumeric unique identifier (min 6 characters)
+
+Example:
+```bash
+PRD-DE-MUC-2025-DESK-F4A7B2
+```
+
+### 4.5.4 ProductDNA Object
+
+```json
+{
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+  "@type": "ProductDNA",
+  "schema_version": "0.2.0",
+  "id": "PRD-DE-MUC-2025-DESK-F4A7B2",
+  "product_category": "furniture-office",
+  "name": "Standing Desk — Ergotron WorkFit",
+  "condition": "good",
+  "quantity": { "value": 12, "unit": "piece" },
+  "origin_city": "Munich",
+  "current_city": "Munich",
+  "available_from": "2026-03-15T08:00:00Z",
+  "manufacturer": "Ergotron",
+  "model": "WorkFit-S",
+  "manufacture_year": 2021,
+  "functional_status": "fully-functional",
+  "lifecycle_stage": "end-of-first-use",
+  "material_ids": [
+    "DE-MUC-2025-METAL-4EB84C",
+    "DE-MUC-2025-PLASTIC-96FE78"
+  ]
+}
+```
+
+### 4.5.5 Required Fields
+
+- `schema_version`: Schema version (0.2.0)
+- `id`: Unique ProductDNA identifier (PRD- prefix)
+- `product_category`: Standardized product category
+- `name`: Product name (2-200 characters)
+- `condition`: Physical condition (new, like-new, good, fair, poor, for-parts)
+- `quantity`: Amount and unit
+- `origin_city`: Registering city
+- `current_city`: Current custodian city
+- `available_from`: When product becomes available
+
+### 4.5.6 Product Categories
+
+```
+furniture/
+  furniture-office        # Office furniture
+  furniture-residential   # Residential furniture
+  furniture-industrial    # Industrial furniture
+
+building/
+  building-structural     # Structural building components
+  building-fixture        # Fixtures and fittings
+  building-hvac           # HVAC equipment
+  building-electrical     # Electrical installations
+
+electronics/
+  electronics-computing   # Computers and peripherals
+  electronics-mobile      # Mobile devices
+  electronics-appliance   # Household appliances
+  electronics-components  # Electronic components
+
+textiles/
+  textile-garment         # Garments and clothing
+  textile-industrial      # Industrial textiles
+
+packaging/
+  packaging-reusable      # Reusable packaging
+
+vehicles/
+  vehicle-parts           # Vehicle parts and components
+
+equipment/
+  equipment-industrial    # Industrial equipment
+  equipment-medical       # Medical equipment
+```
+
+### 4.5.7 Offer/Match/Transfer with Products
+
+The Offer, Match, and Transfer schemas accept either `material_id` or `product_id`. At least one MUST be present. This allows the same lifecycle flow (Offer → Match → Transfer) to work for both materials and products.
+
+```json
+{
+  "@type": "Offer",
+  "product_id": "PRD-DE-MUC-2025-DESK-F4A7B2",
+  "from_city": "Munich",
+  "to_city": "Berlin",
+  ...
+}
 ```
 
 ---
@@ -1058,6 +1198,8 @@ POST munich.loop/api/v1/federate/offer
 - Conformity claims model (UNTP-aligned)
 - EPCIS event references and W3C VC pointers in traceability blocks
 - Schema versioning policy (RFC-0003)
+- **ProductDNA schema** — product-level DPP entity referencing MaterialDNA composition
+- Offer/Match/Transfer schemas accept `product_id` as alternative to `material_id`
 
 ### 13.2 Future Features
 
@@ -1141,6 +1283,10 @@ Key properties of the v0.2.0 context:
 - Clarified dual license (MIT for code, CC BY-SA 4.0 for prose)
 - Established schema versioning policy (RFC-0003)
 - Backend API paths aligned to `/api/v1/`
+- Added ProductDNA schema (product-level DPP entity, ESPR Art. 9-10 aligned)
+- Offer/Match/Transfer schemas now accept `product_id` as alternative to `material_id` (anyOf)
+- Added product category enum (17 categories across furniture, building, electronics, textile, packaging, vehicle, equipment)
+- Added ProductDNA term mappings to JSON-LD context
 
 ### Version 0.1.1 (2025-12-20)
 
