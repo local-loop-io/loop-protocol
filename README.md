@@ -14,6 +14,7 @@ Local Optimization with Overflow Protocol. A federated circular economy concept 
 - `schemas/`: JSON Schema definitions.
 - `examples/`: sample payloads for interop.
 - `contexts/`: JSON-LD contexts.
+- `docs/regulatory-alignment-roadmap.md`: long-horizon EU and German compatibility plan.
 - `rfcs/`: RFCs and design notes.
 
 ## Quickstart

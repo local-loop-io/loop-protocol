@@ -1,11 +1,15 @@
 {
   "@context": {
     "@version": 1.1,
-    "loop": "https://local-loop-io.github.io/projects/loop-protocol/contexts/",
+    "@vocab": "https://local-loop-io.github.io/projects/loop-protocol/terms/",
+    "loop": "https://local-loop-io.github.io/projects/loop-protocol/terms/",
     "schema_version": "loop:schema_version",
     "node_id": "loop:node_id",
     "name": "loop:name",
-    "endpoint": "loop:endpoint",
+    "endpoint": {
+      "@id": "loop:endpoint",
+      "@type": "@id"
+    },
     "capabilities": "loop:capabilities",
     "timestamp": {
       "@id": "loop:timestamp",
@@ -17,22 +21,75 @@
     "Transfer": "loop:Transfer",
     "id": "@id",
     "category": "loop:category",
-    "quantity": {
-      "@id": "loop:quantity",
-      "@type": "@id"
-    },
+    "quantity": "loop:quantity",
     "value": "loop:value",
     "unit": "loop:unit",
+    "quality": "loop:quality",
     "origin_city": "loop:origin_city",
     "current_city": "loop:current_city",
+    "location": "loop:location",
+    "lat": "loop:lat",
+    "lon": "loop:lon",
+    "address": "loop:address",
     "available_from": {
       "@id": "loop:available_from",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "expires": {
+      "@id": "loop:expires",
       "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
     },
     "available_until": {
       "@id": "loop:available_until",
       "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
     },
+    "certifications": "loop:certifications",
+    "images": {
+      "@id": "loop:images",
+      "@type": "@id"
+    },
+    "metadata": "loop:metadata",
+    "source": "loop:source",
+    "batch_number": "loop:batch_number",
+    "notes": "loop:notes",
+    "passport": "loop:passport",
+    "passport_id": "loop:passport_id",
+    "passport_url": {
+      "@id": "loop:passport_url",
+      "@type": "@id"
+    },
+    "backup_copy_url": {
+      "@id": "loop:backup_copy_url",
+      "@type": "@id"
+    },
+    "passport_status": "loop:passport_status",
+    "data_carrier_id": "loop:data_carrier_id",
+    "issuer": "loop:issuer",
+    "access_scope": "loop:access_scope",
+    "supported_regimes": "loop:supported_regimes",
+    "classification": "loop:classification",
+    "ewc_code": "loop:ewc_code",
+    "hs_code": "loop:hs_code",
+    "cn_code": "loop:cn_code",
+    "battery_category": "loop:battery_category",
+    "traceability": "loop:traceability",
+    "batch_id": "loop:batch_id",
+    "serial_number": "loop:serial_number",
+    "lot_number": "loop:lot_number",
+    "source_operator_id": "loop:source_operator_id",
+    "facility_id": "loop:facility_id",
+    "retention_until": {
+      "@id": "loop:retention_until",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "document_refs": {
+      "@id": "loop:document_refs",
+      "@type": "@id"
+    },
+    "due_diligence_ref": "loop:due_diligence_ref",
+    "material_id": "loop:material_id",
+    "offer_id": "loop:offer_id",
+    "match_id": "loop:match_id",
     "from_city": "loop:from_city",
     "to_city": "loop:to_city",
     "status": "loop:status",
@@ -47,6 +104,14 @@
     "received_at": {
       "@id": "loop:received_at",
       "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
-    }
+    },
+    "updated_at": {
+      "@id": "loop:updated_at",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "reason": "loop:reason",
+    "source_node": "loop:source_node",
+    "route": "loop:route",
+    "mode": "loop:mode"
   }
 }

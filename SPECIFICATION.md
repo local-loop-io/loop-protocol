@@ -167,7 +167,9 @@ This subsection defines the smallest interoperable flow required for lab-only de
 
 #### Required entities
 
-All payloads MUST include `@context`, `@type`, and `schema_version` set to `0.1.1`.
+All payloads MUST include `@context`, `@type`, and `schema_version`.
+Emitters targeting the v0.1.1 baseline MUST set `schema_version` to `0.1.1`.
+Receivers SHOULD accept additive `0.1.x` patch-line versions when unknown fields can be preserved or ignored without data loss.
 
 - **MaterialDNA**  
   Schema: `https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.1.1/material-dna.schema.json`
@@ -181,6 +183,16 @@ All payloads MUST include `@context`, `@type`, and `schema_version` set to `0.1.
 #### Data minimization
 
 To remain GDPR-aligned for lab demos, payloads **MUST NOT** include personal data. Node identifiers, city names, and organization identifiers are permitted; emails, phone numbers, and names are not permitted in these entities.
+
+#### Additive compatibility extensions
+
+To improve forward compatibility with emerging regulatory data requirements, implementations MAY attach additive extension blocks such as `passport`, `classification`, and `traceability`.
+These extensions:
+
+- MUST remain optional in the v0.1.1 baseline
+- MUST NOT weaken the data-minimization rule above
+- SHOULD use the canonical JSON-LD context or explicit namespaced terms
+- SHOULD preserve unknown fields when relaying payloads between nodes
 
 ---
 
@@ -785,7 +797,7 @@ Nodes maintain a registry of peers:
       "id": "munich.loop",
       "endpoint": "https://munich.loop/api/v1",
       "public_key": "-----BEGIN PUBLIC KEY-----...",
-      "capabilities": ["v0.1", "loopcoin", "loopsignal"],
+      "capabilities": ["interop-v0.1.1", "loopcoin", "loopsignal"],
       "location": {"lat": 48.1351, "lon": 11.5820},
       "status": "active",
       "last_seen": "2025-05-27T15:00:00Z"
@@ -1078,40 +1090,18 @@ Goal: Submit to standards body (W3C, IETF) after v1.0
 
 ## Appendix A: JSON-LD Context
 
-```json
-{
-  "@context": {
-    "@version": 1.1,
-    "loop": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld/",
-    "schema": "https://schema.org/",
-    "MaterialDNA": "loop:MaterialDNA",
-    "LoopCoin": "loop:LoopCoin",
-    "LoopSignal": "loop:LoopSignal",
-    "LoopCost": "loop:LoopCost",
-    "id": "@id",
-    "type": "@type",
-    "category": {
-      "@id": "loop:category",
-      "@type": "@id"
-    },
-    "quantity": "loop:quantity",
-    "value": "schema:value",
-    "unit": "schema:unitText",
-    "quality": "loop:quality",
-    "location": "schema:location",
-    "lat": "schema:latitude",
-    "lon": "schema:longitude",
-    "available_from": {
-      "@id": "schema:availabilityStarts",
-      "@type": "schema:DateTime"
-    },
-    "expires": {
-      "@id": "schema:availabilityEnds",
-      "@type": "schema:DateTime"
-    }
-  }
-}
-```
+The canonical JSON-LD context is published at:
+
+`https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld`
+
+Implementations MUST treat that file as the source of truth.
+This appendix is intentionally brief to avoid drift between the specification text and the published context file.
+
+Key properties of the canonical context:
+
+- It defines stable mappings for the published v0.1.1 fields
+- It sets `@vocab` to the LOOP terms namespace so additive fields expand predictably
+- It keeps date-time fields typed for interoperable processing
 
 ---
 

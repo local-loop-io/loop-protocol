@@ -27,17 +27,34 @@ function formatErrors(errors) {
     .join('\n');
 }
 
-function bestErrorFor(data, validators) {
-  let best = null;
-  for (const validator of validators) {
-    validator(data);
-    const errors = validator.errors || [];
-    if (!best || errors.length < best.errors.length) {
-      const schemaId = validator.schema && validator.schema.$id ? validator.schema.$id : 'unknown-schema';
-      best = { schemaId, errors };
-    }
+function inferSchemaName(payload) {
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+    return null;
   }
-  return best;
+
+  const schemaMap = {
+    MaterialDNA: 'material-dna.schema.json',
+    Offer: 'offer.schema.json',
+    Match: 'match.schema.json',
+    Transfer: 'transfer.schema.json',
+    MaterialStatusUpdate: 'material-status.schema.json',
+    NodeHandshake: 'handshake.schema.json',
+    NodeHandshakeResponse: 'handshake.schema.json',
+    LoopCoinTransfer: 'loopcoin.schema.json',
+    LoopCoinConfig: 'loopcoin.schema.json',
+    LoopSignalConfig: 'loopsignal.schema.json',
+    LoopVote: 'loopsignal.schema.json',
+    LoopSignalHistory: 'loopsignal.schema.json',
+    MaterialTransaction: 'transaction.schema.json',
+    Settlement: 'transaction.schema.json',
+    TransactionStatus: 'transaction.schema.json',
+    NodeInfo: 'node-info.schema.json',
+    NodeRegistry: 'node-info.schema.json',
+    CapabilityAdvertisement: 'node-info.schema.json',
+  };
+
+  const type = payload['@type'];
+  return typeof type === 'string' ? schemaMap[type] || null : null;
 }
 
 function validatePayload(payload, validators, label, failures) {
@@ -53,12 +70,50 @@ function validatePayload(payload, validators, label, failures) {
     return;
   }
 
-  const valid = validators.some((validator) => validator(payload));
-  if (!valid) {
-    const best = bestErrorFor(payload, validators);
-    const detail = best ? `\nBest match (${best.schemaId}):\n${formatErrors(best.errors)}` : '';
-    failures.push(`${label}: did not match any schema.${detail}`);
+  const schemaName = inferSchemaName(payload);
+  if (!schemaName) {
+    failures.push(`${label}: could not infer schema from @type.`);
+    return;
   }
+
+  const validator = validators.get(schemaName);
+  if (!validator) {
+    failures.push(`${label}: missing validator for ${schemaName}.`);
+    return;
+  }
+
+  const valid = validator(payload);
+  if (!valid) {
+    failures.push(
+      `${label}: did not match ${schemaName}.\n${formatErrors(validator.errors || [])}`,
+    );
+  }
+}
+
+function assertOpenApiRefsResolve(openApiPath, schemaIds) {
+  const openApi = loadJson(openApiPath);
+  const failures = [];
+
+  const visit = (value) => {
+    if (Array.isArray(value)) {
+      value.forEach(visit);
+      return;
+    }
+    if (!value || typeof value !== 'object') {
+      return;
+    }
+    if (
+      typeof value.$ref === 'string' &&
+      value.$ref.startsWith('https://local-loop-io.github.io/projects/loop-protocol/schemas/') &&
+      !schemaIds.has(value.$ref)
+    ) {
+      failures.push(`Unresolved OpenAPI schema ref: ${value.$ref}`);
+    }
+    Object.values(value).forEach(visit);
+  };
+
+  visit(openApi);
+  return failures;
 }
 
 function main() {
@@ -78,18 +133,20 @@ function main() {
   const ajv = new Ajv({ allErrors: true, strict: false, allowUnionTypes: true });
   addFormats(ajv);
 
-  const validators = [];
+  const validators = new Map();
+  const schemaIds = new Set();
   for (const schemaPath of schemaPaths) {
     const schema = loadJson(schemaPath);
     const schemaId = schema.$id || path.basename(schemaPath);
     ajv.addSchema(schema, schemaId);
     const validator = ajv.getSchema(schemaId);
     if (validator) {
-      validators.push(validator);
+      validators.set(path.basename(schemaPath), validator);
+      schemaIds.add(schemaId);
     }
   }
 
-  if (validators.length === 0) {
+  if (validators.size === 0) {
     console.error('Failed to load any schema validators.');
     process.exit(1);
   }
@@ -100,6 +157,8 @@ function main() {
     validatePayload(payload, validators, examplePath, failures);
   }
 
+  failures.push(...assertOpenApiRefsResolve('openapi.json', schemaIds));
+
   if (failures.length > 0) {
     console.error('Schema validation failed:\n');
     for (const failure of failures) {
@@ -108,7 +167,7 @@ function main() {
     process.exit(1);
   }
 
-  console.log(`Validated ${examplePaths.length} example file(s) against ${validators.length} schema(s).`);
+  console.log(`Validated ${examplePaths.length} example file(s) against ${validators.size} schema(s).`);
 }
 
 main();

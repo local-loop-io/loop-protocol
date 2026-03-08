@@ -25,10 +25,34 @@
   "images": [
     "https://example.com/material-photo.jpg"
   ],
-  "contact": {
-    "name": "Munich Recycling Center",
-    "email": "materials@munich.loop",
-    "phone": "+49-89-123456"
+  "passport": {
+    "passport_id": "DPP-DE-MUC-2025-B847F3",
+    "passport_url": "https://example.com/passports/DPP-DE-MUC-2025-B847F3",
+    "backup_copy_url": "https://example.com/passports/DPP-DE-MUC-2025-B847F3/backup",
+    "passport_status": "available",
+    "data_carrier_id": "urn:epc:id:sgtin:426001.123456.2025B847F3",
+    "issuer": "lab-hub.loop",
+    "access_scope": "role-based",
+    "supported_regimes": [
+      "espr-dpp",
+      "waste-shipment",
+      "nkws"
+    ]
+  },
+  "classification": {
+    "ewc_code": "15 01 02",
+    "hs_code": "391510",
+    "cn_code": "39151000"
+  },
+  "traceability": {
+    "batch_id": "2025-W22-01",
+    "source_operator_id": "munich-recycling-center",
+    "facility_id": "munich-sort-line-02",
+    "retention_until": "2030-06-03T10:00:00Z",
+    "document_refs": [
+      "https://example.com/documents/dispatch-note-2025-W22-01"
+    ],
+    "due_diligence_ref": "DD-2025-PLASTIC-0042"
   },
   "metadata": {
     "source": "consumer-collection",

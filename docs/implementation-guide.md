@@ -1,6 +1,6 @@
 # Implementation Guide
 
-This guide summarizes the minimum steps to build a compliant LOOP node. For normative requirements, follow `SPECIFICATION.md`.
+This guide summarizes the minimum steps to build a compatibility-oriented LOOP lab node. For normative requirements, follow `SPECIFICATION.md`.
 
 ## Minimum viable node
 - HTTPS server with TLS 1.3+ and valid certificates.
