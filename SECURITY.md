@@ -2,14 +2,14 @@
 
 ## 🔐 Reporting Security Vulnerabilities
 
-The LOOP Protocol team takes security seriously. We appreciate your efforts to responsibly disclose your findings.
+The LOOP team takes security seriously. We appreciate your efforts to responsibly disclose your findings.
 
 ### Where to Report
 
 **DO NOT** create public GitHub issues for security vulnerabilities.
 
 Please report security vulnerabilities by emailing:
-- **alphinctom@gmail.com** (GitHub: @alpha912)
+- **alphin@mycel-ai.de** (GitHub: @alpha912)
 
 ### What to Include
 
@@ -182,8 +182,8 @@ We thank the following security researchers for responsibly disclosing vulnerabi
 
 ## 📞 Contact
 
-- **Security Issues**: alphinctom@gmail.com
-- **General Support**: alphinctom@gmail.com
+- **Security Issues**: alphin@mycel-ai.de
+- **General Support**: alphin@mycel-ai.de
 
 ---
 

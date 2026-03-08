@@ -1,6 +1,6 @@
 # Domain Policy
 
-This repository defines the LocalLoop protocol assets and example payloads.
+This repository defines the localLOOP protocol assets and example payloads.
 
 ## Canonical domains
 

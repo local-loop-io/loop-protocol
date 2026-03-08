@@ -1,0 +1,79 @@
+{
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+  "@type": "MaterialDNA",
+  "schema_version": "0.2.0",
+  "id": "DE-MUC-2026-PLASTIC-A1B2C3",
+  "category": "plastic-pet",
+  "quantity": { "value": 500, "unit": "kg" },
+  "quality": 0.92,
+  "origin_city": "Munich",
+  "current_city": "Munich",
+  "available_from": "2026-03-15T08:00:00Z",
+  "expires": "2026-03-22T08:00:00Z",
+  "passport": {
+    "passport_id": "DPP-DE-MUC-2026-001",
+    "passport_url": "https://example.com/dpp/DE-MUC-2026-PLASTIC-A1B2C3",
+    "passport_status": "available",
+    "access_scope": "public",
+    "supported_regimes": ["espr-dpp", "ppwr"],
+    "gtin": "04012345678901",
+    "gs1_digital_link": "https://id.gs1.org/01/04012345678901",
+    "economic_operator_id": "DE-ECO-00123",
+    "economic_operator_name": "Munich Recycling GmbH",
+    "country_of_production": "DE",
+    "carbon_footprint_kg_co2e": 1.2,
+    "carbon_footprint_unit": "per_kg",
+    "recycled_content_percent": 85,
+    "recyclable_content_percent": 95,
+    "repair_score": 7.5,
+    "hazardous": false,
+    "verified_ratio": 0.9,
+    "verification_evidence_url": "https://example.com/verification/att-001"
+  },
+  "classification": {
+    "ewc_code": "15 01 02",
+    "hs_code": "391590",
+    "cn_code": "39159080",
+    "prodcom_code": "22221300",
+    "nace_code": "C22.2"
+  },
+  "traceability": {
+    "batch_id": "BATCH-2026-W11-PET-001",
+    "facility_id": "FAC-DE-MUC-RCY-01",
+    "source_operator_id": "OP-DE-MUC-001",
+    "retention_until": "2031-03-15T00:00:00Z",
+    "document_refs": ["https://example.com/docs/cert-2026-001.pdf"],
+    "epcis_event_refs": [
+      {
+        "event_type": "transformation",
+        "event_id": "urn:epc:id:gdti:4012345.00001.123",
+        "event_url": "https://example.com/epcis/events/123",
+        "hash_digest": "a1b2c3d4e5f6...",
+        "hash_method": "SHA-256"
+      }
+    ],
+    "chain_of_custody_url": "https://example.com/coc/DE-MUC-2026-PLASTIC-A1B2C3"
+  },
+  "conformity_claims": [
+    {
+      "claim_id": "CLM-ESPR-RC-001",
+      "description": "Recycled content meets ESPR minimum threshold",
+      "reference_regulation": "Regulation (EU) 2024/1781",
+      "conformity_topic": "environment",
+      "declared_value": {
+        "metric": "recycled_content",
+        "value": 85,
+        "unit": "percent",
+        "accuracy": 2.5
+      },
+      "conformance": true,
+      "assessment_date": "2026-03-01T10:00:00Z",
+      "conformity_evidence_url": "https://example.com/conformity/espr-rc-001"
+    }
+  ],
+  "metadata": {
+    "source": "consumer-collection",
+    "batch_number": "2026-W11-01",
+    "notes": "Sorted PET bottles with DPP extension data for lab demo"
+  }
+}

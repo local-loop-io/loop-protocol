@@ -1,9 +1,9 @@
-# LOOP Protocol
+# LOOP
 
-[![Version](https://img.shields.io/badge/version-0.1.1-blue.svg)](https://github.com/local-loop-io/loop-protocol/releases)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-0.2.0-blue.svg)](https://github.com/local-loop-io/loop-protocol/releases)
+[![License](https://img.shields.io/badge/license-MIT%20%2B%20CC--BY--SA--4.0-green.svg)](LICENSE)
 [![Discussions](https://img.shields.io/github/discussions/local-loop-io/loop-protocol)](https://github.com/local-loop-io/loop-protocol/discussions)
-[![Specification](https://img.shields.io/badge/spec-v0.1-orange.svg)](SPECIFICATION.md)
+[![Specification](https://img.shields.io/badge/spec-v0.2-orange.svg)](SPECIFICATION.md)
 
 Local Optimization with Overflow Protocol. A federated circular economy concept with shared schemas and interoperability notes.
 

@@ -1,6 +1,6 @@
 # FAQ
 
-## What is the LOOP Protocol?
+## What is LOOP?
 LOOP is a federated protocol for tracking materials, settling exchanges, and coordinating circular economy flows between autonomous city nodes.
 
 ## Who can run a LOOP node?

@@ -1,0 +1,272 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://local-loop-io.github.io/projects/loop-protocol/terms/",
+    "loop": "https://local-loop-io.github.io/projects/loop-protocol/terms/",
+
+    "schema_version": "loop:schema_version",
+    "node_id": "loop:node_id",
+    "name": "loop:name",
+    "endpoint": {
+      "@id": "loop:endpoint",
+      "@type": "@id"
+    },
+    "capabilities": "loop:capabilities",
+    "timestamp": {
+      "@id": "loop:timestamp",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+
+    "MaterialDNA": "loop:MaterialDNA",
+    "Offer": "loop:Offer",
+    "Match": "loop:Match",
+    "Transfer": "loop:Transfer",
+    "MaterialStatusUpdate": "loop:MaterialStatusUpdate",
+    "NodeHandshake": "loop:NodeHandshake",
+    "NodeHandshakeResponse": "loop:NodeHandshakeResponse",
+
+    "LoopCoinConfig": "loop:LoopCoinConfig",
+    "LoopCoinTransfer": "loop:LoopCoinTransfer",
+    "InterNodeSettlement": "loop:InterNodeSettlement",
+    "LoopSignalConfig": "loop:LoopSignalConfig",
+    "LoopVote": "loop:LoopVote",
+    "SignalProposal": "loop:SignalProposal",
+    "MaterialTransaction": "loop:MaterialTransaction",
+    "Settlement": "loop:Settlement",
+    "TransactionStatus": "loop:TransactionStatus",
+    "NodeInfo": "loop:NodeInfo",
+    "NodeRegistry": "loop:NodeRegistry",
+    "NodeStatus": "loop:NodeStatus",
+    "MaterialAnnouncement": "loop:MaterialAnnouncement",
+    "MaterialOffer": "loop:MaterialOffer",
+
+    "id": "@id",
+    "category": "loop:category",
+    "quantity": "loop:quantity",
+    "value": "loop:value",
+    "unit": "loop:unit",
+    "quality": "loop:quality",
+    "origin_city": "loop:origin_city",
+    "current_city": "loop:current_city",
+    "location": "loop:location",
+    "lat": "loop:lat",
+    "lon": "loop:lon",
+    "address": "loop:address",
+    "available_from": {
+      "@id": "loop:available_from",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "expires": {
+      "@id": "loop:expires",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "available_until": {
+      "@id": "loop:available_until",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "certifications": "loop:certifications",
+    "images": {
+      "@id": "loop:images",
+      "@type": "@id"
+    },
+    "metadata": "loop:metadata",
+    "source": "loop:source",
+    "batch_number": "loop:batch_number",
+    "notes": "loop:notes",
+
+    "passport": "loop:passport",
+    "passport_id": "loop:passport_id",
+    "passport_url": {
+      "@id": "loop:passport_url",
+      "@type": "@id"
+    },
+    "backup_copy_url": {
+      "@id": "loop:backup_copy_url",
+      "@type": "@id"
+    },
+    "passport_status": "loop:passport_status",
+    "data_carrier_id": "loop:data_carrier_id",
+    "issuer": "loop:issuer",
+    "access_scope": "loop:access_scope",
+    "supported_regimes": "loop:supported_regimes",
+
+    "gtin": "loop:gtin",
+    "gs1_digital_link": {
+      "@id": "loop:gs1_digital_link",
+      "@type": "@id"
+    },
+    "economic_operator_id": "loop:economic_operator_id",
+    "economic_operator_name": "loop:economic_operator_name",
+    "manufacturer_id": "loop:manufacturer_id",
+    "country_of_production": "loop:country_of_production",
+    "conformity_declaration_ref": {
+      "@id": "loop:conformity_declaration_ref",
+      "@type": "@id"
+    },
+    "carbon_footprint_kg_co2e": "loop:carbon_footprint_kg_co2e",
+    "carbon_footprint_unit": "loop:carbon_footprint_unit",
+    "recycled_content_percent": "loop:recycled_content_percent",
+    "recyclable_content_percent": "loop:recyclable_content_percent",
+    "repair_score": "loop:repair_score",
+    "durability_score": "loop:durability_score",
+    "disassembly_instructions": {
+      "@id": "loop:disassembly_instructions",
+      "@type": "@id"
+    },
+    "substances_of_concern": "loop:substances_of_concern",
+    "cas_number": "loop:cas_number",
+    "concentration_ppm": "loop:concentration_ppm",
+    "hazardous": "loop:hazardous",
+    "material_safety_info_url": {
+      "@id": "loop:material_safety_info_url",
+      "@type": "@id"
+    },
+    "verified_ratio": "loop:verified_ratio",
+    "verification_evidence_url": {
+      "@id": "loop:verification_evidence_url",
+      "@type": "@id"
+    },
+
+    "classification": "loop:classification",
+    "ewc_code": "loop:ewc_code",
+    "hs_code": "loop:hs_code",
+    "cn_code": "loop:cn_code",
+    "battery_category": "loop:battery_category",
+    "prodcom_code": "loop:prodcom_code",
+    "taric_code": "loop:taric_code",
+    "nace_code": "loop:nace_code",
+    "scip_id": "loop:scip_id",
+    "waste_framework_code": "loop:waste_framework_code",
+
+    "traceability": "loop:traceability",
+    "batch_id": "loop:batch_id",
+    "serial_number": "loop:serial_number",
+    "lot_number": "loop:lot_number",
+    "source_operator_id": "loop:source_operator_id",
+    "facility_id": "loop:facility_id",
+    "retention_until": {
+      "@id": "loop:retention_until",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "document_refs": {
+      "@id": "loop:document_refs",
+      "@type": "@id"
+    },
+    "due_diligence_ref": "loop:due_diligence_ref",
+    "epcis_event_refs": "loop:epcis_event_refs",
+    "event_type": "loop:event_type",
+    "event_id": "loop:event_id",
+    "event_url": {
+      "@id": "loop:event_url",
+      "@type": "@id"
+    },
+    "hash_digest": "loop:hash_digest",
+    "hash_method": "loop:hash_method",
+    "chain_of_custody_url": {
+      "@id": "loop:chain_of_custody_url",
+      "@type": "@id"
+    },
+    "w3c_vc_credential_id": {
+      "@id": "loop:w3c_vc_credential_id",
+      "@type": "@id"
+    },
+    "w3c_vc_issuer": {
+      "@id": "loop:w3c_vc_issuer",
+      "@type": "@id"
+    },
+
+    "conformity_claims": "loop:conformity_claims",
+    "claim_id": "loop:claim_id",
+    "description": "loop:description",
+    "reference_standard": "loop:reference_standard",
+    "reference_regulation": "loop:reference_regulation",
+    "conformity_topic": "loop:conformity_topic",
+    "declared_value": "loop:declared_value",
+    "metric": "loop:metric",
+    "accuracy": "loop:accuracy",
+    "conformance": "loop:conformance",
+    "assessment_date": {
+      "@id": "loop:assessment_date",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "conformity_evidence_url": {
+      "@id": "loop:conformity_evidence_url",
+      "@type": "@id"
+    },
+
+    "waste_shipment_doc_ref": {
+      "@id": "loop:waste_shipment_doc_ref",
+      "@type": "@id"
+    },
+    "environmental_conditions": "loop:environmental_conditions",
+    "temperature_c": "loop:temperature_c",
+    "humidity_percent": "loop:humidity_percent",
+
+    "material_id": "loop:material_id",
+    "offer_id": "loop:offer_id",
+    "match_id": "loop:match_id",
+    "from_city": "loop:from_city",
+    "to_city": "loop:to_city",
+    "status": "loop:status",
+    "matched_at": {
+      "@id": "loop:matched_at",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "handoff_at": {
+      "@id": "loop:handoff_at",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "received_at": {
+      "@id": "loop:received_at",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "updated_at": {
+      "@id": "loop:updated_at",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "reason": "loop:reason",
+    "source_node": "loop:source_node",
+    "route": "loop:route",
+    "mode": "loop:mode",
+
+    "from_node": "loop:from_node",
+    "to_node": "loop:to_node",
+    "settlement_method": "loop:settlement_method",
+    "settlement_period": "loop:settlement_period",
+    "public_key": "loop:public_key",
+    "node": "loop:node",
+    "signals": "loop:signals",
+    "valid_from": {
+      "@id": "loop:valid_from",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "valid_until": {
+      "@id": "loop:valid_until",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "approved_by": "loop:approved_by",
+    "vote_id": "loop:vote_id",
+    "turnout": "loop:turnout",
+    "approval": "loop:approval",
+    "proposals": "loop:proposals",
+    "voting_period": "loop:voting_period",
+    "results": "loop:results",
+    "from": "loop:from",
+    "to": "loop:to",
+    "amount": "loop:amount",
+    "currency": "loop:currency",
+    "material_ref": "loop:material_ref",
+    "memo": "loop:memo",
+    "signature": "loop:signature",
+    "material": "loop:material",
+    "seller": "loop:seller",
+    "buyer": "loop:buyer",
+    "base_price": "loop:base_price",
+    "loop_cost": "loop:loop_cost",
+    "transaction_id": "loop:transaction_id",
+    "settlement_url": "loop:settlement_url",
+    "version": "loop:version",
+    "peer_id": "loop:peer_id",
+    "lab_only": "loop:lab_only"
+  }
+}
