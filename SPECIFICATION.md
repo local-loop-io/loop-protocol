@@ -36,6 +36,7 @@ The Local Optimization with Overflow Protocol (LOOP) enables federated material 
 
 LOOP allows cities to:
 - Track materials using universal identifiers (MaterialDNA)
+- Track products using DPP-compatible identifiers (ProductDNA)
 - Issue local currencies with defined properties (LoopCoin)
 - Express community trade preferences (LoopSignal)
 - Calculate optimal material routing (LoopCost)
@@ -130,10 +131,11 @@ LOOP follows a federated architecture where each city operates an autonomous nod
 Each LOOP node MUST implement:
 
 1. **Material Registry**: Tracks MaterialDNA within node jurisdiction
-2. **Currency Engine**: Manages LoopCoin issuance and transfers
-3. **Signal Governor**: Handles democratic voting on preferences
-4. **Routing Calculator**: Computes optimal destinations using LoopCost
-5. **Settlement Handler**: Confirms and records transactions
+2. **Product Registry**: Tracks ProductDNA (DPP-compatible product identifiers) within node jurisdiction
+3. **Currency Engine**: Manages LoopCoin issuance and transfers
+4. **Signal Governor**: Handles democratic voting on preferences
+5. **Routing Calculator**: Computes optimal destinations using LoopCost
+6. **Settlement Handler**: Confirms and records transactions
 
 ### 3.3 Communication Flow
 
@@ -1240,16 +1242,18 @@ POST munich.loop/api/v1/federate/offer
 
 ## 13. Future Considerations
 
-### 13.1 v0.2.0 Deliverables
+### 13.1 v0.2.0 Summary
 
+v0.2.0 delivered the following (see Appendix B for full changelog):
+
+- ProductDNA schema — product-level DPP entity referencing MaterialDNA composition
+- Offer/Match/Transfer schemas accept `product_id` as alternative to `material_id`
 - Comprehensive DPP extension fields (ESPR, UNTP, Battery Passport, PPWR, NKWS aligned)
-- Schema version consolidation (all 10 schemas unified under v0.2.0)
+- Schema version consolidation (all schemas unified under v0.2.0)
 - Complete JSON-LD context with all type and term mappings
 - Conformity claims model (UNTP-aligned)
 - EPCIS event references and W3C VC pointers in traceability blocks
 - Schema versioning policy (RFC-0003)
-- **ProductDNA schema** — product-level DPP entity referencing MaterialDNA composition
-- Offer/Match/Transfer schemas accept `product_id` as alternative to `material_id`
 
 ### 13.2 Future Features
 
