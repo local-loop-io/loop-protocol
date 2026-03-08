@@ -117,6 +117,74 @@ function assertOpenApiRefsResolve(openApiPath, schemaIds) {
   return failures;
 }
 
+function assertProtocolContractMatchesDocs(specPath, openApiPath) {
+  const spec = fs.readFileSync(specPath, 'utf8');
+  const openApi = loadJson(openApiPath);
+  const failures = [];
+
+  const expectedProtocolEndpoints = [
+    'POST /api/v1/material',
+    'GET /api/v1/material/{id}',
+    'POST /api/v1/material/search',
+    'POST /api/v1/product',
+    'GET /api/v1/product/{id}',
+    'GET /api/v1/node/info',
+    'GET /api/v1/signals',
+    'POST /api/v1/transaction',
+    'POST /api/v1/federate/announce',
+    'POST /api/v1/federate/offer',
+  ];
+
+  const documentedLabEndpoints = [
+    'POST /api/v1/material-status',
+  ];
+
+  for (const endpoint of [...expectedProtocolEndpoints, ...documentedLabEndpoints]) {
+    if (!spec.includes(`**${endpoint}**`)) {
+      failures.push(`SPECIFICATION.md is missing documented endpoint heading: ${endpoint}`);
+    }
+  }
+
+  const openApiEndpoints = new Set();
+  for (const [endpointPath, operations] of Object.entries(openApi.paths || {})) {
+    if (!endpointPath.startsWith('/api/v1/')) {
+      failures.push(`OpenAPI path must start with /api/v1/: ${endpointPath}`);
+    }
+
+    for (const method of Object.keys(operations || {})) {
+      openApiEndpoints.add(`${method.toUpperCase()} ${endpointPath}`);
+    }
+  }
+
+  for (const endpoint of expectedProtocolEndpoints) {
+    if (!openApiEndpoints.has(endpoint)) {
+      failures.push(`OpenAPI is missing protocol endpoint: ${endpoint}`);
+    }
+  }
+
+  for (const endpoint of openApiEndpoints) {
+    if (!expectedProtocolEndpoints.includes(endpoint)) {
+      failures.push(`OpenAPI contains unexpected protocol endpoint: ${endpoint}`);
+    }
+  }
+
+  return failures;
+}
+
+function assertExampleReadmeMatchesFiles(readmePath, examplePaths) {
+  const readme = fs.readFileSync(readmePath, 'utf8');
+  const failures = [];
+
+  for (const examplePath of examplePaths) {
+    const filename = path.basename(examplePath);
+    if (!readme.includes(`\`${filename}\``)) {
+      failures.push(`examples/README.md is missing example entry: ${filename}`);
+    }
+  }
+
+  return failures;
+}
+
 function main() {
   const schemaPaths = fg.sync(['schemas/*.schema.json']);
   const examplePaths = fg.sync(['examples/**/*.json']);
@@ -159,6 +227,8 @@ function main() {
   }
 
   failures.push(...assertOpenApiRefsResolve('openapi.json', schemaIds));
+  failures.push(...assertProtocolContractMatchesDocs('SPECIFICATION.md', 'openapi.json'));
+  failures.push(...assertExampleReadmeMatchesFiles('examples/README.md', examplePaths));
 
   if (failures.length > 0) {
     console.error('Schema validation failed:\n');

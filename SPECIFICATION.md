@@ -14,7 +14,7 @@
 1. [Introduction](#1-introduction)
 2. [Terminology](#2-terminology)
 3. [Protocol Overview](#3-protocol-overview)
-3.5. [Minimal Interop Flow v0.1.1](#35-minimal-interop-flow-v011)
+3.5. [Minimal Interop Flow v0.2.0](#35-minimal-interop-flow-v020)
 4. [MaterialDNA Specification](#4-materialdna-specification)
 4.5. [ProductDNA Specification](#45-productdna-specification)
 5. [LoopCoin Specification](#5-loopcoin-specification)
@@ -685,7 +685,9 @@ Total Payment = LoopCost
 
 ### 8.1 Required Endpoints
 
-All LOOP nodes MUST implement these RESTful endpoints:
+All LOOP nodes MUST implement these RESTful endpoints.
+The repository `openapi.json` is the reference contract for the protocol endpoints in this section.
+Lab-only extensions documented below are intentionally excluded from that artifact.
 
 #### Material Management
 
@@ -747,6 +749,54 @@ Response: 200 OK
   "results": [...],
   "total": 15,
   "next": "/api/v1/material/search?page=2"
+}
+```
+
+#### Product Management
+
+ProductDNA is part of the v0.2.0 baseline.
+Nodes implementing the baseline MUST expose ProductDNA using the same JSON-LD and versioning rules as MaterialDNA.
+
+**POST /api/v1/product**
+
+```http
+POST /api/v1/product
+Content-Type: application/ld+json
+Authorization: Bearer {token}
+
+{
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+  "@type": "ProductDNA",
+  "schema_version": "0.2.0",
+  "id": "DE-MUC-2026-FURNITURE-CHAIR-001",
+  "product_category": "office-furniture",
+  "condition": "used-good",
+  ...
+}
+
+Response: 201 Created
+{
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+  "@type": "ProductDNA",
+  "schema_version": "0.2.0",
+  "id": "DE-MUC-2026-FURNITURE-CHAIR-001",
+  "status": "registered",
+  ...
+}
+```
+
+**GET /api/v1/product/{id}**
+
+```http
+GET /api/v1/product/DE-MUC-2026-FURNITURE-CHAIR-001
+
+Response: 200 OK
+{
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+  "@type": "ProductDNA",
+  "schema_version": "0.2.0",
+  "id": "DE-MUC-2026-FURNITURE-CHAIR-001",
+  ...
 }
 ```
 

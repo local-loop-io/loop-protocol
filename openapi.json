@@ -1,13 +1,13 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "LOOP API",
+    "title": "LOOP Protocol API",
     "version": "0.2.0",
-    "description": "Reference API surface for LOOP v0.2.0 (DPP-compatible lab baseline)."
+    "description": "Reference protocol contract for LOOP v0.2.0. Lab-only backend extensions are documented in prose but intentionally excluded from this artifact."
   },
   "servers": [
     {
-      "url": "https://{node}/api/v1",
+      "url": "https://{node}",
       "variables": {
         "node": {
           "default": "example.loop",
@@ -131,7 +131,7 @@
     { "BearerAuth": [] }
   ],
   "paths": {
-    "/material": {
+    "/api/v1/material": {
       "post": {
         "tags": ["Material"],
         "summary": "Register MaterialDNA",
@@ -156,7 +156,7 @@
         }
       }
     },
-    "/material/{id}": {
+    "/api/v1/material/{id}": {
       "get": {
         "tags": ["Material"],
         "summary": "Get MaterialDNA by ID",
@@ -176,7 +176,7 @@
         }
       }
     },
-    "/material/search": {
+    "/api/v1/material/search": {
       "post": {
         "tags": ["Material"],
         "summary": "Search materials",
@@ -200,7 +200,7 @@
         }
       }
     },
-    "/product": {
+    "/api/v1/product": {
       "post": {
         "tags": ["Product"],
         "summary": "Register ProductDNA",
@@ -225,7 +225,7 @@
         }
       }
     },
-    "/product/{id}": {
+    "/api/v1/product/{id}": {
       "get": {
         "tags": ["Product"],
         "summary": "Get ProductDNA by ID",
@@ -245,7 +245,7 @@
         }
       }
     },
-    "/node/info": {
+    "/api/v1/node/info": {
       "get": {
         "tags": ["Node"],
         "summary": "Get node information",
@@ -261,7 +261,7 @@
         }
       }
     },
-    "/signals": {
+    "/api/v1/signals": {
       "get": {
         "tags": ["Signals"],
         "summary": "Get LoopSignal configuration",
@@ -277,7 +277,7 @@
         }
       }
     },
-    "/transaction": {
+    "/api/v1/transaction": {
       "post": {
         "tags": ["Transactions"],
         "summary": "Create transaction",
@@ -301,7 +301,7 @@
         }
       }
     },
-    "/federate/announce": {
+    "/api/v1/federate/announce": {
       "post": {
         "tags": ["Federation"],
         "summary": "Announce material availability",
@@ -318,7 +318,7 @@
         }
       }
     },
-    "/federate/offer": {
+    "/api/v1/federate/offer": {
       "post": {
         "tags": ["Federation"],
         "summary": "Send offer to a node",

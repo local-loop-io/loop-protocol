@@ -11,6 +11,7 @@ This directory contains JSON examples that validate against the schemas in `sche
 - `06-offer.json`: Minimal interop offer payload (v0.1.1).
 - `07-match.json`: Minimal interop match payload (v0.1.1).
 - `08-transfer.json`: Minimal interop transfer payload (v0.1.1).
+- `09-handshake-request.json`: Node handshake request payload.
 - `10-material-status.json`: Material status update payload (v0.1.1 lab demo).
 - `11-handshake-response.json`: Node handshake response payload.
 - `12-material-dna-dpp-extensions.json`: MaterialDNA with comprehensive DPP passport fields (v0.2.0).
