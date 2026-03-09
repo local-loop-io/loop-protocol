@@ -113,6 +113,28 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 **Overflow**: Routing mechanism when local demand is insufficient
 
+### 2.1 Key Concepts
+
+The following expanded definitions constitute the canonical reference for LOOP's six core concepts. All other documents (glossary, website, guides) derive their definitions from this subsection.
+
+**LOOP (Local Optimization with Overflow Protocol).**
+LOOP is an open, federated protocol standard for tracking material and product flows between autonomous municipal nodes. It enables cities to register materials and products, publish surplus and demand signals, compute transfer costs, and settle cross-boundary transactions — all while preserving local data sovereignty and economic autonomy. The protocol is built on four foundational primitives (MaterialDNA, ProductDNA, LoopCoin, LoopSignal) and one derived metric (LoopCost), each defined below.
+
+**MaterialDNA.**
+MaterialDNA is a globally unique digital identity assigned to a physical material or material batch within the LOOP protocol. Each MaterialDNA record captures the material's composition, category, origin, quantity, quality metrics, and chain of custody, providing a complete provenance trail from source through every subsequent transfer. MaterialDNA serves as the primary identifier in the protocol's material lifecycle: registration, offer, match, and transfer. It is distinct from ProductDNA, which operates at the product layer; a single product may reference multiple MaterialDNA entries as its constituent materials.
+
+**ProductDNA.**
+ProductDNA is a globally unique digital identity for a finished or semi-finished product (or product batch) within the LOOP protocol. It is aligned with the EU Digital Product Passport framework (ESPR Art. 9–10) and captures product category, name, condition, manufacturer, model, manufacture year, functional status, and lifecycle stage. A ProductDNA entry MAY reference zero or more MaterialDNA identifiers via a composition link (`material_ids`), enabling full traceability from product to constituent materials. ProductDNA is the product layer in LOOP's two-tier identity hierarchy; MaterialDNA is the composition layer. The same lifecycle flow (Offer, Match, Transfer) applies to both MaterialDNA and ProductDNA entities.
+
+**LoopCoin (LC).**
+LoopCoin is a node-issued local digital currency used to settle material and product transfers between nodes in the federation. Each node defines its own LoopCoin configuration, including a currency code, backing currency, exchange rate, local-use bonus, expiry period, decay rate, maximum issuance, and reserve ratio. LoopCoin's built-in expiry and decay rules incentivise local circulation and prevent indefinite hoarding. When transfers cross node boundaries, LoopCoin settlement occurs through inter-node clearing, converting between each node's local currency at the declared exchange rate. LoopCoin is the unit of account for all LoopCost calculations.
+
+**LoopSignal.**
+A LoopSignal is a community-expressed preference signal for material categories, published by a node. Each signal is a percentage (between 0.0 and 1.0) that represents the community's desire to retain or attract materials in a given category — higher values indicate stronger preference. LoopSignals are set through democratic voting (LoopVote) and are subject to constraints: changes MUST NOT exceed 0.10 per voting period, and signals MUST apply equally to imports and exports. LoopSignals serve as inputs to the LoopCost calculation (§7), where they determine the export and import penalty components. A LoopSignal is the preference input; LoopCost is the computed outcome.
+
+**LoopCost.**
+LoopCost is the total routing cost for any material or product transfer between nodes, computed according to the formula: `LoopCost = BasePrice + ExportPenalty + ImportPenalty + DistanceCost`. The BasePrice is the offered price in LoopCoins. The ExportPenalty equals `BasePrice × OriginLoopSignal` (applied when a material or product leaves its origin node). The ImportPenalty equals `BasePrice × DestinationLoopSignal` (applied when a material or product enters the destination node). The DistanceCost equals `Distance_km × 0.02 LC/km`. For local transactions (same node), only the BasePrice applies, making intra-node exchanges structurally cheaper than cross-boundary ones. This cost asymmetry keeps circular value circulating close to its source while still permitting inter-node trade when economically justified. The full calculation methodology and settlement distribution are specified in §7.
+
 ---
 
 ## 3. Protocol Overview
