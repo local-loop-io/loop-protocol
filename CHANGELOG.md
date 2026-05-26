@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-05-26
+
+### Added
+- ProductDNA schema (DPP-aligned product-level entity with category, condition, manufacturer, lifecycle stage, and MaterialDNA references)
+- §2.1 canonical key concept definitions in specification (LOOP, MaterialDNA, ProductDNA, LoopCoin, LoopSignal, LoopCost)
+- Mermaid architecture diagram in specification with MAT- prefix notation for MaterialDNA identifiers
+- Regulatory compatibility roadmap (ESPR, UNTP, Germany NKWS)
+- Glossary expansion with canonical term definitions
+
+### Changed
+- Specification TOC expanded with sub-items for §3.5 and §4.5
+- §13.1 reframed to surface ProductDNA alongside MaterialDNA in Abstract and Core Components
+- Protocol contract documentation aligned to v0.2.0 interop requirements
+
+### Maintenance
+- Upgraded Contributor Covenant to v3.0
+- Replaced personal contact with org identity (dev@mycel-ai.de)
+- Updated ajv to 8.20.0
+
 ## [0.2.0] - 2026-03-08
 
 ### Added
@@ -121,7 +140,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Status | Key Changes |
 |---------|------|---------|------------|
-| 0.2.0 | 2026-03-08 | **Current** | DPP extensions, schema consolidation, context completion |
+| 0.2.1 | 2026-05-26 | **Current** | ProductDNA schema, spec expansion, glossary |
+| 0.2.0 | 2026-03-08 | Superseded | DPP extensions, schema consolidation, context completion |
 | 0.1.1 | 2025-12-20 | Superseded | Minimal interop lab demo baseline |
 | 0.1.0 | 2025-05-27 | Superseded | Initial public release |
 | 0.0.9-draft | 2025-05-15 | Superseded | Internal draft |
@@ -167,8 +187,9 @@ This changelog is maintained by the LOOP core team.
 
 ---
 
-[Unreleased]: https://github.com/local-loop-io/loop-protocol/compare/v0.2.0...HEAD
-[0.2.0]: https://github.com/local-loop-io/loop-protocol/compare/v0.1.1...v0.2.0
+[Unreleased]: https://github.com/local-loop-io/loop-protocol/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/local-loop-io/loop-protocol/compare/v0.2.0...v0.2.1
+[0.2.0]: https://github.com/local-loop-io/loop-protocol/compare/v0.1.1-demo...v0.2.0
 [0.1.1]: https://github.com/local-loop-io/loop-protocol/releases/tag/v0.1.1
 [0.1.0]: https://github.com/local-loop-io/loop-protocol/releases/tag/v0.1.0
 [0.0.9-draft]: https://github.com/local-loop-io/loop-protocol/releases/tag/v0.0.9-draft
