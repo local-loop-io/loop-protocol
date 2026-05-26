@@ -16,8 +16,8 @@
   "functional_status": "fully-functional",
   "lifecycle_stage": "end-of-first-use",
   "material_ids": [
-    "DE-MUC-2025-METAL-4EB84C",
-    "DE-MUC-2025-PLASTIC-96FE78"
+    "MAT-DE-MUC-2025-METAL-4EB84C",
+    "MAT-DE-MUC-2025-PLASTIC-96FE78"
   ],
   "dimensions": {
     "length_cm": 120,

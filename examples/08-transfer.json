@@ -1,9 +1,9 @@
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
+  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
   "@type": "Transfer",
-  "schema_version": "0.1.1",
+  "schema_version": "0.2.0",
   "id": "TRF-5D8A23F1",
-  "material_id": "DE-MUC-2025-PLASTIC-B847F3",
+  "material_id": "MAT-DE-MUC-2025-PLASTIC-B847F3",
   "match_id": "MCH-9B3C8A12",
   "status": "completed",
   "handoff_at": "2025-06-02T09:00:00Z",

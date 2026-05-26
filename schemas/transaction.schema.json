@@ -36,7 +36,7 @@
         "material": {
           "description": "MaterialDNA reference",
           "type": "string",
-          "pattern": "^[A-Z]{2}-[A-Z]{3}-\\d{4}-[A-Z]+-[A-Z0-9]{6,}$"
+          "pattern": "^MAT-[A-Z]{2}-[A-Z]{3}-\\d{4}-[A-Z]+-[A-Z0-9]{6,}$"
         },
         "seller": {
           "description": "Selling node",
@@ -92,7 +92,7 @@
           "examples": ["0.2.0"]
         },
         "transaction_id": { "type": "string", "pattern": "^TXN-\\d{4}-\\d{2}-\\d{2}-\\d{3,}$" },
-        "material": { "type": "string", "pattern": "^[A-Z]{2}-[A-Z]{3}-\\d{4}-[A-Z]+-[A-Z0-9]{6,}$" },
+        "material": { "type": "string", "pattern": "^MAT-[A-Z]{2}-[A-Z]{3}-\\d{4}-[A-Z]+-[A-Z0-9]{6,}$" },
         "seller": { "type": "string", "pattern": "^[a-z0-9\\-]+\\.loop$" },
         "buyer": { "type": "string", "pattern": "^[a-z0-9\\-]+\\.loop$" },
         "final_cost": { "type": "number", "minimum": 0 },

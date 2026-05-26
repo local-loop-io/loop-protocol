@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-05-26
+
+### Fixed
+- MaterialDNA `id` pattern in `material-dna.schema.json` updated to require the `MAT-` prefix (`^MAT-[A-Z]{2}-[A-Z]{3}-\d{4}-[A-Z]+-[A-Z0-9]{6,}$`), consistent with the spec and symmetric with ProductDNA's `PRD-` prefix
+- Same `MAT-` prefix pattern applied to all schemas that reference MaterialDNA IDs: `offer`, `match`, `transfer`, `material-status`, `transaction`, `loopcoin`, `product-dna`
+- All 15 example payloads updated: `schema_version` bumped to `"0.2.0"`, `@context` updated to `loop-v0.2.0.jsonld`, and all MaterialDNA `id`/reference fields prefixed with `MAT-`
+
+### Changed
+- `SPECIFICATION.md` §3.6 added: entity status-transition reference table for `Offer`, `Match`, `Transfer`, `MaterialStatusUpdate`, and `Transaction`
+
 ## [0.2.1] - 2026-05-26
 
 ### Added
@@ -187,7 +197,8 @@ This changelog is maintained by the LOOP core team.
 
 ---
 
-[Unreleased]: https://github.com/local-loop-io/loop-protocol/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/local-loop-io/loop-protocol/compare/v0.2.2...HEAD
+[0.2.2]: https://github.com/local-loop-io/loop-protocol/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/local-loop-io/loop-protocol/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/local-loop-io/loop-protocol/compare/v0.1.1-demo...v0.2.0
 [0.1.1]: https://github.com/local-loop-io/loop-protocol/releases/tag/v0.1.1

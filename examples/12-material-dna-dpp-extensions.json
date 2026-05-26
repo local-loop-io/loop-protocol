@@ -2,7 +2,7 @@
   "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
   "@type": "MaterialDNA",
   "schema_version": "0.2.0",
-  "id": "DE-MUC-2026-PLASTIC-A1B2C3",
+  "id": "MAT-DE-MUC-2026-PLASTIC-A1B2C3",
   "category": "plastic-pet",
   "quantity": { "value": 500, "unit": "kg" },
   "quality": 0.92,

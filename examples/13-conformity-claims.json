@@ -2,7 +2,7 @@
   "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
   "@type": "MaterialDNA",
   "schema_version": "0.2.0",
-  "id": "DE-BER-2026-TEXTILE-D4E5F6",
+  "id": "MAT-DE-BER-2026-TEXTILE-D4E5F6",
   "category": "textile-cotton",
   "quantity": { "value": 200, "unit": "kg" },
   "quality": 0.88,

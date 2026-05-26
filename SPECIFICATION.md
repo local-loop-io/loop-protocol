@@ -231,6 +231,20 @@ These extensions:
 - SHOULD use the canonical JSON-LD context or explicit namespaced terms
 - SHOULD preserve unknown fields when relaying payloads between nodes
 
+### 3.6 Entity Status Transitions
+
+The table below defines the valid status values and allowed transitions for each protocol entity. State machines are enforced by node implementations; the protocol defines valid values only.
+
+| Entity | Status values | Terminal states |
+|--------|---------------|-----------------|
+| **Offer** | `open` → `reserved` / `withdrawn` | `withdrawn` |
+| **Match** | `proposed` → `accepted` / `rejected`; `accepted` → `expired` | `rejected`, `expired` |
+| **Transfer** | `scheduled` → `in_transit` → `completed` / `cancelled` | `completed`, `cancelled` |
+| **MaterialStatusUpdate** | `available` → `reserved` → `withdrawn` | `withdrawn` |
+| **Transaction** | `pending` → `confirmed` → `in_transit` → `delivered` → `completed` / `cancelled` / `disputed` | `completed`, `cancelled`, `disputed` |
+
+> An entity MUST NOT transition to a non-terminal status once it has reached a terminal state. Nodes that receive a status update contradicting this rule SHOULD reject it with a `409 Conflict` response.
+
 ---
 
 ## 4. MaterialDNA Specification
