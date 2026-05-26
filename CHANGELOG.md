@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.3] - 2026-05-26
+
+### Added
+- City decision-maker content in documentation: "For city decision-makers" FAQ section (cost, GDPR, governance, EU mandates), "City Operations Terms" glossary section, "Executive Summary for City Decision-Makers" in implementation guide, City Action Timeline table in regulatory alignment roadmap
+
+### Fixed
+- `package-lock.json` re-synced to resolve `ajv@8.20.0` (was locked at `8.18.0`, causing `npm ci` failures in CI)
+
 ## [0.2.2] - 2026-05-26
 
 ### Fixed
@@ -150,7 +158,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Status | Key Changes |
 |---------|------|---------|------------|
-| 0.2.1 | 2026-05-26 | **Current** | ProductDNA schema, spec expansion, glossary |
+| 0.2.3 | 2026-05-26 | **Current** | City decision-maker docs, package-lock fix |
+| 0.2.2 | 2026-05-26 | Superseded | MAT- prefix fix, example v0.2.0 updates, §3.6 status transitions |
+| 0.2.1 | 2026-05-26 | Superseded | ProductDNA schema, spec expansion, glossary |
 | 0.2.0 | 2026-03-08 | Superseded | DPP extensions, schema consolidation, context completion |
 | 0.1.1 | 2025-12-20 | Superseded | Minimal interop lab demo baseline |
 | 0.1.0 | 2025-05-27 | Superseded | Initial public release |
@@ -197,7 +207,8 @@ This changelog is maintained by the LOOP core team.
 
 ---
 
-[Unreleased]: https://github.com/local-loop-io/loop-protocol/compare/v0.2.2...HEAD
+[Unreleased]: https://github.com/local-loop-io/loop-protocol/compare/v0.2.3...HEAD
+[0.2.3]: https://github.com/local-loop-io/loop-protocol/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/local-loop-io/loop-protocol/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/local-loop-io/loop-protocol/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/local-loop-io/loop-protocol/compare/v0.1.1-demo...v0.2.0
