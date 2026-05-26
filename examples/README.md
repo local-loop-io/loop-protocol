@@ -25,11 +25,11 @@ Run `npm test` from the repository root to validate all examples.
 ## How to Cite
 
 If you reference this repository, please cite:
-Alphin Tom / Mycel UG (haftungsbeschränkt). "LOOP Examples." localLOOP, 2025-2026. https://github.com/local-loop-io/loop-protocol
+Mycel UG (haftungsbeschränkt). "LOOP Examples." localLOOP, 2025-2026. https://github.com/local-loop-io/loop-protocol
 
 ```bibtex
 @misc{localloop_protocol_examples_2025,
-  author = {Alphin Tom / Mycel UG (haftungsbeschränkt)},
+  author = {Mycel UG (haftungsbeschränkt)},
   title = {LOOP Examples},
   year = {2025},
   howpublished = {GitHub repository},

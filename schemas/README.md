@@ -27,11 +27,11 @@ This validates all JSON files in `examples/` against the schemas.
 ## How to Cite
 
 If you reference this repository, please cite:
-Alphin Tom / Mycel UG (haftungsbeschränkt). "LOOP Schemas." localLOOP, 2025-2026. https://github.com/local-loop-io/loop-protocol
+Mycel UG (haftungsbeschränkt). "LOOP Schemas." localLOOP, 2025-2026. https://github.com/local-loop-io/loop-protocol
 
 ```bibtex
 @misc{localloop_protocol_schemas_2025,
-  author = {Alphin Tom / Mycel UG (haftungsbeschränkt)},
+  author = {Mycel UG (haftungsbeschränkt)},
   title = {LOOP Schemas},
   year = {2025},
   howpublished = {GitHub repository},

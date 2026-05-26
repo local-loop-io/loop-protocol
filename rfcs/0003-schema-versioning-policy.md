@@ -2,7 +2,7 @@
 
 - **Status**: Draft
 - **Created**: 2026-03-08
-- **Author**: Alphin Tom / Mycel UG (haftungsbeschränkt)
+- **Author**: Mycel UG (haftungsbeschränkt)
 
 ## Summary
 

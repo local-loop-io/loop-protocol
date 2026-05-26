@@ -64,6 +64,6 @@ See rfcs/0000-template.md for the RFC template.
 
 ## ❓ Questions?
 
-- GitHub Discussions or email: alphin@mycel-ai.de
+- GitHub Discussions or email: dev@mycel-ai.de
 
 Thank you for helping build the future of circular economy! 🌍

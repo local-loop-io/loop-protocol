@@ -9,7 +9,7 @@ The LOOP team takes security seriously. We appreciate your efforts to responsibl
 **DO NOT** create public GitHub issues for security vulnerabilities.
 
 Please report security vulnerabilities by emailing:
-- **alphin@mycel-ai.de** (GitHub: @alpha912)
+- **dev@mycel-ai.de** (GitHub: @alpha912)
 
 ### What to Include
 
@@ -182,8 +182,8 @@ We thank the following security researchers for responsibly disclosing vulnerabi
 
 ## 📞 Contact
 
-- **Security Issues**: alphin@mycel-ai.de
-- **General Support**: alphin@mycel-ai.de
+- **Security Issues**: dev@mycel-ai.de
+- **General Support**: dev@mycel-ai.de
 
 ---
 
