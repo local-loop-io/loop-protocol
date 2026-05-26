@@ -62,6 +62,18 @@ The immediate goal is to make v0.1.1 payloads easier to extend without breaking 
 - Implication for localLOOP:
   do not present protocol metadata as proof of compliance or environmental performance unless the required evidence and verification model exists.
 
+## City action timeline
+
+The table below maps key regulation milestones to concrete planning checkpoints for city infrastructure owners. Dates are operative dates, not political agreement dates. This is informational only — not legal advice.
+
+| Regulation | What applies | Operative date | City planning action |
+|:-----------|:-------------|:---------------|:---------------------|
+| DIWASS (WSR 2024/1157 Art. 26) | Electronic processing of cross-border waste shipment documents | **May 2026 (now active)** | Confirm waste operators can submit and retrieve electronic shipment documents; verify document-reference fields are available in material-transfer records |
+| PPWR (EU) 2025/40 | Reusable transport and grouped packaging identification | **August 2026** | Identify packaging categories in city procurement scope; ensure packaging identifiers can attach to material-transfer records |
+| Green claims (Dir. EU 2024/825) | Sustainability claims presented to consumers | **September 2026** | Review city-published material-flow or circularity statistics against tightened substantiation rules |
+| ESPR DPP — textiles, furniture | Digital Product Passports for textiles and furniture (first delegated acts) | **2026–2027** | Assess procurement volumes for these categories; ProductDNA schema is DPP-aligned and ready for extension |
+| Battery Passport (EU) 2023/1542 | Digital passports for EV, light means of transport, and industrial batteries > 2 kWh | **February 2027** | Audit city fleet and depots for in-scope battery categories; ensure asset management systems can store battery passport IDs |
+
 ## Delivery plan
 
 ### Horizon 1: now to 90 days
