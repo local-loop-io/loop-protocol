@@ -29,7 +29,7 @@ npm test
 - Use `examples/` to validate tooling and docs.
 
 ## Links
-- Docs hub: https://local-loop-io.github.io
+- Docs hub: https://localloop.urbnia.com
 - Backend API: https://loop-api.urbnia.com
 
 ## Contributing

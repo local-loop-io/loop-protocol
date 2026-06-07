@@ -33,28 +33,28 @@
     },
     "schemas": {
       "MaterialDNA": {
-        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/material-dna.schema.json"
+        "$ref": "https://localloop.urbnia.com/projects/loop-protocol/schemas/v0.2.0/material-dna.schema.json"
       },
       "ProductDNA": {
-        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/product-dna.schema.json"
+        "$ref": "https://localloop.urbnia.com/projects/loop-protocol/schemas/v0.2.0/product-dna.schema.json"
       },
       "Offer": {
-        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/offer.schema.json"
+        "$ref": "https://localloop.urbnia.com/projects/loop-protocol/schemas/v0.2.0/offer.schema.json"
       },
       "Match": {
-        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/match.schema.json"
+        "$ref": "https://localloop.urbnia.com/projects/loop-protocol/schemas/v0.2.0/match.schema.json"
       },
       "Transfer": {
-        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/transfer.schema.json"
+        "$ref": "https://localloop.urbnia.com/projects/loop-protocol/schemas/v0.2.0/transfer.schema.json"
       },
       "NodeInfo": {
-        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/node-info.schema.json"
+        "$ref": "https://localloop.urbnia.com/projects/loop-protocol/schemas/v0.2.0/node-info.schema.json"
       },
       "LoopSignalConfig": {
-        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/loopsignal.schema.json"
+        "$ref": "https://localloop.urbnia.com/projects/loop-protocol/schemas/v0.2.0/loopsignal.schema.json"
       },
       "Transaction": {
-        "$ref": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/transaction.schema.json"
+        "$ref": "https://localloop.urbnia.com/projects/loop-protocol/schemas/v0.2.0/transaction.schema.json"
       },
       "TransactionStatus": {
         "type": "object",

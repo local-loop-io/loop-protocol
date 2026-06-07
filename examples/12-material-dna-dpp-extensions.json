@@ -1,5 +1,5 @@
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+  "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
   "@type": "MaterialDNA",
   "schema_version": "0.2.0",
   "id": "MAT-DE-MUC-2026-PLASTIC-A1B2C3",

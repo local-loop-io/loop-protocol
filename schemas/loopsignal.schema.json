@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://local-loop-io.github.io/projects/loop-protocol/schemas/v0.2.0/loopsignal.schema.json",
+  "$id": "https://localloop.urbnia.com/projects/loop-protocol/schemas/v0.2.0/loopsignal.schema.json",
   "title": "LoopSignal",
   "description": "Schema for LoopSignal configuration and voting",
   "oneOf": [
@@ -29,8 +29,8 @@
         "@context": {
           "type": "string",
           "enum": [
-            "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
-            "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld"
+            "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
+            "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld"
           ]
         },
         "@type": {
@@ -128,8 +128,8 @@
         "@context": {
           "type": "string",
           "enum": [
-            "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
-            "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld"
+            "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
+            "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld"
           ]
         },
         "@type": {
@@ -199,8 +199,8 @@
         "@context": {
           "type": "string",
           "enum": [
-            "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
-            "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld"
+            "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
+            "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld"
           ]
         },
         "@type": {

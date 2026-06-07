@@ -105,7 +105,7 @@ function assertOpenApiRefsResolve(openApiPath, schemaIds) {
     }
     if (
       typeof value.$ref === 'string' &&
-      value.$ref.startsWith('https://local-loop-io.github.io/projects/loop-protocol/schemas/') &&
+      value.$ref.startsWith('https://localloop.urbnia.com/projects/loop-protocol/schemas/') &&
       !schemaIds.has(value.$ref)
     ) {
       failures.push(`Unresolved OpenAPI schema ref: ${value.$ref}`);

@@ -1,6 +1,6 @@
 [
   {
-    "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+    "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
     "@type": "Offer",
     "schema_version": "0.2.0",
     "id": "OFR-PRD-8C4F2A1B",
@@ -13,7 +13,7 @@
     "terms": "Pickup from Munich office building. Palletized and ready for transport."
   },
   {
-    "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+    "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
     "@type": "Match",
     "schema_version": "0.2.0",
     "id": "MCH-PRD-3D7E9F45",
@@ -25,7 +25,7 @@
     "matched_at": "2026-03-16T14:30:00Z"
   },
   {
-    "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+    "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
     "@type": "Transfer",
     "schema_version": "0.2.0",
     "id": "TRF-PRD-1A5B8C2D",

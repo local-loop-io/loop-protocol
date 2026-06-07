@@ -1,5 +1,5 @@
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+  "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
   "@type": "MaterialTransaction",
   "id": "TXN-2025-05-27-001",
   "material": "MAT-DE-MUC-2025-PLASTIC-B847F3",

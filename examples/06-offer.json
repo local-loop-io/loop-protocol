@@ -1,5 +1,5 @@
 {
-  "@context": "https://local-loop-io.github.io/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+  "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
   "@type": "Offer",
   "schema_version": "0.2.0",
   "id": "OFR-2F7A6B9C",
