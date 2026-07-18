@@ -14,6 +14,7 @@ Local Optimization with Overflow Protocol. A federated circular economy concept 
 - `schemas/`: JSON Schema definitions.
 - `examples/`: sample payloads for interop.
 - `contexts/`: JSON-LD contexts.
+- `profiles/`: applicability profiles, including the lab-only Core-DP contract and conformance vectors.
 - `docs/regulatory-alignment-roadmap.md`: long-horizon EU and German compatibility plan.
 - `rfcs/`: RFCs and design notes.
 
@@ -21,12 +22,14 @@ Local Optimization with Overflow Protocol. A federated circular economy concept 
 ```bash
 npm ci
 npm test
+npm run check:domains
 ```
 
 ## Usage notes
 - Specs and schemas are draft and subject to change.
 - No certified implementations exist at this time.
 - Use `examples/` to validate tooling and docs.
+- Core-DP is a lab-only applicability profile, not a full LOOP conformance claim.
 
 ## Links
 - Docs hub: https://localloop.urbnia.com

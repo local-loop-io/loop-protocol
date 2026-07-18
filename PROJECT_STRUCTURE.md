@@ -48,6 +48,32 @@ loop-protocol/
 │   ├── 13-conformity-claims.json
 │   ├── 14-product-reuse-registration.json
 │   └── 15-product-offer-flow.json
+├── profiles/
+│   ├── README.md
+│   └── core-dp/
+│       ├── README.md
+│       ├── conformance/
+│       │   ├── README.md
+│       │   ├── trust/
+│       │   │   └── accepted-peer-keys.json
+│       │   └── vectors/
+│       │       └── core-dp-vectors.json
+│       ├── epcis/
+│       │   ├── README.md
+│       │   ├── fixtures/
+│       │   │   └── core-dp-transfer-object-event.json
+│       │   └── unsupported-features.json
+│       ├── requirements/
+│       │   ├── core-dp-requirements.json
+│       │   └── spec-v0.2.0-normative-manifest.json
+│       └── schemas/
+│           ├── choreography-message.schema.json
+│           ├── dna-operation.schema.json
+│           ├── envelope.schema.json
+│           ├── epcis-mapping.schema.json
+│           ├── error.schema.json
+│           ├── evidence-entry.schema.json
+│           └── search-contract.schema.json
 ├── docs/
 │   ├── faq.md
 │   ├── federation-handshake.md

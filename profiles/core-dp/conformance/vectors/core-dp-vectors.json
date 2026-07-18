@@ -1,0 +1,2335 @@
+{
+  "suite": "core-dp-0.1.0-lab",
+  "vectors": [
+    {
+      "id": "core-dp-envelope-valid-001",
+      "title": "Valid signed offer acknowledgement envelope",
+      "requirement_ids": [
+        "CORE-DP-REQ-SIGNED-ENVELOPE",
+        "CORE-DP-REQ-CHOREOGRAPHY",
+        "REQ-92_NODE_AUTHENTICATION-MUST-66F1F0D8B55D"
+      ],
+      "expected": "valid",
+      "coverage_tags": [
+        "positive:offer-authority"
+      ],
+      "payload_schema": "profiles/core-dp/schemas/envelope.schema.json",
+      "semantic_checks": [
+        "core-dp-envelope-signing-input-sha256",
+        "core-dp-envelope-ed25519-signature",
+        "core-dp-envelope-body-contract",
+        "core-dp-choreography-message-contract",
+        "core-dp-envelope-replay-window",
+        "core-dp-envelope-trusted-key-resolution"
+      ],
+      "payload": {
+        "profile": "core-dp",
+        "profile_version": "0.1.0-lab",
+        "message_id": "msg_validEnvelope0001",
+        "message_type": "offer.ack",
+        "created_at": "2026-07-17T00:00:00Z",
+        "expires_at": "2026-07-17T00:05:00Z",
+        "sender": {
+          "node_id": "munich.loop",
+          "endpoint": "https://munich.loop/api/v1",
+          "key_id": "key_munich_2026_07"
+        },
+        "receiver": {
+          "node_id": "berlin.loop",
+          "endpoint": "https://berlin.loop/api/v1",
+          "key_id": "key_berlin_2026_07"
+        },
+        "idempotency_key": "idem_offerAck0000000001",
+        "body_schema": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/choreography-message.schema.json",
+        "body": {
+          "conversation_id": "conv_offerAck00000001",
+          "message_type": "offer.ack",
+          "origin_node": "berlin.loop",
+          "counterparty_node": "munich.loop",
+          "subject": {
+            "type": "offer",
+            "id": "OFF-DE-MUC-2026-000001"
+          },
+          "previous_state": "offer-published",
+          "state": "offer-acked",
+          "terminal": true,
+          "attempt": 1,
+          "timeout_at": "2026-07-17T00:05:00Z",
+          "accepted_profile_version": "0.1.0-lab",
+          "authoritative_role": "counterparty"
+        },
+        "signature": {
+          "alg": "Ed25519-lab-detached-v1",
+          "key_id": "key_munich_2026_07",
+          "signing_input_sha256": "164dbf698ab242f1b671323a85c257171d526ba71f7228dec406c8ff8c64c0ac",
+          "value": "v1zAi20NW44VjbreJ9sPzSosN93qd6d_Q61wRa2cGZJ6UkqXpmp1i40Wi75Vyg6O303NU3G48m_WHkkFDQ9zCA"
+        },
+        "replay_window_seconds": 300
+      }
+    },
+    {
+      "id": "core-dp-envelope-invalid-signature-value-001",
+      "title": "Reject signed envelope with altered detached Ed25519 signature",
+      "requirement_ids": [
+        "CORE-DP-REQ-SIGNED-ENVELOPE",
+        "REQ-92_NODE_AUTHENTICATION-MUST-66F1F0D8B55D"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "detached Ed25519 signature verification failed",
+      "payload_schema": "profiles/core-dp/schemas/envelope.schema.json",
+      "semantic_checks": [
+        "core-dp-envelope-ed25519-signature"
+      ],
+      "payload": {
+        "profile": "core-dp",
+        "profile_version": "0.1.0-lab",
+        "message_id": "msg_validEnvelope0001",
+        "message_type": "offer.ack",
+        "created_at": "2026-07-17T00:00:00Z",
+        "expires_at": "2026-07-17T00:05:00Z",
+        "sender": {
+          "node_id": "munich.loop",
+          "endpoint": "https://munich.loop/api/v1",
+          "key_id": "key_munich_2026_07"
+        },
+        "receiver": {
+          "node_id": "berlin.loop",
+          "endpoint": "https://berlin.loop/api/v1",
+          "key_id": "key_berlin_2026_07"
+        },
+        "idempotency_key": "idem_offerAck0000000001",
+        "body_schema": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/choreography-message.schema.json",
+        "body": {
+          "conversation_id": "conv_offerAck00000001",
+          "message_type": "offer.ack",
+          "origin_node": "berlin.loop",
+          "counterparty_node": "munich.loop",
+          "subject": {
+            "type": "offer",
+            "id": "OFF-DE-MUC-2026-000001"
+          },
+          "previous_state": "offer-published",
+          "state": "offer-acked",
+          "terminal": true,
+          "attempt": 1,
+          "timeout_at": "2026-07-17T00:05:00Z",
+          "accepted_profile_version": "0.1.0-lab",
+          "authoritative_role": "counterparty"
+        },
+        "signature": {
+          "alg": "Ed25519-lab-detached-v1",
+          "key_id": "key_munich_2026_07",
+          "signing_input_sha256": "164dbf698ab242f1b671323a85c257171d526ba71f7228dec406c8ff8c64c0ac",
+          "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "replay_window_seconds": 300
+      }
+    },
+    {
+      "id": "core-dp-envelope-invalid-key-id-mismatch-001",
+      "title": "Reject signed envelope whose signature key id does not match sender key id",
+      "requirement_ids": [
+        "CORE-DP-REQ-SIGNED-ENVELOPE",
+        "REQ-92_NODE_AUTHENTICATION-MUST-66F1F0D8B55D"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "signature.key_id must match sender.key_id",
+      "payload_schema": "profiles/core-dp/schemas/envelope.schema.json",
+      "semantic_checks": [
+        "core-dp-envelope-ed25519-signature"
+      ],
+      "payload": {
+        "profile": "core-dp",
+        "profile_version": "0.1.0-lab",
+        "message_id": "msg_validEnvelope0001",
+        "message_type": "offer.ack",
+        "created_at": "2026-07-17T00:00:00Z",
+        "expires_at": "2026-07-17T00:05:00Z",
+        "sender": {
+          "node_id": "munich.loop",
+          "endpoint": "https://munich.loop/api/v1",
+          "key_id": "key_munich_2026_07"
+        },
+        "receiver": {
+          "node_id": "berlin.loop",
+          "endpoint": "https://berlin.loop/api/v1",
+          "key_id": "key_berlin_2026_07"
+        },
+        "idempotency_key": "idem_offerAck0000000001",
+        "body_schema": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/choreography-message.schema.json",
+        "body": {
+          "conversation_id": "conv_offerAck00000001",
+          "message_type": "offer.ack",
+          "origin_node": "berlin.loop",
+          "counterparty_node": "munich.loop",
+          "subject": {
+            "type": "offer",
+            "id": "OFF-DE-MUC-2026-000001"
+          },
+          "previous_state": "offer-published",
+          "state": "offer-acked",
+          "terminal": true,
+          "attempt": 1,
+          "timeout_at": "2026-07-17T00:05:00Z",
+          "accepted_profile_version": "0.1.0-lab",
+          "authoritative_role": "counterparty"
+        },
+        "signature": {
+          "alg": "Ed25519-lab-detached-v1",
+          "key_id": "key_munich_2026_08",
+          "signing_input_sha256": "164dbf698ab242f1b671323a85c257171d526ba71f7228dec406c8ff8c64c0ac",
+          "value": "s6mJJeJcy8t3X3i4qfLyrETR9PMkvCbJwxRDsvpDrlhfuJfeQ9u5HJU1mDm_XrQPrXK6VFt8NCB-WkJLMCPrCw"
+        },
+        "replay_window_seconds": 300
+      }
+    },
+    {
+      "id": "core-dp-dna-valid-material-register-request-001",
+      "title": "Valid MaterialDNA register request",
+      "requirement_ids": [
+        "CORE-DP-REQ-DNA-SEARCH"
+      ],
+      "expected": "valid",
+      "coverage_tags": [
+        "positive:material-dna-register-request"
+      ],
+      "payload_schema": "profiles/core-dp/schemas/dna-operation.schema.json",
+      "semantic_checks": [
+        "core-dp-dna-operation-contract"
+      ],
+      "payload": {
+        "message_type": "material.register",
+        "operation": "register_request",
+        "entity_type": "material",
+        "request_id": "req_materialRegister0001",
+        "record": {
+          "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+          "@type": "MaterialDNA",
+          "schema_version": "0.2.0",
+          "id": "MAT-DE-MUC-2025-PLASTIC-B847F3",
+          "category": "plastic-pet",
+          "quantity": {
+            "value": 1000,
+            "unit": "kg"
+          },
+          "quality": 0.95,
+          "origin_city": "Munich",
+          "current_city": "Munich",
+          "location": {
+            "lat": 48.1351,
+            "lon": 11.582,
+            "address": "Recycling Center Munich"
+          },
+          "available_from": "2025-05-27T10:00:00Z",
+          "expires": "2025-06-03T10:00:00Z",
+          "certifications": [
+            "food-grade",
+            "iso-14001"
+          ],
+          "images": [
+            "https://example.com/material-photo.jpg"
+          ],
+          "passport": {
+            "passport_id": "DPP-DE-MUC-2025-B847F3",
+            "passport_url": "https://example.com/passports/DPP-DE-MUC-2025-B847F3",
+            "backup_copy_url": "https://example.com/passports/DPP-DE-MUC-2025-B847F3/backup",
+            "passport_status": "available",
+            "data_carrier_id": "urn:epc:id:sgtin:426001.123456.2025B847F3",
+            "issuer": "lab-hub.loop",
+            "access_scope": "role-based",
+            "supported_regimes": [
+              "espr-dpp",
+              "waste-shipment",
+              "nkws"
+            ]
+          },
+          "classification": {
+            "ewc_code": "15 01 02",
+            "hs_code": "391510",
+            "cn_code": "39151000"
+          },
+          "traceability": {
+            "batch_id": "2025-W22-01",
+            "source_operator_id": "munich-recycling-center",
+            "facility_id": "munich-sort-line-02",
+            "retention_until": "2030-06-03T10:00:00Z",
+            "document_refs": [
+              "https://example.com/documents/dispatch-note-2025-W22-01"
+            ],
+            "due_diligence_ref": "DD-2025-PLASTIC-0042"
+          },
+          "metadata": {
+            "source": "consumer-collection",
+            "batch_number": "2025-W22-01",
+            "notes": "Clean, sorted PET bottles"
+          }
+        }
+      }
+    },
+    {
+      "id": "core-dp-dna-valid-product-read-result-001",
+      "title": "Valid ProductDNA read result",
+      "requirement_ids": [
+        "CORE-DP-REQ-DNA-SEARCH"
+      ],
+      "expected": "valid",
+      "coverage_tags": [
+        "positive:product-dna-read-result"
+      ],
+      "payload_schema": "profiles/core-dp/schemas/dna-operation.schema.json",
+      "semantic_checks": [
+        "core-dp-dna-operation-contract"
+      ],
+      "payload": {
+        "message_type": "product.read",
+        "operation": "read_result",
+        "entity_type": "product",
+        "request_id": "req_productReadResult01",
+        "record_id": "PRD-DE-MUC-2025-DESK-F4A7B2",
+        "result": {
+          "status": "found",
+          "provenance": {
+            "source_node": "munich.loop",
+            "record_hash_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "recorded_at": "2026-07-17T00:01:00Z",
+            "evidence_event_id": "evt_productReadResult01",
+            "envelope_message_id": "msg_productReadResult01"
+          }
+        },
+        "record": {
+          "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+          "@type": "ProductDNA",
+          "schema_version": "0.2.0",
+          "id": "PRD-DE-MUC-2025-DESK-F4A7B2",
+          "product_category": "furniture-office",
+          "name": "Standing Desk - Ergotron WorkFit",
+          "condition": "good",
+          "quantity": {
+            "value": 12,
+            "unit": "piece"
+          },
+          "origin_city": "Munich",
+          "current_city": "Munich",
+          "available_from": "2026-03-15T08:00:00Z",
+          "manufacturer": "Ergotron",
+          "model": "WorkFit-S",
+          "manufacture_year": 2021,
+          "functional_status": "fully-functional",
+          "lifecycle_stage": "end-of-first-use",
+          "material_ids": [
+            "MAT-DE-MUC-2025-METAL-4EB84C",
+            "MAT-DE-MUC-2025-PLASTIC-96FE78"
+          ],
+          "reuse_potential": "Fully functional standing desks from office clearance. Minor cosmetic wear."
+        }
+      }
+    },
+    {
+      "id": "core-dp-capabilities-valid-announce-001",
+      "title": "Valid capability announcement choreography body",
+      "requirement_ids": [
+        "CORE-DP-REQ-DISCOVERY-CAPABILITIES"
+      ],
+      "expected": "valid",
+      "payload_schema": "profiles/core-dp/schemas/choreography-message.schema.json",
+      "semantic_checks": [
+        "core-dp-choreography-message-contract"
+      ],
+      "payload": {
+        "conversation_id": "conv_capAnnounce00001",
+        "message_type": "capabilities.announce",
+        "origin_node": "munich.loop",
+        "counterparty_node": "berlin.loop",
+        "subject": {
+          "type": "capabilities",
+          "id": "core-dp-0.1.0-lab"
+        },
+        "state": "announced",
+        "terminal": false,
+        "attempt": 1,
+        "timeout_at": "2026-07-17T00:05:00Z",
+        "authoritative_role": "origin"
+      }
+    },
+    {
+      "id": "core-dp-capabilities-valid-response-001",
+      "title": "Valid capability response with accepted profile version",
+      "requirement_ids": [
+        "CORE-DP-REQ-DISCOVERY-CAPABILITIES"
+      ],
+      "expected": "valid",
+      "payload_schema": "profiles/core-dp/schemas/choreography-message.schema.json",
+      "semantic_checks": [
+        "core-dp-choreography-message-contract"
+      ],
+      "payload": {
+        "conversation_id": "conv_capResponse00001",
+        "message_type": "capabilities.response",
+        "origin_node": "munich.loop",
+        "counterparty_node": "berlin.loop",
+        "subject": {
+          "type": "capabilities",
+          "id": "core-dp-0.1.0-lab"
+        },
+        "previous_state": "announced",
+        "state": "capabilities-confirmed",
+        "terminal": true,
+        "attempt": 1,
+        "timeout_at": "2026-07-17T00:05:00Z",
+        "accepted_profile_version": "0.1.0-lab",
+        "authoritative_role": "counterparty"
+      }
+    },
+    {
+      "id": "core-dp-envelope-valid-capabilities-announce-001",
+      "title": "Valid capability announcement envelope body binding",
+      "requirement_ids": [
+        "CORE-DP-REQ-DISCOVERY-CAPABILITIES",
+        "CORE-DP-REQ-SIGNED-ENVELOPE"
+      ],
+      "expected": "valid",
+      "payload_schema": "profiles/core-dp/schemas/envelope.schema.json",
+      "semantic_checks": [
+        "core-dp-envelope-body-contract",
+        "core-dp-choreography-message-contract",
+        "core-dp-envelope-signing-input-sha256",
+        "core-dp-envelope-ed25519-signature",
+        "core-dp-envelope-replay-window",
+        "core-dp-envelope-trusted-key-resolution"
+      ],
+      "payload": {
+        "profile": "core-dp",
+        "profile_version": "0.1.0-lab",
+        "message_id": "msg_capAnnounce00001",
+        "message_type": "capabilities.announce",
+        "created_at": "2026-07-17T00:00:00Z",
+        "expires_at": "2026-07-17T00:05:00Z",
+        "sender": {
+          "node_id": "munich.loop",
+          "endpoint": "https://munich.loop/api/v1",
+          "key_id": "key_munich_2026_07"
+        },
+        "receiver": {
+          "node_id": "berlin.loop",
+          "endpoint": "https://berlin.loop/api/v1",
+          "key_id": "key_berlin_2026_07"
+        },
+        "idempotency_key": "idem_capAnnounce000001",
+        "body_schema": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/choreography-message.schema.json",
+        "body": {
+          "conversation_id": "conv_capAnnounce00001",
+          "message_type": "capabilities.announce",
+          "origin_node": "munich.loop",
+          "counterparty_node": "berlin.loop",
+          "subject": {
+            "type": "capabilities",
+            "id": "core-dp-0.1.0-lab"
+          },
+          "state": "announced",
+          "terminal": false,
+          "attempt": 1,
+          "timeout_at": "2026-07-17T00:05:00Z",
+          "authoritative_role": "origin"
+        },
+        "signature": {
+          "alg": "Ed25519-lab-detached-v1",
+          "key_id": "key_munich_2026_07",
+          "signing_input_sha256": "98dafd23611069e1a9ba7d18e2cd2574868011ec5f848a5dedb48b0c42340a25",
+          "value": "w-LCQInFWhnJf_fLLf4Ps4URHDyGZ17Xm2w4GpqPc0i9Up-CeiB-Qc82lHi7vCHKRkfMx7ZWwmxWAPisZGMtCg"
+        },
+        "replay_window_seconds": 300
+      }
+    },
+    {
+      "id": "core-dp-dna-invalid-register-read-operation-001",
+      "title": "Reject MaterialDNA register message carrying a read request operation",
+      "requirement_ids": [
+        "CORE-DP-REQ-DNA-SEARCH"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "does not match message_type",
+      "payload_schema": "profiles/core-dp/schemas/dna-operation.schema.json",
+      "semantic_checks": [
+        "core-dp-dna-operation-contract"
+      ],
+      "payload": {
+        "message_type": "material.register",
+        "operation": "read_request",
+        "entity_type": "material",
+        "request_id": "req_materialRegisterBad1",
+        "record_id": "MAT-DE-MUC-2026-METAL-ABC123"
+      }
+    },
+    {
+      "id": "core-dp-dna-invalid-read-register-operation-001",
+      "title": "Reject ProductDNA read message carrying a register result operation",
+      "requirement_ids": [
+        "CORE-DP-REQ-DNA-SEARCH"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "does not match message_type",
+      "payload_schema": "profiles/core-dp/schemas/dna-operation.schema.json",
+      "semantic_checks": [
+        "core-dp-dna-operation-contract"
+      ],
+      "payload": {
+        "message_type": "product.read",
+        "operation": "register_result",
+        "entity_type": "product",
+        "request_id": "req_productReadBad0001",
+        "record_id": "PRD-DE-MUC-2025-DESK-F4A7B2",
+        "result": {
+          "status": "registered",
+          "provenance": {
+            "source_node": "munich.loop",
+            "record_hash_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "recorded_at": "2026-07-17T00:01:00Z"
+          }
+        }
+      }
+    },
+    {
+      "id": "core-dp-dna-invalid-read-result-missing-record-001",
+      "title": "Reject found read result that omits the returned record",
+      "requirement_ids": [
+        "CORE-DP-REQ-DNA-SEARCH"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "must include the record",
+      "payload_schema": "profiles/core-dp/schemas/dna-operation.schema.json",
+      "semantic_checks": [
+        "core-dp-dna-operation-contract"
+      ],
+      "payload": {
+        "message_type": "product.read",
+        "operation": "read_result",
+        "entity_type": "product",
+        "request_id": "req_productReadNoRecord",
+        "record_id": "PRD-DE-MUC-2025-DESK-F4A7B2",
+        "result": {
+          "status": "found",
+          "provenance": {
+            "source_node": "munich.loop",
+            "record_hash_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "recorded_at": "2026-07-17T00:01:00Z"
+          }
+        }
+      }
+    },
+    {
+      "id": "core-dp-dna-invalid-read-result-record-type-001",
+      "title": "Reject ProductDNA read result carrying a MaterialDNA record",
+      "requirement_ids": [
+        "CORE-DP-REQ-DNA-SEARCH"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "record @type must be ProductDNA",
+      "payload_schema": "profiles/core-dp/schemas/dna-operation.schema.json",
+      "semantic_checks": [
+        "core-dp-dna-operation-contract"
+      ],
+      "payload": {
+        "message_type": "product.read",
+        "operation": "read_result",
+        "entity_type": "product",
+        "request_id": "req_productReadWrongTyp",
+        "record_id": "PRD-DE-MUC-2025-DESK-F4A7B2",
+        "result": {
+          "status": "found",
+          "provenance": {
+            "source_node": "munich.loop",
+            "record_hash_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "recorded_at": "2026-07-17T00:01:00Z"
+          }
+        },
+        "record": {
+          "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+          "@type": "MaterialDNA",
+          "schema_version": "0.2.0",
+          "id": "MAT-DE-MUC-2025-PLASTIC-B847F3",
+          "category": "plastic-pet",
+          "quantity": {
+            "value": 1000,
+            "unit": "kg"
+          },
+          "quality": 0.95,
+          "origin_city": "Munich",
+          "current_city": "Munich",
+          "location": {
+            "lat": 48.1351,
+            "lon": 11.582,
+            "address": "Recycling Center Munich"
+          },
+          "available_from": "2025-05-27T10:00:00Z"
+        }
+      }
+    },
+    {
+      "id": "core-dp-search-valid-local-material-001",
+      "title": "Valid local MaterialDNA search request",
+      "requirement_ids": [
+        "CORE-DP-REQ-DNA-SEARCH"
+      ],
+      "expected": "valid",
+      "coverage_tags": [
+        "positive:material-search-local"
+      ],
+      "payload_schema": "profiles/core-dp/schemas/search-contract.schema.json",
+      "semantic_checks": [
+        "core-dp-search-contract-semantics"
+      ],
+      "payload": {
+        "entity_type": "material",
+        "scope": "local",
+        "filters": {
+          "category_prefix": "plastic",
+          "origin_city": "Munich",
+          "quantity_min": 250
+        },
+        "auth": {
+          "mode": "public-lab"
+        },
+        "strict_filtering": true,
+        "limit": 25,
+        "consistency": "snapshot"
+      }
+    },
+    {
+      "id": "core-dp-search-valid-cross-node-product-request-001",
+      "title": "Valid cross-node ProductDNA search request with node signature auth",
+      "requirement_ids": [
+        "CORE-DP-REQ-DNA-SEARCH",
+        "CORE-DP-REQ-SIGNED-ENVELOPE"
+      ],
+      "expected": "valid",
+      "coverage_tags": [
+        "positive:product-search-cross-node-request"
+      ],
+      "payload_schema": "profiles/core-dp/schemas/search-contract.schema.json",
+      "semantic_checks": [
+        "core-dp-search-contract-semantics"
+      ],
+      "payload": {
+        "entity_type": "product",
+        "scope": "cross-node",
+        "filters": {
+          "category_prefix": "furniture",
+          "current_city": "Berlin",
+          "condition": "good",
+          "updated_since": "2026-07-16T00:00:00Z"
+        },
+        "auth": {
+          "mode": "node-signature",
+          "subject_node": "berlin.loop"
+        },
+        "limit": 10,
+        "consistency": "eventual"
+      }
+    },
+    {
+      "id": "core-dp-search-valid-cross-node-product-response-001",
+      "title": "Valid cross-node ProductDNA search response with provenance",
+      "requirement_ids": [
+        "CORE-DP-REQ-DNA-SEARCH"
+      ],
+      "expected": "valid",
+      "coverage_tags": [
+        "positive:product-search-cross-node-response"
+      ],
+      "payload_schema": "profiles/core-dp/schemas/search-contract.schema.json",
+      "semantic_checks": [
+        "core-dp-search-contract-semantics"
+      ],
+      "payload": {
+        "entity_type": "product",
+        "results": [
+          {
+            "id": "PRD-DE-MUC-2025-DESK-F4A7B2",
+            "source_node": "munich.loop",
+            "record_hash_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "updated_at": "2026-07-17T00:02:00Z"
+          }
+        ],
+        "ordering": {
+          "primary": "updated_at_asc",
+          "tie_break": "id_asc"
+        },
+        "consistency": {
+          "mode": "eventual",
+          "as_of": "2026-07-17T00:02:30Z"
+        },
+        "provenance": {
+          "queried_nodes": [
+            "munich.loop",
+            "berlin.loop"
+          ],
+          "omitted_nodes": []
+        }
+      }
+    },
+    {
+      "id": "core-dp-choreography-valid-match-authority-001",
+      "title": "Valid match acceptance authority case",
+      "requirement_ids": [
+        "CORE-DP-REQ-CHOREOGRAPHY"
+      ],
+      "expected": "valid",
+      "coverage_tags": [
+        "positive:match-authority"
+      ],
+      "payload_schema": "profiles/core-dp/schemas/choreography-message.schema.json",
+      "semantic_checks": [
+        "core-dp-choreography-message-contract"
+      ],
+      "payload": {
+        "conversation_id": "conv_matchAccept000001",
+        "message_type": "match.accept",
+        "origin_node": "munich.loop",
+        "counterparty_node": "berlin.loop",
+        "subject": {
+          "type": "match",
+          "id": "MCH-DE-MUC-2026-000001"
+        },
+        "previous_state": "match-proposed",
+        "state": "match-accepted",
+        "terminal": true,
+        "attempt": 1,
+        "timeout_at": "2026-07-17T00:05:00Z",
+        "authoritative_role": "counterparty"
+      }
+    },
+    {
+      "id": "core-dp-choreography-valid-transfer-authority-001",
+      "title": "Valid transfer receive authority case",
+      "requirement_ids": [
+        "CORE-DP-REQ-CHOREOGRAPHY"
+      ],
+      "expected": "valid",
+      "coverage_tags": [
+        "positive:transfer-authority"
+      ],
+      "payload_schema": "profiles/core-dp/schemas/choreography-message.schema.json",
+      "semantic_checks": [
+        "core-dp-choreography-message-contract"
+      ],
+      "payload": {
+        "conversation_id": "conv_transferRecv000001",
+        "message_type": "transfer.receive",
+        "origin_node": "munich.loop",
+        "counterparty_node": "berlin.loop",
+        "subject": {
+          "type": "transfer",
+          "id": "TRF-DE-MUC-2026-000001"
+        },
+        "previous_state": "transfer-dispatched",
+        "state": "transfer-received",
+        "terminal": false,
+        "attempt": 1,
+        "timeout_at": "2026-07-17T00:05:00Z",
+        "authoritative_role": "counterparty"
+      }
+    },
+    {
+      "id": "core-dp-choreography-valid-duplicate-stored-result-001",
+      "title": "Valid retry duplicate that returns stored result",
+      "requirement_ids": [
+        "CORE-DP-REQ-CHOREOGRAPHY"
+      ],
+      "expected": "valid",
+      "coverage_tags": [
+        "positive:retry-duplicate-stored-result"
+      ],
+      "payload_schema": "profiles/core-dp/schemas/choreography-message.schema.json",
+      "semantic_checks": [
+        "core-dp-choreography-message-contract",
+        "core-dp-choreography-idempotency-retry"
+      ],
+      "payload": {
+        "conversation_id": "conv_offerRetry000001",
+        "message_type": "offer.ack",
+        "origin_node": "berlin.loop",
+        "counterparty_node": "munich.loop",
+        "subject": {
+          "type": "offer",
+          "id": "OFF-DE-MUC-2026-000001"
+        },
+        "previous_state": "offer-published",
+        "state": "offer-acked",
+        "terminal": true,
+        "attempt": 2,
+        "idempotency_key": "idem_offerAck0000000001",
+        "duplicate_of": "msg_originalOfferAck01",
+        "duplicate_behavior": "stored_result",
+        "original_fingerprint_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "idempotency_fingerprint_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "timeout_at": "2026-07-17T00:05:00Z",
+        "authoritative_role": "counterparty"
+      }
+    },
+    {
+      "id": "core-dp-choreography-valid-transfer-convergence-001",
+      "title": "Valid final transfer convergence with matching evidence hash",
+      "requirement_ids": [
+        "CORE-DP-REQ-CHOREOGRAPHY",
+        "REQ-36_ENTITY_STATUS_TRANSITIONS-MUST_NOT-C229BE2C5C73"
+      ],
+      "expected": "valid",
+      "coverage_tags": [
+        "positive:transfer-final-convergence"
+      ],
+      "payload_schema": "profiles/core-dp/schemas/choreography-message.schema.json",
+      "semantic_checks": [
+        "core-dp-choreography-message-contract",
+        "core-dp-choreography-transfer-convergence"
+      ],
+      "payload": {
+        "conversation_id": "conv_transferConv0001",
+        "message_type": "transfer.ack",
+        "origin_node": "munich.loop",
+        "counterparty_node": "berlin.loop",
+        "subject": {
+          "type": "transfer",
+          "id": "TRF-DE-MUC-2026-000001"
+        },
+        "previous_state": "transfer-received",
+        "state": "transfer-acked",
+        "terminal": true,
+        "attempt": 1,
+        "timeout_at": "2026-07-17T00:05:00Z",
+        "acknowledges_message_id": "msg_transferReceive001",
+        "final_ack_role": "origin-confirms-receiver-receipt",
+        "local_evidence_hash_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "peer_evidence_hash_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "convergence_hash_sha256": "454b30d34a86dc82f1027fac39e32096e61f452d2810fe9f63f20e1c917d93a2",
+        "authoritative_role": "origin"
+      }
+    },
+    {
+      "id": "core-dp-choreography-valid-timed-out-001",
+      "title": "Valid local timeout recovery observation for an offer publish action",
+      "requirement_ids": [
+        "CORE-DP-REQ-CHOREOGRAPHY"
+      ],
+      "expected": "valid",
+      "payload_schema": "profiles/core-dp/schemas/choreography-message.schema.json",
+      "semantic_checks": [
+        "core-dp-choreography-message-contract",
+        "core-dp-choreography-transfer-convergence"
+      ],
+      "payload": {
+        "conversation_id": "conv_offerTimeout0001",
+        "message_type": "offer.publish",
+        "origin_node": "munich.loop",
+        "counterparty_node": "berlin.loop",
+        "subject": {
+          "type": "offer",
+          "id": "OFF-DE-MUC-2026-000001"
+        },
+        "previous_state": "offer-published",
+        "state": "timed-out",
+        "terminal": true,
+        "attempt": 1,
+        "timeout_at": "2026-07-17T00:05:00Z",
+        "last_accepted_message_id": "msg_offerPublish0001",
+        "reason": "No acceptable acknowledgement arrived before timeout_at.",
+        "authoritative_role": "origin"
+      }
+    },
+    {
+      "id": "core-dp-choreography-valid-partitioned-001",
+      "title": "Valid local partition recovery observation for a transfer receive action",
+      "requirement_ids": [
+        "CORE-DP-REQ-CHOREOGRAPHY"
+      ],
+      "expected": "valid",
+      "payload_schema": "profiles/core-dp/schemas/choreography-message.schema.json",
+      "semantic_checks": [
+        "core-dp-choreography-message-contract",
+        "core-dp-choreography-transfer-convergence"
+      ],
+      "payload": {
+        "conversation_id": "conv_transferPart0001",
+        "message_type": "transfer.receive",
+        "origin_node": "munich.loop",
+        "counterparty_node": "berlin.loop",
+        "subject": {
+          "type": "transfer",
+          "id": "TRF-DE-MUC-2026-000001"
+        },
+        "previous_state": "transfer-received",
+        "state": "partitioned",
+        "terminal": true,
+        "attempt": 1,
+        "timeout_at": "2026-07-17T00:05:00Z",
+        "last_accepted_message_id": "msg_transferReceive001",
+        "reason": "Receiver accepted the transfer receive action locally while acknowledgement transport was partitioned.",
+        "authoritative_role": "counterparty"
+      }
+    },
+    {
+      "id": "core-dp-envelope-invalid-body-schema-001",
+      "title": "Reject envelope body schema that does not match message type",
+      "requirement_ids": [
+        "CORE-DP-REQ-SIGNED-ENVELOPE"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "must use body_schema",
+      "payload_schema": "profiles/core-dp/schemas/envelope.schema.json",
+      "semantic_checks": [
+        "core-dp-envelope-body-contract"
+      ],
+      "payload": {
+        "profile": "core-dp",
+        "profile_version": "0.1.0-lab",
+        "message_id": "msg_bodySchemaWrong0001",
+        "message_type": "material.search",
+        "created_at": "2026-07-17T00:00:00Z",
+        "expires_at": "2026-07-17T00:05:00Z",
+        "sender": {
+          "node_id": "munich.loop",
+          "endpoint": "https://munich.loop/api/v1",
+          "key_id": "key_munich_2026_07"
+        },
+        "receiver": {
+          "node_id": "berlin.loop",
+          "endpoint": "https://berlin.loop/api/v1",
+          "key_id": "key_berlin_2026_07"
+        },
+        "idempotency_key": "idem_bodySchemaWrong0001",
+        "body_schema": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/dna-operation.schema.json",
+        "body": {
+          "message_type": "material.read",
+          "operation": "read_request",
+          "entity_type": "material",
+          "request_id": "req_bodySchemaWrong0001",
+          "record_id": "MAT-DE-MUC-2026-METAL-ABC123"
+        },
+        "signature": {
+          "alg": "Ed25519-lab-detached-v1",
+          "key_id": "key_munich_2026_07",
+          "signing_input_sha256": "1edca91b0b463db9a4ee135a580f7b5c4a8a24db16beb7b3e08da82757f1e790",
+          "value": "K583TJk80sWz1jCj9kyILonBW9ogVeLayRl4KjQXx1-Mtsy1rbZbGItB60rYTD12Oxo3w5fsFnMoNILW76DJBg"
+        },
+        "replay_window_seconds": 300
+      }
+    },
+    {
+      "id": "core-dp-envelope-invalid-capabilities-version-negotiation-001",
+      "title": "Reject capability envelope whose version negotiation omits the Core-DP profile version",
+      "requirement_ids": [
+        "CORE-DP-REQ-DISCOVERY-CAPABILITIES",
+        "CORE-DP-REQ-ERRORS-VERSION"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "contains",
+      "payload_schema": "profiles/core-dp/schemas/envelope.schema.json",
+      "semantic_checks": [
+        "core-dp-envelope-body-contract"
+      ],
+      "payload": {
+        "profile": "core-dp",
+        "profile_version": "0.1.0-lab",
+        "message_id": "msg_capVersionBad001",
+        "message_type": "capabilities.announce",
+        "created_at": "2026-07-17T00:00:00Z",
+        "expires_at": "2026-07-17T00:05:00Z",
+        "sender": {
+          "node_id": "munich.loop",
+          "endpoint": "https://munich.loop/api/v1",
+          "key_id": "key_munich_2026_07"
+        },
+        "receiver": {
+          "node_id": "berlin.loop",
+          "endpoint": "https://berlin.loop/api/v1",
+          "key_id": "key_berlin_2026_07"
+        },
+        "idempotency_key": "idem_capVersionBad0001",
+        "version_negotiation": {
+          "requested": "0.1.0-lab",
+          "supported": [
+            "0.2.0-lab"
+          ]
+        },
+        "body_schema": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/choreography-message.schema.json",
+        "body": {
+          "conversation_id": "conv_capAnnounceBad01",
+          "message_type": "capabilities.announce",
+          "origin_node": "munich.loop",
+          "counterparty_node": "berlin.loop",
+          "subject": {
+            "type": "capabilities",
+            "id": "core-dp-0.1.0-lab"
+          },
+          "state": "announced",
+          "terminal": false,
+          "attempt": 1,
+          "timeout_at": "2026-07-17T00:05:00Z",
+          "authoritative_role": "origin"
+        },
+        "signature": {
+          "alg": "Ed25519-lab-detached-v1",
+          "key_id": "key_munich_2026_07",
+          "signing_input_sha256": "5887994d03fdef6ef187e80d50bd5d0aebad8f60e974f0a72174aca64f9e7a03",
+          "value": "fUoupLbXpOS1r_n7RxksY-yTTcwJ7mfa3xkH8XytgD_YmR8C7wb9DUPLWni6JFffYWPNn_SuRTI5cNrKLeeNDw"
+        },
+        "replay_window_seconds": 300
+      }
+    },
+    {
+      "id": "core-dp-capabilities-invalid-response-version-001",
+      "title": "Reject capability response that confirms the wrong profile version",
+      "requirement_ids": [
+        "CORE-DP-REQ-DISCOVERY-CAPABILITIES",
+        "CORE-DP-REQ-ERRORS-VERSION"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "accepted_profile_version must be 0.1.0-lab",
+      "payload_schema": "profiles/core-dp/schemas/choreography-message.schema.json",
+      "semantic_checks": [
+        "core-dp-choreography-message-contract"
+      ],
+      "payload": {
+        "conversation_id": "conv_capVersionBad02",
+        "message_type": "capabilities.response",
+        "origin_node": "munich.loop",
+        "counterparty_node": "berlin.loop",
+        "subject": {
+          "type": "capabilities",
+          "id": "core-dp-0.1.0-lab"
+        },
+        "previous_state": "announced",
+        "state": "capabilities-confirmed",
+        "terminal": true,
+        "attempt": 1,
+        "timeout_at": "2026-07-17T00:05:00Z",
+        "accepted_profile_version": "0.2.0-lab",
+        "authoritative_role": "counterparty"
+      }
+    },
+    {
+      "id": "core-dp-dna-invalid-product-id-001",
+      "title": "Reject ProductDNA reads using a MaterialDNA identifier",
+      "requirement_ids": [
+        "CORE-DP-REQ-DNA-SEARCH"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "does not match product id pattern",
+      "payload_schema": "profiles/core-dp/schemas/dna-operation.schema.json",
+      "semantic_checks": [
+        "core-dp-dna-operation-contract"
+      ],
+      "payload": {
+        "message_type": "product.read",
+        "operation": "read_request",
+        "entity_type": "product",
+        "request_id": "req_productReadWrong001",
+        "record_id": "MAT-DE-MUC-2026-METAL-ABC123"
+      }
+    },
+    {
+      "id": "core-dp-choreography-invalid-recovery-missing-last-message-001",
+      "title": "Reject local recovery observation without the last accepted message id",
+      "requirement_ids": [
+        "CORE-DP-REQ-CHOREOGRAPHY"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "recovery observation must include last_accepted_message_id",
+      "payload_schema": "profiles/core-dp/schemas/choreography-message.schema.json",
+      "semantic_checks": [
+        "core-dp-choreography-message-contract",
+        "core-dp-choreography-transfer-convergence"
+      ],
+      "payload": {
+        "conversation_id": "conv_offerTimeoutBad1",
+        "message_type": "offer.publish",
+        "origin_node": "munich.loop",
+        "counterparty_node": "berlin.loop",
+        "subject": {
+          "type": "offer",
+          "id": "OFF-DE-MUC-2026-000001"
+        },
+        "previous_state": "offer-published",
+        "state": "timed-out",
+        "terminal": true,
+        "attempt": 1,
+        "timeout_at": "2026-07-17T00:05:00Z",
+        "authoritative_role": "origin"
+      }
+    },
+    {
+      "id": "core-dp-search-invalid-limit-001",
+      "title": "Reject search requests above the profile limit",
+      "requirement_ids": [
+        "CORE-DP-REQ-DNA-SEARCH"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "must be <= 100",
+      "payload_schema": "profiles/core-dp/schemas/search-contract.schema.json",
+      "payload": {
+        "entity_type": "product",
+        "scope": "cross-node",
+        "filters": {
+          "category_prefix": "furniture"
+        },
+        "auth": {
+          "mode": "node-signature",
+          "subject_node": "berlin.loop"
+        },
+        "limit": 101,
+        "consistency": "eventual"
+      }
+    },
+    {
+      "id": "core-dp-search-invalid-cross-node-auth-001",
+      "title": "Reject cross-node searches without node-signature auth",
+      "requirement_ids": [
+        "CORE-DP-REQ-DNA-SEARCH"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "cross-node search must use node-signature auth",
+      "payload_schema": "profiles/core-dp/schemas/search-contract.schema.json",
+      "semantic_checks": [
+        "core-dp-search-contract-semantics"
+      ],
+      "payload": {
+        "entity_type": "material",
+        "scope": "cross-node",
+        "filters": {
+          "category_prefix": "metal"
+        },
+        "auth": {
+          "mode": "public-lab"
+        },
+        "limit": 25,
+        "consistency": "eventual"
+      }
+    },
+    {
+      "id": "core-dp-error-invalid-retryable-001",
+      "title": "Reject retryable unsupported profile version errors",
+      "requirement_ids": [
+        "CORE-DP-REQ-ERRORS-VERSION"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "unsupported_profile_version errors are not retryable",
+      "payload_schema": "profiles/core-dp/schemas/error.schema.json",
+      "semantic_checks": [
+        "core-dp-error-contract-semantics"
+      ],
+      "payload": {
+        "code": "unsupported_profile_version",
+        "message": "Peer requested an unsupported profile version.",
+        "retryable": true,
+        "correlation_id": "msg_failedOperation01",
+        "details": {
+          "requested": "0.9.0-lab",
+          "supported": [
+            "0.1.0-lab"
+          ]
+        }
+      }
+    },
+    {
+      "id": "core-dp-epcis-valid-supported-fixture-001",
+      "title": "Valid supported Core-DP EPCIS ObjectEvent mapping fixture",
+      "requirement_ids": [
+        "CORE-DP-REQ-EPCIS-CBV-SUBSET"
+      ],
+      "expected": "valid",
+      "payload_schema": "profiles/core-dp/schemas/epcis-mapping.schema.json",
+      "semantic_checks": [
+        "core-dp-epcis-mapping-semantics"
+      ],
+      "payload": {
+        "fixture_id": "core-dp-epcis-transfer-object-event-001",
+        "pinned_versions": {
+          "epcis": "2.0.1",
+          "cbv": "2.0"
+        },
+        "core_dp_mapping": {
+          "evidence_event_type": "transfer-dispatched",
+          "subject_type": "transfer",
+          "subject_id": "TRF-DE-MUC-2026-000001"
+        },
+        "epcis_subset_event": {
+          "type": "ObjectEvent",
+          "eventID": "ni:///sha-256;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "eventTime": "2026-07-17T00:02:00Z",
+          "eventTimeZoneOffset": "+00:00",
+          "action": "OBSERVE",
+          "bizStep": "shipping",
+          "disposition": "in_transit",
+          "readPoint": {
+            "id": "urn:loop:node:munich.loop"
+          },
+          "bizLocation": {
+            "id": "urn:loop:node:berlin.loop"
+          },
+          "epcList": [
+            "urn:loop:transfer:TRF-DE-MUC-2026-000001"
+          ]
+        }
+      }
+    },
+    {
+      "id": "core-dp-epcis-valid-unsupported-metadata-001",
+      "title": "Valid unsupported EPCIS feature metadata guardrail",
+      "requirement_ids": [
+        "CORE-DP-REQ-EPCIS-CBV-SUBSET"
+      ],
+      "expected": "valid",
+      "payload_schema": "profiles/core-dp/schemas/epcis-mapping.schema.json",
+      "semantic_checks": [
+        "core-dp-epcis-mapping-semantics"
+      ],
+      "payload": {
+        "pinned_versions": {
+          "epcis": "2.0.1",
+          "cbv": "2.0"
+        },
+        "full_epcis_conformance_claimed": false,
+        "unsupported_features": [
+          {
+            "feature": "AggregationEvent",
+            "rationale": "Bundle and parent-child aggregation are outside the first Core-DP delivery contract."
+          },
+          {
+            "feature": "TransformationEvent",
+            "rationale": "Material transformation semantics are outside Offer -> Match -> Transfer delivery proof."
+          }
+        ]
+      }
+    },
+    {
+      "id": "core-dp-epcis-invalid-subject-map-001",
+      "title": "Reject EPCIS mapping whose EPC list omits the Core-DP subject",
+      "requirement_ids": [
+        "CORE-DP-REQ-EPCIS-CBV-SUBSET"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "EPCIS epcList must include mapped Core-DP subject",
+      "payload_schema": "profiles/core-dp/schemas/epcis-mapping.schema.json",
+      "semantic_checks": [
+        "core-dp-epcis-mapping-semantics"
+      ],
+      "payload": {
+        "fixture_id": "core-dp-transfer-object-event-invalid-subject",
+        "pinned_versions": {
+          "epcis": "2.0.1",
+          "cbv": "2.0"
+        },
+        "core_dp_mapping": {
+          "evidence_event_type": "transfer-acked",
+          "subject_type": "transfer",
+          "subject_id": "TRF-DE-MUC-2026-000001"
+        },
+        "epcis_subset_event": {
+          "type": "ObjectEvent",
+          "eventID": "ni:///sha-256;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "eventTime": "2026-07-17T00:03:00Z",
+          "action": "OBSERVE",
+          "bizStep": "accepting",
+          "epcList": [
+            "urn:loop:transfer:TRF-DE-MUC-2026-OTHER"
+          ]
+        }
+      }
+    },
+    {
+      "id": "core-dp-epcis-invalid-event-fields-001",
+      "title": "Reject EPCIS mapping with invalid eventID and action fields",
+      "requirement_ids": [
+        "CORE-DP-REQ-EPCIS-CBV-SUBSET"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "must match pattern",
+      "payload_schema": "profiles/core-dp/schemas/epcis-mapping.schema.json",
+      "semantic_checks": [
+        "core-dp-epcis-mapping-semantics"
+      ],
+      "payload": {
+        "fixture_id": "core-dp-transfer-object-event-invalid-fields",
+        "pinned_versions": {
+          "epcis": "2.0.1",
+          "cbv": "2.0"
+        },
+        "core_dp_mapping": {
+          "evidence_event_type": "transfer-acked",
+          "subject_type": "transfer",
+          "subject_id": "TRF-DE-MUC-2026-000001"
+        },
+        "epcis_subset_event": {
+          "type": "ObjectEvent",
+          "eventID": "not-a-valid-event-id",
+          "eventTime": "2026-07-17T00:03:00Z",
+          "action": "DELETE",
+          "bizStep": "accepting",
+          "epcList": [
+            "urn:loop:transfer:TRF-DE-MUC-2026-000001"
+          ]
+        }
+      }
+    },
+    {
+      "id": "core-dp-evidence-valid-001",
+      "title": "Valid append-only evidence entry",
+      "requirement_ids": [
+        "CORE-DP-REQ-EVIDENCE",
+        "REQ-105_AUDIT_TRAIL-MUST-EA473379C41F"
+      ],
+      "expected": "valid",
+      "payload_schema": "profiles/core-dp/schemas/evidence-entry.schema.json",
+      "semantic_checks": [
+        "core-dp-evidence-immutable-subset"
+      ],
+      "payload": {
+        "event_id": "evt_transferAck000001",
+        "sequence": 7,
+        "predecessor_event_id": "evt_transferRecv00001",
+        "recorded_at": "2026-07-17T00:03:00Z",
+        "observed_at": "2026-07-17T00:02:55Z",
+        "node_id": "munich.loop",
+        "actor_node_id": "berlin.loop",
+        "subject": {
+          "type": "transfer",
+          "id": "TRF-DE-MUC-2026-000001"
+        },
+        "event_type": "transfer-acked",
+        "immutable": {
+          "event_id": "evt_transferAck000001",
+          "sequence": 7,
+          "subject": {
+            "type": "transfer",
+            "id": "TRF-DE-MUC-2026-000001"
+          },
+          "event_type": "transfer-acked",
+          "payload_hash_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "payload_hash_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "envelope_message_id": "msg_validEnvelope0001",
+        "retention": {
+          "retain_until": "2027-07-17T00:00:00Z",
+          "exportable": true,
+          "redaction_status": "none"
+        },
+        "redactions": []
+      }
+    },
+    {
+      "id": "core-dp-choreography-invalid-terminal-regression-001",
+      "title": "Reject terminal transfer acknowledgement regression",
+      "requirement_ids": [
+        "CORE-DP-REQ-CHOREOGRAPHY",
+        "REQ-36_ENTITY_STATUS_TRANSITIONS-MUST_NOT-C229BE2C5C73"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "terminal state transfer-acked cannot regress",
+      "payload_schema": "profiles/core-dp/schemas/choreography-message.schema.json",
+      "semantic_checks": [
+        "core-dp-choreography-terminal-regression"
+      ],
+      "payload": {
+        "conversation_id": "conv_transferRegression1",
+        "message_type": "transfer.dispatch",
+        "origin_node": "munich.loop",
+        "counterparty_node": "berlin.loop",
+        "subject": {
+          "type": "transfer",
+          "id": "TRF-DE-MUC-2026-000001"
+        },
+        "previous_state": "transfer-acked",
+        "state": "transfer-dispatched",
+        "terminal": false,
+        "attempt": 2,
+        "timeout_at": "2026-07-17T00:10:00Z",
+        "authoritative_role": "origin"
+      }
+    },
+    {
+      "id": "core-dp-choreography-invalid-terminal-mismatch-001",
+      "title": "Reject choreography messages whose terminal flag contradicts the state/message mapping",
+      "requirement_ids": [
+        "CORE-DP-REQ-CHOREOGRAPHY",
+        "REQ-36_ENTITY_STATUS_TRANSITIONS-MUST_NOT-C229BE2C5C73"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "transfer.receive terminal must be false",
+      "payload_schema": "profiles/core-dp/schemas/choreography-message.schema.json",
+      "semantic_checks": [
+        "core-dp-choreography-message-contract"
+      ],
+      "payload": {
+        "conversation_id": "conv_terminalMismatch1",
+        "message_type": "transfer.receive",
+        "origin_node": "munich.loop",
+        "counterparty_node": "berlin.loop",
+        "subject": {
+          "type": "transfer",
+          "id": "TRF-DE-MUC-2026-000001"
+        },
+        "previous_state": "transfer-dispatched",
+        "state": "transfer-received",
+        "terminal": true,
+        "attempt": 1,
+        "timeout_at": "2026-07-17T00:05:00Z",
+        "authoritative_role": "counterparty"
+      }
+    },
+    {
+      "id": "core-dp-choreography-invalid-idempotency-retry-001",
+      "title": "Reject retry attempts that omit duplicate linkage",
+      "requirement_ids": [
+        "CORE-DP-REQ-CHOREOGRAPHY"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "retry attempts above 1 must identify duplicate_of",
+      "payload_schema": "profiles/core-dp/schemas/choreography-message.schema.json",
+      "semantic_checks": [
+        "core-dp-choreography-idempotency-retry"
+      ],
+      "payload": {
+        "conversation_id": "conv_offerRetry000001",
+        "message_type": "offer.ack",
+        "origin_node": "berlin.loop",
+        "counterparty_node": "munich.loop",
+        "subject": {
+          "type": "offer",
+          "id": "OFF-DE-MUC-2026-000001"
+        },
+        "previous_state": "offer-published",
+        "state": "offer-acked",
+        "terminal": true,
+        "attempt": 2,
+        "idempotency_key": "idem_offerAck0000000001",
+        "timeout_at": "2026-07-17T00:05:00Z",
+        "authoritative_role": "counterparty"
+      }
+    },
+    {
+      "id": "core-dp-choreography-invalid-stale-reordered-001",
+      "title": "Reject reordered messages that do not match local state",
+      "requirement_ids": [
+        "CORE-DP-REQ-CHOREOGRAPHY"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "does not match local_state",
+      "payload_schema": "profiles/core-dp/schemas/choreography-message.schema.json",
+      "semantic_checks": [
+        "core-dp-choreography-stale-reordered"
+      ],
+      "payload": {
+        "conversation_id": "conv_matchStale000001",
+        "message_type": "match.accept",
+        "origin_node": "berlin.loop",
+        "counterparty_node": "munich.loop",
+        "subject": {
+          "type": "match",
+          "id": "MAT-DE-MUC-2026-MATCH-0001"
+        },
+        "previous_state": "offer-acked",
+        "local_state": "match-proposed",
+        "state": "match-accepted",
+        "terminal": true,
+        "attempt": 1,
+        "timeout_at": "2026-07-17T00:05:00Z",
+        "authoritative_role": "counterparty"
+      }
+    },
+    {
+      "id": "core-dp-choreography-invalid-transfer-convergence-001",
+      "title": "Reject transfer convergence with mismatched evidence hashes",
+      "requirement_ids": [
+        "CORE-DP-REQ-CHOREOGRAPHY"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "transfer convergence evidence hashes must match",
+      "payload_schema": "profiles/core-dp/schemas/choreography-message.schema.json",
+      "semantic_checks": [
+        "core-dp-choreography-transfer-convergence"
+      ],
+      "payload": {
+        "conversation_id": "conv_transferConv0001",
+        "message_type": "transfer.ack",
+        "origin_node": "munich.loop",
+        "counterparty_node": "berlin.loop",
+        "subject": {
+          "type": "transfer",
+          "id": "TRF-DE-MUC-2026-000001"
+        },
+        "previous_state": "transfer-received",
+        "state": "transfer-acked",
+        "terminal": true,
+        "attempt": 1,
+        "timeout_at": "2026-07-17T00:05:00Z",
+        "acknowledges_message_id": "msg_transferReceive0001",
+        "final_ack_role": "origin-confirms-receiver-receipt",
+        "local_evidence_hash_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "peer_evidence_hash_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "convergence_hash_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "authoritative_role": "origin"
+      }
+    },
+    {
+      "id": "core-dp-envelope-invalid-wrong-body-001",
+      "title": "Reject envelope whose body message type contradicts message_type",
+      "requirement_ids": [
+        "CORE-DP-REQ-SIGNED-ENVELOPE",
+        "CORE-DP-REQ-CHOREOGRAPHY"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "must be equal to constant",
+      "payload_schema": "profiles/core-dp/schemas/envelope.schema.json",
+      "payload": {
+        "profile": "core-dp",
+        "profile_version": "0.1.0-lab",
+        "message_id": "msg_wrongBody000001",
+        "message_type": "offer.ack",
+        "created_at": "2026-07-17T00:00:00Z",
+        "expires_at": "2026-07-17T00:05:00Z",
+        "sender": {
+          "node_id": "munich.loop",
+          "endpoint": "https://munich.loop/api/v1",
+          "key_id": "key_munich_2026_07"
+        },
+        "receiver": {
+          "node_id": "berlin.loop",
+          "endpoint": "https://berlin.loop/api/v1",
+          "key_id": "key_berlin_2026_07"
+        },
+        "idempotency_key": "idem_wrongBody0000001",
+        "body_schema": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/choreography-message.schema.json",
+        "body": {
+          "conversation_id": "conv_capAnnounce00001",
+          "message_type": "capabilities.announce",
+          "origin_node": "munich.loop",
+          "counterparty_node": "berlin.loop",
+          "subject": {
+            "type": "capabilities",
+            "id": "core-dp-0.1.0-lab"
+          },
+          "state": "announced",
+          "terminal": false,
+          "attempt": 1,
+          "timeout_at": "2026-07-17T00:05:00Z",
+          "authoritative_role": "origin"
+        },
+        "signature": {
+          "alg": "Ed25519-lab-detached-v1",
+          "key_id": "key_munich_2026_07",
+          "signing_input_sha256": "921b85a8348a22b5698dc94c6426c89896dd1d2c82836013f4d35b63a03f16df",
+          "value": "DzYfW0zitpkViEsgVMOicYbbTsyQEbCtlG48rc5Tyjl-1m5LZPmdh_5mInNBvbJ-JBw5KySCBYcJ81VmuEexDw"
+        },
+        "replay_window_seconds": 300
+      }
+    },
+    {
+      "id": "core-dp-envelope-invalid-wrong-body-schema-002",
+      "title": "Reject envelope whose body_schema contradicts message_type",
+      "requirement_ids": [
+        "CORE-DP-REQ-SIGNED-ENVELOPE"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "must be equal to constant",
+      "payload_schema": "profiles/core-dp/schemas/envelope.schema.json",
+      "payload": {
+        "profile": "core-dp",
+        "profile_version": "0.1.0-lab",
+        "message_id": "msg_wrongSchema00001",
+        "message_type": "offer.ack",
+        "created_at": "2026-07-17T00:00:00Z",
+        "expires_at": "2026-07-17T00:05:00Z",
+        "sender": {
+          "node_id": "munich.loop",
+          "endpoint": "https://munich.loop/api/v1",
+          "key_id": "key_munich_2026_07"
+        },
+        "receiver": {
+          "node_id": "berlin.loop",
+          "endpoint": "https://berlin.loop/api/v1",
+          "key_id": "key_berlin_2026_07"
+        },
+        "idempotency_key": "idem_wrongSchema000001",
+        "body_schema": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/error.schema.json",
+        "body": {
+          "conversation_id": "conv_offerAck00000001",
+          "message_type": "offer.ack",
+          "origin_node": "berlin.loop",
+          "counterparty_node": "munich.loop",
+          "subject": {
+            "type": "offer",
+            "id": "OFF-DE-MUC-2026-000001"
+          },
+          "previous_state": "offer-published",
+          "state": "offer-acked",
+          "terminal": true,
+          "attempt": 1,
+          "timeout_at": "2026-07-17T00:05:00Z",
+          "accepted_profile_version": "0.1.0-lab",
+          "authoritative_role": "counterparty"
+        },
+        "signature": {
+          "alg": "Ed25519-lab-detached-v1",
+          "key_id": "key_munich_2026_07",
+          "signing_input_sha256": "8bb078762257938789744d64b4bfb5018d38816218aec8ae625ec985fd13819f",
+          "value": "imtZzMlxoISmm51kCfjo3kWamjc6JFHsKzsLNVOlcfYwF35kiFd8jtbiI9DU2hQRFaIxXA5j7ZZujjuVVgEOBA"
+        },
+        "replay_window_seconds": 300
+      }
+    },
+    {
+      "id": "core-dp-envelope-valid-replay-window-001",
+      "title": "Valid signed envelope inside replay window",
+      "requirement_ids": [
+        "CORE-DP-REQ-SIGNED-ENVELOPE"
+      ],
+      "expected": "valid",
+      "payload_schema": "profiles/core-dp/schemas/envelope.schema.json",
+      "semantic_checks": [
+        "core-dp-envelope-signing-input-sha256",
+        "core-dp-envelope-ed25519-signature",
+        "core-dp-envelope-body-contract",
+        "core-dp-envelope-replay-window",
+        "core-dp-choreography-message-contract",
+        "core-dp-envelope-trusted-key-resolution"
+      ],
+      "payload": {
+        "profile": "core-dp",
+        "profile_version": "0.1.0-lab",
+        "message_id": "msg_replayWindow0001",
+        "message_type": "capabilities.announce",
+        "created_at": "2026-07-17T01:00:00Z",
+        "expires_at": "2026-07-17T01:03:00Z",
+        "sender": {
+          "node_id": "munich.loop",
+          "endpoint": "https://munich.loop/api/v1",
+          "key_id": "key_munich_2026_07"
+        },
+        "receiver": {
+          "node_id": "berlin.loop",
+          "endpoint": "https://berlin.loop/api/v1",
+          "key_id": "key_berlin_2026_07"
+        },
+        "idempotency_key": "idem_replayWindow0001",
+        "body_schema": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/choreography-message.schema.json",
+        "body": {
+          "conversation_id": "conv_capAnnounce00001",
+          "message_type": "capabilities.announce",
+          "origin_node": "munich.loop",
+          "counterparty_node": "berlin.loop",
+          "subject": {
+            "type": "capabilities",
+            "id": "core-dp-0.1.0-lab"
+          },
+          "state": "announced",
+          "terminal": false,
+          "attempt": 1,
+          "timeout_at": "2026-07-17T00:05:00Z",
+          "authoritative_role": "origin"
+        },
+        "signature": {
+          "alg": "Ed25519-lab-detached-v1",
+          "key_id": "key_munich_2026_07",
+          "signing_input_sha256": "0279f792da6c102e1b55829ca95f6b28cce81cfdcc17ccd4acf954450e5198a5",
+          "value": "wsgWhy0e-aG43th6cf9jgtXqbuqnMTJaUMl_Mhgbp_Ot3Omd-1d5GSRAxSRIf3e0YVLlKVZx5ZnHZBidZCyhDA"
+        },
+        "replay_window_seconds": 300
+      }
+    },
+    {
+      "id": "core-dp-envelope-invalid-replay-window-001",
+      "title": "Reject signed envelope whose expiry exceeds replay window",
+      "requirement_ids": [
+        "CORE-DP-REQ-SIGNED-ENVELOPE"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "expires_at must be within replay_window_seconds",
+      "payload_schema": "profiles/core-dp/schemas/envelope.schema.json",
+      "semantic_checks": [
+        "core-dp-envelope-replay-window"
+      ],
+      "payload": {
+        "profile": "core-dp",
+        "profile_version": "0.1.0-lab",
+        "message_id": "msg_replayWindowBad1",
+        "message_type": "capabilities.announce",
+        "created_at": "2026-07-17T01:00:00Z",
+        "expires_at": "2026-07-17T01:03:00Z",
+        "sender": {
+          "node_id": "munich.loop",
+          "endpoint": "https://munich.loop/api/v1",
+          "key_id": "key_munich_2026_07"
+        },
+        "receiver": {
+          "node_id": "berlin.loop",
+          "endpoint": "https://berlin.loop/api/v1",
+          "key_id": "key_berlin_2026_07"
+        },
+        "idempotency_key": "idem_replayWindowBad01",
+        "body_schema": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/choreography-message.schema.json",
+        "body": {
+          "conversation_id": "conv_capAnnounce00001",
+          "message_type": "capabilities.announce",
+          "origin_node": "munich.loop",
+          "counterparty_node": "berlin.loop",
+          "subject": {
+            "type": "capabilities",
+            "id": "core-dp-0.1.0-lab"
+          },
+          "state": "announced",
+          "terminal": false,
+          "attempt": 1,
+          "timeout_at": "2026-07-17T00:05:00Z",
+          "authoritative_role": "origin"
+        },
+        "signature": {
+          "alg": "Ed25519-lab-detached-v1",
+          "key_id": "key_munich_2026_07",
+          "signing_input_sha256": "180518b888966c5e187f916e9853da370d6d5813e576048be581151e46b9100a",
+          "value": "6uqq3W_0U90uqbzjy0ZI0nb-yNGtCdtBVZdlY1QXUQ7AeNPRrIFAvS1zjoF3ErDzeG_Er_uAopad4Vd3vZTnAA"
+        },
+        "replay_window_seconds": 60
+      }
+    },
+    {
+      "id": "core-dp-choreography-invalid-offer-ack-subject-001",
+      "title": "Reject offer.ack with contradictory subject type",
+      "requirement_ids": [
+        "CORE-DP-REQ-CHOREOGRAPHY"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "must be equal to constant",
+      "payload_schema": "profiles/core-dp/schemas/choreography-message.schema.json",
+      "payload": {
+        "conversation_id": "conv_offerAckContra01",
+        "message_type": "offer.ack",
+        "origin_node": "berlin.loop",
+        "counterparty_node": "munich.loop",
+        "subject": {
+          "type": "match",
+          "id": "OFF-DE-MUC-2026-000001"
+        },
+        "previous_state": "offer-published",
+        "state": "offer-acked",
+        "terminal": true,
+        "attempt": 1,
+        "timeout_at": "2026-07-17T00:05:00Z",
+        "accepted_profile_version": "0.1.0-lab",
+        "authoritative_role": "counterparty"
+      }
+    },
+    {
+      "id": "core-dp-choreography-invalid-match-role-001",
+      "title": "Reject match.accept with contradictory authoritative role",
+      "requirement_ids": [
+        "CORE-DP-REQ-CHOREOGRAPHY"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "must be equal to constant",
+      "payload_schema": "profiles/core-dp/schemas/choreography-message.schema.json",
+      "payload": {
+        "conversation_id": "conv_matchRoleBad001",
+        "message_type": "match.accept",
+        "origin_node": "munich.loop",
+        "counterparty_node": "berlin.loop",
+        "subject": {
+          "type": "match",
+          "id": "MCH-DE-MUC-2026-000001"
+        },
+        "previous_state": "match-proposed",
+        "state": "match-accepted",
+        "terminal": true,
+        "attempt": 1,
+        "timeout_at": "2026-07-17T00:05:00Z",
+        "authoritative_role": "origin"
+      }
+    },
+    {
+      "id": "core-dp-choreography-invalid-recovery-duplicate-result-001",
+      "title": "Reject recovery observation carrying duplicate result fields",
+      "requirement_ids": [
+        "CORE-DP-REQ-CHOREOGRAPHY"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "must NOT be valid",
+      "payload_schema": "profiles/core-dp/schemas/choreography-message.schema.json",
+      "payload": {
+        "conversation_id": "conv_recoveryDupBad01",
+        "message_type": "offer.publish",
+        "origin_node": "munich.loop",
+        "counterparty_node": "berlin.loop",
+        "subject": {
+          "type": "offer",
+          "id": "OFF-DE-MUC-2026-000001"
+        },
+        "previous_state": "offer-published",
+        "state": "timed-out",
+        "terminal": true,
+        "attempt": 1,
+        "timeout_at": "2026-07-17T00:05:00Z",
+        "last_accepted_message_id": "msg_offerPublish0001",
+        "reason": "No acceptable acknowledgement arrived before timeout_at.",
+        "authoritative_role": "origin",
+        "duplicate_behavior": "stored_result"
+      }
+    },
+    {
+      "id": "core-dp-choreography-invalid-transfer-ack-recovery-001",
+      "title": "Reject transfer.ack modeled as a recovery observation",
+      "requirement_ids": [
+        "CORE-DP-REQ-CHOREOGRAPHY"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "must be equal to constant",
+      "payload_schema": "profiles/core-dp/schemas/choreography-message.schema.json",
+      "payload": {
+        "conversation_id": "conv_transferAckRecoveryBad1",
+        "message_type": "transfer.ack",
+        "origin_node": "munich.loop",
+        "counterparty_node": "berlin.loop",
+        "subject": {
+          "type": "transfer",
+          "id": "TRF-DE-MUC-2026-000001"
+        },
+        "previous_state": "transfer-acked",
+        "state": "timed-out",
+        "terminal": true,
+        "attempt": 1,
+        "timeout_at": "2026-07-17T00:05:00Z",
+        "authoritative_role": "origin",
+        "last_accepted_message_id": "msg_transferAck000001"
+      }
+    },
+    {
+      "id": "core-dp-search-invalid-cross-node-missing-auth-001",
+      "title": "Reject cross-node searches without an auth object",
+      "requirement_ids": [
+        "CORE-DP-REQ-DNA-SEARCH"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "must have required property 'auth'",
+      "payload_schema": "profiles/core-dp/schemas/search-contract.schema.json",
+      "payload": {
+        "entity_type": "product",
+        "scope": "cross-node",
+        "filters": {
+          "category_prefix": "furniture",
+          "current_city": "Berlin",
+          "condition": "good",
+          "updated_since": "2026-07-16T00:00:00Z"
+        },
+        "limit": 10,
+        "consistency": "eventual"
+      }
+    },
+    {
+      "id": "core-dp-search-invalid-cross-node-snapshot-request-001",
+      "title": "Reject cross-node request claiming snapshot consistency without shared snapshot modeling",
+      "requirement_ids": [
+        "CORE-DP-REQ-DNA-SEARCH"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "must be equal to constant",
+      "payload_schema": "profiles/core-dp/schemas/search-contract.schema.json",
+      "payload": {
+        "entity_type": "product",
+        "scope": "cross-node",
+        "filters": {
+          "category_prefix": "furniture",
+          "current_city": "Berlin",
+          "condition": "good",
+          "updated_since": "2026-07-16T00:00:00Z"
+        },
+        "auth": {
+          "mode": "node-signature",
+          "subject_node": "berlin.loop"
+        },
+        "limit": 10,
+        "consistency": "snapshot"
+      }
+    },
+    {
+      "id": "core-dp-envelope-valid-trust-resolution-001",
+      "title": "Valid envelope with sender key in receiver trust context",
+      "requirement_ids": [
+        "CORE-DP-REQ-SIGNED-ENVELOPE"
+      ],
+      "expected": "valid",
+      "payload_schema": "profiles/core-dp/schemas/envelope.schema.json",
+      "semantic_checks": [
+        "core-dp-envelope-trusted-key-resolution",
+        "core-dp-envelope-ed25519-signature",
+        "core-dp-envelope-signing-input-sha256",
+        "core-dp-envelope-body-contract",
+        "core-dp-envelope-replay-window"
+      ],
+      "payload": {
+        "profile": "core-dp",
+        "profile_version": "0.1.0-lab",
+        "message_id": "msg_validEnvelope0001",
+        "message_type": "offer.ack",
+        "created_at": "2026-07-17T00:00:00Z",
+        "expires_at": "2026-07-17T00:05:00Z",
+        "sender": {
+          "node_id": "munich.loop",
+          "endpoint": "https://munich.loop/api/v1",
+          "key_id": "key_munich_2026_07"
+        },
+        "receiver": {
+          "node_id": "berlin.loop",
+          "endpoint": "https://berlin.loop/api/v1",
+          "key_id": "key_berlin_2026_07"
+        },
+        "idempotency_key": "idem_offerAck0000000001",
+        "body_schema": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/choreography-message.schema.json",
+        "body": {
+          "conversation_id": "conv_offerAck00000001",
+          "message_type": "offer.ack",
+          "origin_node": "berlin.loop",
+          "counterparty_node": "munich.loop",
+          "subject": {
+            "type": "offer",
+            "id": "OFF-DE-MUC-2026-000001"
+          },
+          "previous_state": "offer-published",
+          "state": "offer-acked",
+          "terminal": true,
+          "attempt": 1,
+          "timeout_at": "2026-07-17T00:05:00Z",
+          "accepted_profile_version": "0.1.0-lab",
+          "authoritative_role": "counterparty"
+        },
+        "signature": {
+          "alg": "Ed25519-lab-detached-v1",
+          "key_id": "key_munich_2026_07",
+          "signing_input_sha256": "164dbf698ab242f1b671323a85c257171d526ba71f7228dec406c8ff8c64c0ac",
+          "value": "v1zAi20NW44VjbreJ9sPzSosN93qd6d_Q61wRa2cGZJ6UkqXpmp1i40Wi75Vyg6O303NU3G48m_WHkkFDQ9zCA"
+        },
+        "replay_window_seconds": 300
+      }
+    },
+    {
+      "id": "core-dp-envelope-invalid-trust-revoked-key-001",
+      "title": "Reject envelope signed with a revoked key in trust context",
+      "requirement_ids": [
+        "CORE-DP-REQ-SIGNED-ENVELOPE"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "has been revoked",
+      "payload_schema": "profiles/core-dp/schemas/envelope.schema.json",
+      "semantic_checks": [
+        "core-dp-envelope-trusted-key-resolution"
+      ],
+      "payload": {
+        "profile": "core-dp",
+        "profile_version": "0.1.0-lab",
+        "message_id": "msg_validEnvelope0001",
+        "message_type": "offer.ack",
+        "created_at": "2026-07-17T00:00:00Z",
+        "expires_at": "2026-07-17T00:05:00Z",
+        "sender": {
+          "node_id": "munich.loop",
+          "endpoint": "https://munich.loop/api/v1",
+          "key_id": "key_munich_revoked_001"
+        },
+        "receiver": {
+          "node_id": "berlin.loop",
+          "endpoint": "https://berlin.loop/api/v1",
+          "key_id": "key_berlin_2026_07"
+        },
+        "idempotency_key": "idem_offerAck0000000001",
+        "body_schema": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/choreography-message.schema.json",
+        "body": {
+          "conversation_id": "conv_offerAck00000001",
+          "message_type": "offer.ack",
+          "origin_node": "berlin.loop",
+          "counterparty_node": "munich.loop",
+          "subject": {
+            "type": "offer",
+            "id": "OFF-DE-MUC-2026-000001"
+          },
+          "previous_state": "offer-published",
+          "state": "offer-acked",
+          "terminal": true,
+          "attempt": 1,
+          "timeout_at": "2026-07-17T00:05:00Z",
+          "accepted_profile_version": "0.1.0-lab",
+          "authoritative_role": "counterparty"
+        },
+        "signature": {
+          "alg": "Ed25519-lab-detached-v1",
+          "key_id": "key_munich_revoked_001",
+          "signing_input_sha256": "1f83b305062b54d353a845837505c23b2aaaf98516c6c723b8555668bcce2b1e",
+          "value": "P8bW_45CUtOVVmnRQEGMtHdy8E8SROESp7I7KJDqDKeONfOIABc9W5SlL2M3VbsnzDO1qr3oXnwTKt0n4XNqBA"
+        },
+        "replay_window_seconds": 300
+      }
+    },
+    {
+      "id": "core-dp-envelope-invalid-trust-unknown-key-001",
+      "title": "Reject envelope where sender key is unknown to receiver trust context",
+      "requirement_ids": [
+        "CORE-DP-REQ-SIGNED-ENVELOPE"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "not found in trust store",
+      "payload_schema": "profiles/core-dp/schemas/envelope.schema.json",
+      "semantic_checks": [
+        "core-dp-envelope-trusted-key-resolution"
+      ],
+      "payload": {
+        "profile": "core-dp",
+        "profile_version": "0.1.0-lab",
+        "message_id": "msg_validEnvelope0001",
+        "message_type": "offer.ack",
+        "created_at": "2026-07-17T00:00:00Z",
+        "expires_at": "2026-07-17T00:05:00Z",
+        "sender": {
+          "node_id": "munich.loop",
+          "endpoint": "https://munich.loop/api/v1",
+          "key_id": "key_unknown_00000000"
+        },
+        "receiver": {
+          "node_id": "berlin.loop",
+          "endpoint": "https://berlin.loop/api/v1",
+          "key_id": "key_berlin_2026_07"
+        },
+        "idempotency_key": "idem_offerAck0000000001",
+        "body_schema": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/choreography-message.schema.json",
+        "body": {
+          "conversation_id": "conv_offerAck00000001",
+          "message_type": "offer.ack",
+          "origin_node": "berlin.loop",
+          "counterparty_node": "munich.loop",
+          "subject": {
+            "type": "offer",
+            "id": "OFF-DE-MUC-2026-000001"
+          },
+          "previous_state": "offer-published",
+          "state": "offer-acked",
+          "terminal": true,
+          "attempt": 1,
+          "timeout_at": "2026-07-17T00:05:00Z",
+          "accepted_profile_version": "0.1.0-lab",
+          "authoritative_role": "counterparty"
+        },
+        "signature": {
+          "alg": "Ed25519-lab-detached-v1",
+          "key_id": "key_unknown_00000000",
+          "signing_input_sha256": "164dbf698ab242f1b671323a85c257171d526ba71f7228dec406c8ff8c64c0ac",
+          "value": "s6mJJeJcy8t3X3i4qfLyrETR9PMkvCbJwxRDsvpDrlhfuJfeQ9u5HJU1mDm_XrQPrXK6VFt8NCB-WkJLMCPrCw"
+        },
+        "replay_window_seconds": 300
+      }
+    },
+    {
+      "id": "core-dp-envelope-valid-replay-evaluation-time-001",
+      "title": "Accept envelope when evaluation_time equals created_at",
+      "requirement_ids": [
+        "CORE-DP-REQ-SIGNED-ENVELOPE"
+      ],
+      "expected": "valid",
+      "payload_schema": "profiles/core-dp/schemas/envelope.schema.json",
+      "semantic_checks": [
+        "core-dp-envelope-signing-input-sha256",
+        "core-dp-envelope-ed25519-signature",
+        "core-dp-envelope-trusted-key-resolution",
+        "core-dp-envelope-body-contract",
+        "core-dp-envelope-replay-window"
+      ],
+      "payload": {
+        "profile": "core-dp",
+        "profile_version": "0.1.0-lab",
+        "message_id": "msg_replayEvalTime001",
+        "message_type": "capabilities.announce",
+        "created_at": "2026-07-17T01:00:00Z",
+        "expires_at": "2026-07-17T01:05:00Z",
+        "sender": {
+          "node_id": "munich.loop",
+          "endpoint": "https://munich.loop/api/v1",
+          "key_id": "key_munich_2026_07"
+        },
+        "receiver": {
+          "node_id": "berlin.loop",
+          "endpoint": "https://berlin.loop/api/v1",
+          "key_id": "key_berlin_2026_07"
+        },
+        "idempotency_key": "idem_replayEvalTime001",
+        "body_schema": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/choreography-message.schema.json",
+        "body": {
+          "conversation_id": "conv_replayEvalTime01",
+          "message_type": "capabilities.announce",
+          "origin_node": "munich.loop",
+          "counterparty_node": "berlin.loop",
+          "subject": {
+            "type": "capabilities",
+            "id": "core-dp-0.1.0-lab"
+          },
+          "state": "announced",
+          "terminal": false,
+          "attempt": 1,
+          "timeout_at": "2026-07-17T01:05:00Z",
+          "authoritative_role": "origin"
+        },
+        "replay_window_seconds": 300,
+        "signature": {
+          "alg": "Ed25519-lab-detached-v1",
+          "key_id": "key_munich_2026_07",
+          "signing_input_sha256": "7f1f6ba2f1ded5c29bfd9d05ba05942a6bbfd4089d21d6f49e656098a79e81ec",
+          "value": "UT4vJctB_pP-7ZX9PiYuxD1o542k-0zGCxy8lAwThT5BweHBJVOokt7B1bPSCf1UFORfGxrH0HZjOUJbOwqdAw"
+        }
+      },
+      "evaluation_time": "2026-07-17T01:00:00Z"
+    },
+    {
+      "id": "core-dp-envelope-invalid-replay-expired-evaluation-time-001",
+      "title": "Reject envelope when evaluation_time >= expires_at",
+      "requirement_ids": [
+        "CORE-DP-REQ-SIGNED-ENVELOPE"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "message has expired",
+      "payload_schema": "profiles/core-dp/schemas/envelope.schema.json",
+      "semantic_checks": [
+        "core-dp-envelope-replay-window"
+      ],
+      "payload": {
+        "profile": "core-dp",
+        "profile_version": "0.1.0-lab",
+        "message_id": "msg_replayExpired001",
+        "message_type": "capabilities.announce",
+        "created_at": "2026-07-17T01:00:00Z",
+        "expires_at": "2026-07-17T01:05:00Z",
+        "sender": {
+          "node_id": "munich.loop",
+          "endpoint": "https://munich.loop/api/v1",
+          "key_id": "key_munich_2026_07"
+        },
+        "receiver": {
+          "node_id": "berlin.loop",
+          "endpoint": "https://berlin.loop/api/v1",
+          "key_id": "key_berlin_2026_07"
+        },
+        "idempotency_key": "idem_replayExpired001",
+        "body_schema": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/choreography-message.schema.json",
+        "body": {
+          "conversation_id": "conv_replayExpired001",
+          "message_type": "capabilities.announce",
+          "origin_node": "munich.loop",
+          "counterparty_node": "berlin.loop",
+          "subject": {
+            "type": "capabilities",
+            "id": "core-dp-0.1.0-lab"
+          },
+          "state": "announced",
+          "terminal": false,
+          "attempt": 1,
+          "timeout_at": "2026-07-17T01:05:00Z",
+          "authoritative_role": "origin"
+        },
+        "replay_window_seconds": 300,
+        "signature": {
+          "alg": "Ed25519-lab-detached-v1",
+          "key_id": "key_munich_2026_07",
+          "signing_input_sha256": "a05fa18658fbb9ea5cd4914cc13b8cc964d7cf0b9d4bebdd124b8dec71ffb950",
+          "value": "wD-n7_Ss46BWLRgGGmGDiGrnQ-UAreq4r-jijB9_xDJZCe5UQ6HTccQa1-F_NYGCaewP2gxJvgQ2JysuCAXGAQ"
+        }
+      },
+      "evaluation_time": "2026-07-17T01:05:00Z"
+    },
+    {
+      "id": "core-dp-envelope-invalid-replay-evaluation-before-created-001",
+      "title": "Reject envelope when evaluation_time < created_at",
+      "requirement_ids": [
+        "CORE-DP-REQ-SIGNED-ENVELOPE"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "evaluation_time must be >= created_at",
+      "payload_schema": "profiles/core-dp/schemas/envelope.schema.json",
+      "semantic_checks": [
+        "core-dp-envelope-replay-window"
+      ],
+      "payload": {
+        "profile": "core-dp",
+        "profile_version": "0.1.0-lab",
+        "message_id": "msg_replayEvalBefore001",
+        "message_type": "capabilities.announce",
+        "created_at": "2026-07-17T01:00:00Z",
+        "expires_at": "2026-07-17T01:05:00Z",
+        "sender": {
+          "node_id": "munich.loop",
+          "endpoint": "https://munich.loop/api/v1",
+          "key_id": "key_munich_2026_07"
+        },
+        "receiver": {
+          "node_id": "berlin.loop",
+          "endpoint": "https://berlin.loop/api/v1",
+          "key_id": "key_berlin_2026_07"
+        },
+        "idempotency_key": "idem_replayEvalBefore01",
+        "body_schema": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/choreography-message.schema.json",
+        "body": {
+          "conversation_id": "conv_replayEvalBefore01",
+          "message_type": "capabilities.announce",
+          "origin_node": "munich.loop",
+          "counterparty_node": "berlin.loop",
+          "subject": {
+            "type": "capabilities",
+            "id": "core-dp-0.1.0-lab"
+          },
+          "state": "announced",
+          "terminal": false,
+          "attempt": 1,
+          "timeout_at": "2026-07-17T00:05:00Z",
+          "authoritative_role": "origin"
+        },
+        "replay_window_seconds": 300,
+        "signature": {
+          "alg": "Ed25519-lab-detached-v1",
+          "key_id": "key_munich_2026_07",
+          "signing_input_sha256": "9021a343407d4c3083df42fa55883a65eb07893fbebb4595af65f8ed322b9b19",
+          "value": "7h0LCknzE2RNb7qD-LfLp2xVC2Q8FHJK3wtAO--NpIMTF_oQi24vlXN9ciRMHlsD5ajYtoE8_uO5lyq2CR4yAA"
+        }
+      },
+      "evaluation_time": "2026-07-17T00:59:00Z"
+    },
+    {
+      "id": "core-dp-choreography-invalid-wrong-authoritative-role-injection-001",
+      "title": "Reject offer.publish asserting counterparty authority",
+      "requirement_ids": [
+        "CORE-DP-REQ-CHOREOGRAPHY"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "authoritative_role must be origin",
+      "payload_schema": "profiles/core-dp/schemas/choreography-message.schema.json",
+      "semantic_checks": [
+        "core-dp-choreography-message-contract"
+      ],
+      "payload": {
+        "conversation_id": "conv_roleInject001",
+        "message_type": "offer.publish",
+        "origin_node": "munich.loop",
+        "counterparty_node": "berlin.loop",
+        "subject": {
+          "type": "offer",
+          "id": "OFF-DE-MUC-2026-000001"
+        },
+        "state": "offer-published",
+        "terminal": false,
+        "attempt": 1,
+        "timeout_at": "2026-07-17T00:05:00Z",
+        "authoritative_role": "counterparty"
+      }
+    },
+    {
+      "id": "core-dp-choreography-invalid-wrong-sender-injection-001",
+      "title": "Reject envelope where sender does not match authoritative role",
+      "requirement_ids": [
+        "CORE-DP-REQ-CHOREOGRAPHY",
+        "CORE-DP-REQ-SIGNED-ENVELOPE"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "sender.node_id must be",
+      "payload_schema": "profiles/core-dp/schemas/envelope.schema.json",
+      "semantic_checks": [
+        "core-dp-choreography-message-contract"
+      ],
+      "payload": {
+        "profile": "core-dp",
+        "profile_version": "0.1.0-lab",
+        "message_id": "msg_wrongSender001",
+        "message_type": "offer.publish",
+        "created_at": "2026-07-17T00:00:00Z",
+        "expires_at": "2026-07-17T00:05:00Z",
+        "sender": {
+          "node_id": "berlin.loop",
+          "endpoint": "https://berlin.loop/api/v1",
+          "key_id": "key_berlin_2026_07"
+        },
+        "receiver": {
+          "node_id": "munich.loop",
+          "endpoint": "https://munich.loop/api/v1",
+          "key_id": "key_munich_2026_07"
+        },
+        "idempotency_key": "idem_wrongSender001",
+        "body_schema": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/choreography-message.schema.json",
+        "body": {
+          "conversation_id": "conv_wrongSender001",
+          "message_type": "offer.publish",
+          "origin_node": "munich.loop",
+          "counterparty_node": "berlin.loop",
+          "subject": {
+            "type": "offer",
+            "id": "OFF-DE-MUC-2026-000001"
+          },
+          "state": "offer-published",
+          "terminal": false,
+          "attempt": 1,
+          "timeout_at": "2026-07-17T00:05:00Z",
+          "authoritative_role": "origin"
+        },
+        "replay_window_seconds": 300,
+        "signature": {
+          "alg": "Ed25519-lab-detached-v1",
+          "key_id": "key_berlin_2026_07",
+          "signing_input_sha256": "436fcf2725154a0590b275fd784362fcb74f4a43a6374b0642b1750a3bd58cca",
+          "value": "4Lz5DwJhyH2cH0Vb2-0pDOQCk4Ue1tMQj_R9C1yH4PUwMlMnpqODx-apxy3vVFxq2QasOCqJ8nwOvhB3h88VAg"
+        }
+      }
+    },
+    {
+      "id": "core-dp-envelope-invalid-trust-rotated-key-001",
+      "title": "Reject envelope signed with a rotated key past its validity",
+      "requirement_ids": [
+        "CORE-DP-REQ-SIGNED-ENVELOPE"
+      ],
+      "expected": "invalid",
+      "expected_failure_contains": "not valid for message created_at",
+      "payload_schema": "profiles/core-dp/schemas/envelope.schema.json",
+      "semantic_checks": [
+        "core-dp-envelope-trusted-key-resolution"
+      ],
+      "payload": {
+        "profile": "core-dp",
+        "profile_version": "0.1.0-lab",
+        "message_id": "msg_rotatedKey00000001",
+        "message_type": "capabilities.announce",
+        "created_at": "2026-07-15T00:00:00Z",
+        "expires_at": "2026-07-15T00:05:00Z",
+        "sender": {
+          "node_id": "munich.loop",
+          "endpoint": "https://munich.loop/api/v1",
+          "key_id": "key_munich_2025_01"
+        },
+        "receiver": {
+          "node_id": "berlin.loop",
+          "endpoint": "https://berlin.loop/api/v1",
+          "key_id": "key_berlin_2026_07"
+        },
+        "idempotency_key": "idem_rotatedKey000001",
+        "body_schema": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/choreography-message.schema.json",
+        "body": {
+          "conversation_id": "conv_capAnnounce00001",
+          "message_type": "capabilities.announce",
+          "origin_node": "munich.loop",
+          "counterparty_node": "berlin.loop",
+          "subject": {
+            "type": "capabilities",
+            "id": "core-dp-0.1.0-lab"
+          },
+          "state": "announced",
+          "terminal": false,
+          "attempt": 1,
+          "timeout_at": "2026-07-17T00:05:00Z",
+          "authoritative_role": "origin"
+        },
+        "signature": {
+          "alg": "Ed25519-lab-detached-v1",
+          "key_id": "key_munich_2025_01",
+          "signing_input_sha256": "93663e1b0f470918958703dec586aba6402eb7dff6d5e0a469f9d47bbcde9858",
+          "value": "gEInpt40Dz66dlHHDG9rOKd-mF9k7FVl9m3TS3mokXMChHV8u7443T570az6-y_s7Or4ZA2xNvL3kMUWc2GwAA"
+        },
+        "replay_window_seconds": 300
+      }
+    }
+  ]
+}

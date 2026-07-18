@@ -1,0 +1,107 @@
+{
+  "profile": "core-dp",
+  "profile_version": "0.1.0-lab",
+  "base_specification": {
+    "path": "SPECIFICATION.md",
+    "version": "0.2.0"
+  },
+  "requirements": [
+    {
+      "id": "CORE-DP-REQ-SCOPE-LAB-ONLY",
+      "classification": "IN",
+      "contract_location": "profiles/core-dp/README.md#core-dp-applicability-profile-010-lab",
+      "summary": "Core-DP conformance is lab-only profile conformance, not full LOOP conformance.",
+      "rationale": "Sets the boundary for everything else in this inventory: Core-DP is an implementer preview subset, so every other requirement here is scoped to lab-only claims (no pilot, deployment, or compliance language).",
+      "owner": "Protocol/architecture lead",
+      "testability_statement": "Reviewable by inspection: the applicability statement and every outward-facing claim referencing Core-DP must use lab-only/experimental/implementer-preview language, never pilot/deployment/compliance language.",
+      "implementation_status": "profile_contract",
+      "evidence_output": "profiles/core-dp/README.md applicability statement"
+    },
+    {
+      "id": "CORE-DP-REQ-DISCOVERY-CAPABILITIES",
+      "classification": "IN",
+      "contract_location": "profiles/core-dp/README.md#two-node-authority-and-convergence",
+      "summary": "Two nodes exchange capabilities and converge on an accepted profile version and peer key id.",
+      "rationale": "Federation cannot proceed safely unless both sides agree on protocol version and trusted key material before exchanging substantive messages.",
+      "owner": "Backend/security engineer",
+      "testability_statement": "Send a capabilities.announce envelope and assert the peer responds with capabilities.response carrying an accepted_profile_version and last_accepted_message_id.",
+      "positive_test_location": "profiles/core-dp/conformance/vectors/core-dp-vectors.json (capabilities vectors)",
+      "implementation_status": "schema_contract",
+      "evidence_output": "envelope.schema.json + choreography-message.schema.json capabilities.* message types; localloop-backend does not yet implement the capabilities handshake endpoint (tracked as follow-up alongside the signed envelope module)."
+    },
+    {
+      "id": "CORE-DP-REQ-DNA-SEARCH",
+      "classification": "IN",
+      "contract_location": "profiles/core-dp/README.md#search-contract",
+      "summary": "MaterialDNA and ProductDNA local/cross-node search use exact filters, limit, cursor, ordering, consistency, and provenance rules.",
+      "rationale": "Discovery is a Core-DP entry point; without a deterministic, paginated, provenance-carrying search contract, two nodes cannot reliably reconcile catalog state.",
+      "owner": "Backend/security engineer",
+      "testability_statement": "POST /api/v1/material/search and /api/v1/product/search with filter combinations, cursor continuation, and strict_filtering; assert deterministic updated_at_asc,id_asc ordering with no gaps or duplicates across pages.",
+      "positive_test_location": "localloop-backend/tests/loop.search.test.ts",
+      "negative_test_location": "localloop-backend/tests/loop.search.test.ts (condition filter rejected on materials under strict_filtering; cross-node scope rejected at the route layer)",
+      "implementation_status": "code_complete",
+      "evidence_output": "localloop-backend/src/db/loop.ts (searchLoopMaterials/searchLoopProducts), src/routes/loop.ts (POST .../search routes). Local scope only; cross-node scope is explicitly rejected pending the federation/signed-envelope layer."
+    },
+    {
+      "id": "CORE-DP-REQ-CHOREOGRAPHY",
+      "classification": "IN",
+      "contract_location": "profiles/core-dp/README.md#two-node-authority-and-convergence",
+      "summary": "Offer, match, and transfer messages define authoritative nodes, retries, duplicates, reordering, timeouts, partitions, terminal states, and convergence.",
+      "rationale": "Cross-node lifecycle exchange only converges safely if both sides agree on who is authoritative for each transition and how retries/duplicates/timeouts are resolved.",
+      "owner": "Backend/security engineer",
+      "testability_statement": "Replay a conversation_id's message sequence out of order, with duplicates and after a timeout window; assert the receiver converges on the same terminal state as a clean run.",
+      "positive_test_location": "profiles/core-dp/conformance/vectors/core-dp-vectors.json (choreography vectors)",
+      "implementation_status": "schema_contract",
+      "evidence_output": "choreography-message.schema.json. localloop-backend's REST offer/match/transfer endpoints implement local single-node lifecycle hardening (idempotency keys via localloop-backend/src/idempotency.ts, tests/idempotency.test.ts) but not yet the full two-node choreography state machine (authoritative role tracking, timeout/partition handling) — tracked as follow-up, out of scope for this session."
+    },
+    {
+      "id": "CORE-DP-REQ-SIGNED-ENVELOPE",
+      "classification": "IN",
+      "contract_location": "profiles/core-dp/README.md#signed-envelope",
+      "summary": "All node-to-node Core-DP messages use the canonical signed envelope and deterministic signing input.",
+      "rationale": "Without message-level signing, a receiver cannot verify which node actually sent a choreography or search message, undermining every other Core-DP guarantee.",
+      "owner": "Backend/security engineer",
+      "testability_statement": "Sign an envelope with a trusted key, verify acceptance; tamper with the body or use a revoked/untrusted key and verify rejection with signature_invalid.",
+      "positive_test_location": "profiles/core-dp/conformance/vectors/core-dp-vectors.json (envelope vectors)",
+      "implementation_status": "schema_contract",
+      "evidence_output": "envelope.schema.json, peer-key-trust.schema.json, trust-store.schema.json. Backend Ed25519 signing/verification module not yet implemented — tracked as the next follow-up after this session."
+    },
+    {
+      "id": "CORE-DP-REQ-EVIDENCE",
+      "classification": "IN",
+      "contract_location": "profiles/core-dp/README.md#evidence",
+      "summary": "Evidence is append-only with an immutable subset and explicit retention, export, and redaction metadata.",
+      "rationale": "A lifecycle claim (\"this offer was published\", \"this transfer was received\") is only trustworthy if the record of it cannot be silently altered after the fact.",
+      "owner": "Backend/security engineer",
+      "testability_statement": "Create a material/offer/match/transfer and assert a matching evidence entry is recorded; attempt UPDATE/DELETE against the evidence table directly and assert the database rejects both.",
+      "positive_test_location": "localloop-backend/tests/evidence.test.ts",
+      "negative_test_location": "localloop-backend/tests/evidence.test.ts (append-only trigger blocks UPDATE and DELETE)",
+      "implementation_status": "code_complete",
+      "evidence_output": "localloop-backend/src/db/migrations/013_loop_evidence.sql (append-only trigger), src/db/evidence.ts, GET /api/v1/evidence/:event_id, GET /api/v1/evidence, POST /api/v1/evidence/search. Evidence entries are created automatically as a side effect of material/product/offer/match/transfer creation."
+    },
+    {
+      "id": "CORE-DP-REQ-ERRORS-VERSION",
+      "classification": "IN",
+      "contract_location": "profiles/core-dp/schemas/error.schema.json#",
+      "summary": "Errors and profile version negotiation are machine-checkable through profile schemas.",
+      "rationale": "A consistent, typed error shape lets a Core-DP client distinguish retryable failures from permanent ones and correlate errors across a conversation without parsing free-text messages.",
+      "owner": "Backend/security engineer",
+      "testability_statement": "Trigger each Core-DP error path (invalid filter, unknown search cursor, idempotency-key conflict, unknown evidence event_id) and assert the response matches error.schema.json exactly.",
+      "positive_test_location": "localloop-backend/tests/idempotency.test.ts (conflict), tests/loop.search.test.ts (invalid_request)",
+      "implementation_status": "code_complete",
+      "evidence_output": "localloop-backend/src/errors.ts (CoreDpError), applied to the search and evidence endpoints and to idempotency-key conflicts. Not retrofitted onto the pre-existing basic material/product/offer/match/transfer create routes' legacy {error} shape, to avoid an unrelated breaking change to already-deployed consumers; profile_version negotiation itself is defined in envelope.schema.json but not yet exercised by a running endpoint (depends on the signed envelope module)."
+    },
+    {
+      "id": "CORE-DP-REQ-EPCIS-CBV-SUBSET",
+      "classification": "DEFERRED",
+      "contract_location": "profiles/core-dp/README.md#epcis-and-cbv-pin",
+      "summary": "EPCIS 2.0.1 and CBV 2.0 are pinned only for conservative mapping fixtures; full conformance is deferred.",
+      "rationale": "Full EPCIS/CBV conformance requires a much larger fixture and mapping surface than a lab preview can validate; a conservative, explicitly-partial mapping avoids overclaiming standards conformance.",
+      "owner": "Protocol/architecture lead",
+      "testability_statement": "Round-trip the pinned example fixture through the mapping and confirm every field listed in unsupported-features.json is documented as lossy, not silently dropped.",
+      "positive_test_location": "profiles/core-dp/epcis/fixtures/core-dp-transfer-object-event.json",
+      "implementation_status": "profile_contract",
+      "evidence_output": "profiles/core-dp/schemas/epcis-mapping.schema.json, profiles/core-dp/epcis/unsupported-features.json"
+    }
+  ]
+}
