@@ -1,5 +1,15 @@
 # RFC Process (v0.1)
 
+> **Superseded (states and timing only):** [GOVERNANCE.md](GOVERNANCE.md#2-rfc-and-decision-process)
+> §2 is now the authoritative RFC process — states `Draft, Review, Accepted,
+> Rejected, Superseded, Withdrawn` and a 5-calendar-day review window (48h for
+> urgent security/privacy). This document's states/timing (`Draft, Discussion,
+> Accepted/Rejected, Implemented, Superseded`; 10-business-day discussion) are
+> historical — kept for context and because
+> [rfcs/0001-rfc-process.md](../../rfcs/0001-rfc-process.md) references them
+> as the decision record for adopting this process. The submission mechanics
+> below (copy the template, open a PR) still apply.
+
 This RFC process is a lightweight governance workflow for the LOOP protocol
 while the project remains in **lab-only, low-TRL** stage. It is intended to
 create clear, reviewable decisions without implying production readiness.

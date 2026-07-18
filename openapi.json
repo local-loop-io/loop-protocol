@@ -3,7 +3,7 @@
   "info": {
     "title": "LOOP Protocol API",
     "version": "0.2.0",
-    "description": "Reference protocol contract for LOOP v0.2.0. Lab-only backend extensions are documented in prose but intentionally excluded from this artifact."
+    "description": "Reference protocol contract for LOOP v0.2.0 plus explicitly tagged additive Core-DP lab components and endpoints. Core-DP additions are not a full LOOP conformance claim."
   },
   "servers": [
     {
@@ -22,13 +22,35 @@
     { "name": "Node" },
     { "name": "Signals" },
     { "name": "Transactions" },
-    { "name": "Federation" }
+    { "name": "Federation" },
+    {
+      "name": "Core-DP",
+      "description": "Lab-only applicability profile components; not full LOOP conformance and not production security certification."
+    }
   ],
   "components": {
     "securitySchemes": {
       "BearerAuth": {
         "type": "http",
         "scheme": "bearer"
+      },
+      "NodeSignature": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Node-Signature",
+        "description": "Core-DP cross-node request signature. Valid only with X-Node-Key-Id and X-Node-Signature-Input-SHA256 in the same security requirement."
+      },
+      "NodeKeyId": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Node-Key-Id",
+        "description": "Core-DP sender key id. Valid only with X-Node-Signature and X-Node-Signature-Input-SHA256 in the same security requirement."
+      },
+      "NodeSignatureInputSHA256": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Node-Signature-Input-SHA256",
+        "description": "Core-DP canonical request signing input hash. Valid only with X-Node-Signature and X-Node-Key-Id in the same security requirement."
       }
     },
     "schemas": {
@@ -88,6 +110,12 @@
           "next": { "type": "string" }
         }
       },
+      "ProductSearchRequest": {
+        "$ref": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/search-contract.schema.json#/$defs/searchRequest"
+      },
+      "ProductSearchResponse": {
+        "$ref": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/search-contract.schema.json#/$defs/searchResponse"
+      },
       "MaterialAnnouncement": {
         "type": "object",
         "properties": {
@@ -124,6 +152,25 @@
             }
           }
         }
+      },
+      "CoreDpEnvelope": {
+        "description": "Lab-only Core-DP signed message envelope.",
+        "$ref": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/envelope.schema.json"
+      },
+      "CoreDpChoreographyMessage": {
+        "$ref": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/choreography-message.schema.json"
+      },
+      "CoreDpDnaOperation": {
+        "$ref": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/dna-operation.schema.json"
+      },
+      "CoreDpSearchContract": {
+        "$ref": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/search-contract.schema.json"
+      },
+      "CoreDpEvidenceEntry": {
+        "$ref": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/evidence-entry.schema.json"
+      },
+      "CoreDpError": {
+        "$ref": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/error.schema.json"
       }
     }
   },
@@ -242,6 +289,37 @@
             }
           },
           "404": { "description": "Not found", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/api/v1/product/search": {
+      "post": {
+        "tags": ["Product", "Core-DP"],
+        "summary": "Search ProductDNA records",
+        "description": "Additive Core-DP profile endpoint for ProductDNA search parity with MaterialDNA. Local public-lab requests MAY use no authentication, bearer deployments MAY use BearerAuth, and cross-node requests with auth.mode=node-signature MUST include the Core-DP node signature headers.",
+        "security": [
+          {},
+          { "BearerAuth": [] },
+          { "NodeSignature": [], "NodeKeyId": [], "NodeSignatureInputSHA256": [] }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/search-contract.schema.json#/$defs/searchRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "https://localloop.urbnia.com/projects/loop-protocol/profiles/core-dp/0.1.0-lab/schemas/search-contract.schema.json#/$defs/searchResponse" }
+              }
+            }
+          },
+          "400": { "description": "Invalid request", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
         }
       }
     },

@@ -1,0 +1,24 @@
+{
+  "fixture_id": "core-dp-epcis-transfer-object-event-001",
+  "pinned_versions": {
+    "epcis": "2.0.1",
+    "cbv": "2.0"
+  },
+  "core_dp_mapping": {
+    "evidence_event_type": "transfer-dispatched",
+    "subject_type": "transfer",
+    "subject_id": "TRF-DE-MUC-2026-000001"
+  },
+  "epcis_subset_event": {
+    "type": "ObjectEvent",
+    "eventID": "ni:///sha-256;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "eventTime": "2026-07-17T00:02:00Z",
+    "eventTimeZoneOffset": "+00:00",
+    "action": "OBSERVE",
+    "bizStep": "shipping",
+    "disposition": "in_transit",
+    "readPoint": { "id": "urn:loop:node:munich.loop" },
+    "bizLocation": { "id": "urn:loop:node:berlin.loop" },
+    "epcList": ["urn:loop:transfer:TRF-DE-MUC-2026-000001"]
+  }
+}

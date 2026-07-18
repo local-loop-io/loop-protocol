@@ -1,6 +1,6 @@
 {
   "name": "@local-loop/loop-protocol",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "private": true,
   "description": "LOOP specification and schemas",
   "author": "Mycel UG (haftungsbeschränkt) <dev@mycel-ai.de>",
@@ -9,7 +9,9 @@
     "node": ">=20.0.0"
   },
   "scripts": {
+    "check:domains": "bash scripts/check-domains.sh",
     "validate:schemas": "node scripts/validate-schemas.js",
+    "conformance:core-dp": "node profiles/core-dp/conformance/run-conformance.js",
     "test": "npm run validate:schemas"
   },
   "devDependencies": {

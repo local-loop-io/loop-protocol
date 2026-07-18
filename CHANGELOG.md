@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-07-18
+
+### Added
+- Core-DP `0.1.0-lab` applicability profile with normative v0.2.0 requirement manifest, profile requirement index, JSON Schemas, conformance vectors, EPCIS/CBV fixture metadata, and profile index documentation.
+- Validation coverage for Core-DP schemas, requirement links, normative `SPECIFICATION.md` RFC 2119 clause mapping, conformance vectors, semantic vector checks, and EPCIS fixture guardrails.
+- `npm run check:domains` script wrapper for the repository domain policy check.
+- Portable Core-DP schema conditionals for envelope body binding, choreography authority/state matrices, cross-node search auth/consistency, replay-window checks, and OpenAPI multi-header node-signature auth.
+- Executable Core-DP conformance harness (`profiles/core-dp/conformance/run-conformance.js`,
+  `npm run conformance:core-dp`) validating all conformance vectors against schemas and
+  their declared semantic checks, cross-referenced against requirement IDs.
+- `core-dp-requirements.json` enriched with rationale, owner, testability statement,
+  and evidence output per requirement.
+
+### Changed
+- OpenAPI now keeps the base v0.2.0 endpoints and adds the lab-only Core-DP Product search endpoint with direct refs to the profile search request/response definitions.
+
+### Fixed
+- `docs/governance/rfc-process.md` now points to `GOVERNANCE.md` §2 as the
+  authoritative RFC process for states/timing, resolving a conflict between
+  the two documents.
+- Corrected a stale `localloop.github.io` domain reference in the
+  `spec-implementation-divergence.md` audit doc.
+
 ## [0.2.3] - 2026-05-26
 
 ### Added

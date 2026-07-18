@@ -1,0 +1,37 @@
+{
+  "pinned_versions": {
+    "epcis": "2.0.1",
+    "cbv": "2.0"
+  },
+  "full_epcis_conformance_claimed": false,
+  "unsupported_features": [
+    {
+      "feature": "AggregationEvent",
+      "rationale": "Bundle and parent-child aggregation are outside the first Core-DP delivery contract."
+    },
+    {
+      "feature": "TransformationEvent",
+      "rationale": "Material transformation semantics are outside Offer -> Match -> Transfer delivery proof."
+    },
+    {
+      "feature": "TransactionEvent",
+      "rationale": "Transactions and payments are OUT for Core-DP."
+    },
+    {
+      "feature": "AssociationEvent",
+      "rationale": "General association modeling is deferred until profile-specific DPP/VC work."
+    },
+    {
+      "feature": "sensorElementList",
+      "rationale": "IoT sensor streams are not part of the lab-only foundation."
+    },
+    {
+      "feature": "master data vocabulary validation",
+      "rationale": "Core-DP validates only the conservative fixture fields and does not maintain a full EPCIS vocabulary registry."
+    },
+    {
+      "feature": "CBV full vocabulary",
+      "rationale": "Only the fixture business steps listed in the profile README are used."
+    }
+  ]
+}

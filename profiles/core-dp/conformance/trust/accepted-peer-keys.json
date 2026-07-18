@@ -1,0 +1,56 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-07-17T00:00:00Z",
+  "keys": [
+    {
+      "node_id": "munich.loop",
+      "key_id": "key_munich_2026_07",
+      "public_key_jwk": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "-7NRbVl-6ZYZBpXbKxksXkQF3V18rS8__ZRaGyt-zlI"
+      },
+      "lifecycle_status": "active",
+      "valid_from": "2026-01-01T00:00:00Z",
+      "valid_until": "2027-01-01T00:00:00Z"
+    },
+    {
+      "node_id": "munich.loop",
+      "key_id": "key_munich_2025_01",
+      "public_key_jwk": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "rQnzfl0gpS1bK3DjZPI-SYr_l1fuTAnYVzlKgA8Fc2A"
+      },
+      "lifecycle_status": "rotated",
+      "valid_from": "2025-01-01T00:00:00Z",
+      "valid_until": "2026-07-01T00:00:00Z",
+      "rotated_to_key_id": "key_munich_2026_07"
+    },
+    {
+      "node_id": "munich.loop",
+      "key_id": "key_munich_revoked_001",
+      "public_key_jwk": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "7hSZj3mZV8us1A05GMuJ1ks3t8wRsHIQBpUBGq-sxQ4"
+      },
+      "lifecycle_status": "revoked",
+      "valid_from": "2025-01-01T00:00:00Z",
+      "valid_until": "2026-01-01T00:00:00Z",
+      "revoked_at": "2026-07-01T00:00:00Z"
+    },
+    {
+      "node_id": "berlin.loop",
+      "key_id": "key_berlin_2026_07",
+      "public_key_jwk": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "EjpCQsnGqy7NeU5IMyDm_65Y3o_OXiMJJlqerJC_3Z4"
+      },
+      "lifecycle_status": "active",
+      "valid_from": "2026-01-01T00:00:00Z",
+      "valid_until": "2027-01-01T00:00:00Z"
+    }
+  ]
+}
