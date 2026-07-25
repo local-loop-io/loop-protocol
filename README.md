@@ -38,3 +38,5 @@ npm run check:domains
 ## Contributing
 - Use `rfcs/` for feedback and proposals.
 - See `../AGENTS.md` for org context and domain policy.
+
+<!-- agent-cycle-036: protocol readme anchor -->
