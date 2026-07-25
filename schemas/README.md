@@ -39,3 +39,7 @@ Mycel UG (haftungsbeschränkt). "LOOP Schemas." localLOOP, 2025-2026. https://gi
   note = {Accessed 2025-12-19}
 }
 ```
+
+## Validation
+
+Run `npm test` at the repository root to validate examples against these schemas (agent-cycle-027).
