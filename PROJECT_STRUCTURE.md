@@ -98,3 +98,5 @@ loop-protocol/
     └── workflows/
         └── validate-schemas.yml
 ```
+
+<!-- agent-cycle-037: structure anchor -->
