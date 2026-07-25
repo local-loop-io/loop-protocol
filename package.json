@@ -12,7 +12,8 @@
     "check:domains": "bash scripts/check-domains.sh",
     "validate:schemas": "node scripts/validate-schemas.js",
     "conformance:core-dp": "node profiles/core-dp/conformance/run-conformance.js",
-    "test": "npm run validate:schemas"
+    "check:schemas-readme": "node scripts/check-schemas-readme.js",
+    "test": "npm run validate:schemas && npm run check:schemas-readme"
   },
   "devDependencies": {
     "ajv": "^8.20.0",
