@@ -189,3 +189,5 @@ We thank the following security researchers for responsibly disclosing vulnerabi
 
 *Last Updated: December 2025*  
 *Next Review: March 2026*
+
+<!-- agent-cycle-039: security doc anchor -->

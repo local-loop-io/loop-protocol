@@ -13,11 +13,12 @@
     "validate:schemas": "node scripts/validate-schemas.js",
     "conformance:core-dp": "node profiles/core-dp/conformance/run-conformance.js",
     "check:schemas-readme": "node scripts/check-schemas-readme.js",
-    "test": "npm run validate:schemas && npm run check:schemas-readme && npm run check:cycle-035 && npm run check:cycle-036 && npm run check:cycle-037 && npm run check:cycle-038",
+    "test": "npm run validate:schemas && npm run check:schemas-readme && npm run check:cycle-035 && npm run check:cycle-036 && npm run check:cycle-037 && npm run check:cycle-038 && npm run check:cycle-039",
     "check:cycle-035": "node scripts/check-cycle-035.js",
     "check:cycle-036": "node scripts/check-cycle-036.js",
     "check:cycle-037": "node scripts/check-cycle-037.js",
-    "check:cycle-038": "node scripts/check-cycle-038.js"
+    "check:cycle-038": "node scripts/check-cycle-038.js",
+    "check:cycle-039": "node scripts/check-cycle-039.js"
   },
   "devDependencies": {
     "ajv": "^8.20.0",

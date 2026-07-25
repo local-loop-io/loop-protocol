@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- security doc anchor (agent cycle 039).
+
+### Changed
 - domain policy anchor (agent cycle 038).
 
 ### Changed
