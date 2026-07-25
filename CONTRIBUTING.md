@@ -67,3 +67,5 @@ See rfcs/0000-template.md for the RFC template.
 - GitHub Discussions or email: dev@mycel-ai.de
 
 Thank you for helping build the future of circular economy! 🌍
+
+<!-- agent-cycle-040: contributing anchor -->
