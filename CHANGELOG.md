@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- protocol readme anchor (agent cycle 036).
+
+### Changed
 - spec maintenance anchor (agent cycle 035).
 
 ### Changed
