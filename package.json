@@ -13,7 +13,7 @@
     "validate:schemas": "node scripts/validate-schemas.js",
     "conformance:core-dp": "node profiles/core-dp/conformance/run-conformance.js",
     "check:schemas-readme": "node scripts/check-schemas-readme.js",
-    "test": "npm run validate:schemas && npm run check:schemas-readme && npm run check:cycle-035 && npm run check:cycle-036 && npm run check:cycle-037 && npm run check:cycle-038 && npm run check:cycle-039 && npm run check:cycle-040 && npm run check:cycle-042 && npm run check:cycle-046 && npm run check:cycle-050 && npm run check:cycle-054 && npm run check:cycle-058 && npm run check:cycle-062 && npm run check:cycle-066 && npm run check:cycle-070 && npm run check:cycle-074 && npm run check:cycle-078",
+    "test": "npm run validate:schemas && npm run check:schemas-readme && npm run check:cycle-035 && npm run check:cycle-036 && npm run check:cycle-037 && npm run check:cycle-038 && npm run check:cycle-039 && npm run check:cycle-040 && npm run check:cycle-042 && npm run check:cycle-046 && npm run check:cycle-050 && npm run check:cycle-054 && npm run check:cycle-058 && npm run check:cycle-062 && npm run check:cycle-066 && npm run check:cycle-070 && npm run check:cycle-074 && npm run check:cycle-078 && npm run check:cycle-082",
     "check:cycle-035": "node scripts/check-cycle-035.js",
     "check:cycle-036": "node scripts/check-cycle-036.js",
     "check:cycle-037": "node scripts/check-cycle-037.js",
@@ -29,7 +29,8 @@
     "check:cycle-066": "node scripts/check-cycle-066.js",
     "check:cycle-070": "node scripts/check-cycle-070.js",
     "check:cycle-074": "node scripts/check-cycle-074.js",
-    "check:cycle-078": "node scripts/check-cycle-078.js"
+    "check:cycle-078": "node scripts/check-cycle-078.js",
+    "check:cycle-082": "node scripts/check-cycle-082.js"
   },
   "devDependencies": {
     "ajv": "^8.20.0",
