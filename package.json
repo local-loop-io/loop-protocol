@@ -3,7 +3,7 @@
   "version": "0.3.0",
   "private": true,
   "description": "LOOP specification and schemas",
-  "author": "Mycel UG (haftungsbeschränkt) <dev@mycel-ai.de>",
+  "author": "Mycel UG (haftungsbeschr\u00e4nkt) <dev@mycel-ai.de>",
   "license": "(MIT AND CC-BY-SA-4.0)",
   "engines": {
     "node": ">=20.0.0"
@@ -13,7 +13,8 @@
     "validate:schemas": "node scripts/validate-schemas.js",
     "conformance:core-dp": "node profiles/core-dp/conformance/run-conformance.js",
     "check:schemas-readme": "node scripts/check-schemas-readme.js",
-    "test": "npm run validate:schemas && npm run check:schemas-readme"
+    "test": "npm run validate:schemas && npm run check:schemas-readme && npm run check:cycle-035",
+    "check:cycle-035": "node scripts/check-cycle-035.js"
   },
   "devDependencies": {
     "ajv": "^8.20.0",
