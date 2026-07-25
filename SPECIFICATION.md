@@ -1415,3 +1415,5 @@ _End of Specification_
 
 _This specification is released under Creative Commons BY-SA 4.0. Code and schemas are released under the MIT license._
 _Contributions welcome at https://github.com/local-loop-io/loop-protocol_
+
+<!-- agent-cycle-035: spec maintenance anchor -->
