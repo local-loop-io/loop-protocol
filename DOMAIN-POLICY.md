@@ -32,3 +32,5 @@ Do not introduce or reference the following domains in code, docs, or tests:
 ## Enforcement
 
 The CI workflow runs `scripts/check-domains.sh` on every push and PR.
+
+<!-- agent-cycle-038: domain policy anchor -->
