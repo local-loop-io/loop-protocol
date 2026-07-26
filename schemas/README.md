@@ -16,13 +16,18 @@ JSON Schema definitions for LOOP payloads.
 - `node-info.schema.json`
 
 ## Validation
-Use the validation script:
+
+Run the validation suite from the repository root (agent-cycle-027):
 
 ```bash
-npm test
+npm run test
 ```
 
 This validates all JSON files in `examples/` against the schemas.
+
+> Use `npm run test` rather than bare `npm test`. Where `npm` is aliased to
+> `bun`, bare `npm test` invokes Bun's built-in test runner — which finds no
+> test files here and exits non-zero — instead of this validation script.
 
 ## How to Cite
 
@@ -39,7 +44,3 @@ Mycel UG (haftungsbeschränkt). "LOOP Schemas." localLOOP, 2025-2026. https://gi
   note = {Accessed 2025-12-19}
 }
 ```
-
-## Validation
-
-Run `npm test` at the repository root to validate examples against these schemas (agent-cycle-027).

@@ -8,70 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-- Example inventory guard cycle 098.
-
-### Changed
-- Example inventory guard cycle 094.
-
-### Changed
-- Example inventory guard cycle 090.
-
-### Changed
-- Example inventory guard cycle 086.
-
-### Changed
-- Example inventory guard cycle 082.
-
-### Changed
-- Example inventory guard cycle 078.
-
-### Changed
-- Example inventory guard cycle 074.
-
-### Changed
-- Example inventory guard cycle 070.
-
-### Changed
-- Example inventory guard cycle 066.
-
-### Changed
-- Example inventory guard cycle 062.
-
-### Changed
-- Example inventory guard cycle 058.
-
-### Changed
-- Example inventory guard cycle 054.
-
-### Changed
-- Example inventory guard cycle 050.
-
-### Changed
-- Example inventory guard cycle 046.
-
-### Changed
-- Example inventory guard cycle 042.
-
-### Changed
-- contributing anchor (agent cycle 040).
-
-### Changed
-- security doc anchor (agent cycle 039).
-
-### Changed
-- domain policy anchor (agent cycle 038).
-
-### Changed
-- structure anchor (agent cycle 037).
-
-### Changed
-- protocol readme anchor (agent cycle 036).
-
-### Changed
-- spec maintenance anchor (agent cycle 035).
-
-### Changed
-- schemas/README notes validation entrypoint (agent cycle 027).
+- Consolidated the 21 per-cycle `check-cycle-NNN.js` guards into a single
+  data-driven `scripts/check-agent-markers.js`. Cycles 035-040 and 027 pinned a
+  documentation anchor to a specific file and are preserved as a marker table;
+  cycles 042-098 only re-asserted that `examples/` was non-empty, which
+  `validate-schemas.js` already covers more strictly.
+- Documented `npm run test` as the validation entrypoint instead of bare
+  `npm test`, which dispatches to Bun's built-in test runner (0 test files,
+  exit 1) wherever `npm` is aliased to `bun`. `check-schemas-readme.js` now
+  enforces the unambiguous form.
+- Merged the duplicated `## Validation` sections in `schemas/README.md`.
 
 ## [0.3.0] - 2026-07-18
 

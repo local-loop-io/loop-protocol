@@ -22,4 +22,4 @@ jobs:
       - name: Audit dependencies
         run: npm audit --omit=dev
       - name: Run schema validation
-        run: npm test
+        run: npm run test

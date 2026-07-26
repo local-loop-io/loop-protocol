@@ -21,9 +21,14 @@ Local Optimization with Overflow Protocol. A federated circular economy concept 
 ## Quickstart
 ```bash
 npm ci
-npm test
+npm run test
 npm run check:domains
 ```
+
+Use `npm run test`, not bare `npm test`: where `npm` is aliased to `bun`, the
+bare form dispatches to Bun's built-in test runner instead of the validation
+script. With Bun as your package manager, `bun install --frozen-lockfile` and
+`bun run test` are the equivalents of the first two commands.
 
 ## Usage notes
 - Specs and schemas are draft and subject to change.
