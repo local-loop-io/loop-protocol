@@ -19,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   enforces the unambiguous form.
 - Merged the duplicated `## Validation` sections in `schemas/README.md`.
 
+### Fixed
+- `check-domains.sh` passed a vacuous scan whenever stdin was not a TTY. The
+  ripgrep branch was invoked without a path argument, so any non-interactive
+  caller (CI, `npm run check:domains` in a pipeline) made ripgrep read empty
+  stdin instead of the working tree and always report a pass.
+
 ## [0.3.0] - 2026-07-18
 
 ### Added
