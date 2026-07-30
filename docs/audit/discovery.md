@@ -7,13 +7,13 @@
 ### Top-level layout
 - Root contains four git repos plus shared `AGENTS.md` and `CLAUDE.md`.
 - Repos:
-  - `localloop.github.io` — public docs hub (Next.js static export).
+  - `localloop-site` — public docs hub (Next.js static export).
   - `localloop-backend` — Bun + Fastify API (interest registry + lab demo).
   - `loop-protocol` — protocol specification + schemas + RFCs.
   - `org-github-profile` — GitHub org profile docs.
 
 ### Source directories
-- `localloop.github.io`
+- `localloop-site`
   - `app/` — Next.js App Router pages and layouts.
   - `public/` — static assets + mirrored protocol content.
   - `scripts/` — domain checking + aggregation.
@@ -34,7 +34,7 @@
   - `profile/` — public org profile README.
 
 ### Key config files
-- `localloop.github.io`
+- `localloop-site`
   - `package.json`, `next.config.js`, `playwright.config.ts`, `scripts/check-domains.cjs`
 - `localloop-backend`
   - `package.json`, `tsconfig.json`, `Dockerfile`, `docker-compose.yml`, `.env.example`, `.env.docker.example`, `prisma.config.ts`
@@ -64,7 +64,7 @@
 - No Kubernetes manifests found.
 
 ### Developer guides
-- `localloop.github.io/CONTRIBUTING.md`
+- `localloop-site/CONTRIBUTING.md`
 - `localloop-backend/CONTRIBUTING.md`
 - `loop-protocol/CONTRIBUTING.md`
 

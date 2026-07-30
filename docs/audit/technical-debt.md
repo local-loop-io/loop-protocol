@@ -14,7 +14,7 @@ Searched for TODO/FIXME/HACK/WORKAROUND/FUTURE/LATER/PLANNED/DEPRECATED in sourc
 
 Notable placeholder language appears in docs/UI:
 - `loop-protocol/docs/federation-handshake.md` and `rfcs/0002-federation-handshake.md` mention optional signature placeholders.
-- `localloop.github.io/app/(platform)/DEMO-City/page.jsx` contains “illustrative placeholders.”
+- `localloop-site/app/(platform)/DEMO-City/page.jsx` contains “illustrative placeholders.”
 
 ## 3.2 Implementation Completeness Analysis
 
@@ -41,7 +41,7 @@ Notable placeholder language appears in docs/UI:
 
 ## 3.3 Hardcoded Values & Configuration Issues
 
-- Frontend hardcodes API base in `localloop.github.io/public/assets/js/config.js` and `app/docs/api/page.jsx`.
+- Frontend hardcodes API base in `localloop-site/public/assets/js/config.js` and `localloop-site/app/docs/api/page.jsx`.
 - Backend config defaults include `change-me` credentials in `src/config.ts`, `prisma.config.ts`, and docker-compose defaults.
 - Docker images are now pinned by digest for Redis/MinIO.
 
@@ -62,7 +62,7 @@ Notable placeholder language appears in docs/UI:
 | TD-004 | `localloop-backend/src/storage/s3.ts` | Unused S3 client; storage integration incomplete. | Incomplete feature | M |
 | TD-005 | `localloop-backend/src/metrics.ts` | In-memory counters reset on restart. | Observability | S |
 | TD-006 | `localloop-backend/src/routes/loop.ts` | `/api/v1/relay` restricts event/entity pairs, but nested payload validation and signature checks are still missing. | Data quality | M |
-| TD-007 | `localloop.github.io/public/assets/js/config.js` | Hardcoded API base; no env override for staging/prod. | Config flexibility | S |
+| TD-007 | `localloop-site/public/assets/js/config.js` | Hardcoded API base; no env override for staging/prod. | Config flexibility | S |
 
 ### Low Priority / Nice-to-Have
 | ID | Location | Description | Impact | Effort |

@@ -5,7 +5,7 @@
 **Original snapshot date (historical):** 2026-03-09
 **Historical analyzed commits:**
 - localloop-backend: 21318e4 (branch `fix/ci-typecheck`)
-- localloop.github.io: 937d35e (branch `fix/ci-domain-check`)
+- localloop-site: 937d35e (branch `fix/ci-domain-check`)
 - loop-protocol: 4ba85b2 (branch `fix/domain-check-fallback`)
 - org-github-profile: e130ac8 (branch `main`)
 **Branch:** multi-repo
@@ -84,7 +84,7 @@ Recommended priorities are: implement or explicitly scope the protocol endpoints
 | TD-004 | `localloop-backend/src/storage/s3.ts` | Unused S3 client; feature incomplete. | Incomplete feature | M |
 | TD-005 | `localloop-backend/src/metrics.ts` | In-memory metrics reset on restart. | Observability | S |
 | TD-006 | `localloop-backend/src/routes/loop.ts` | `/api/v1/relay` accepts arbitrary payload. | Data quality | M |
-| TD-007 | `localloop.github.io/public/assets/js/config.js` | Hardcoded API base; no env override. | Config flexibility | S |
+| TD-007 | `localloop-site/public/assets/js/config.js` | Hardcoded API base; no env override. | Config flexibility | S |
 
 ### 2.4 Low Priority / Nice-to-Have
 
@@ -252,7 +252,7 @@ No FIXME markers found.
 
 - Root: `AGENTS.md`, `CLAUDE.md`
 - `localloop-backend`: `Dockerfile`, `docker-compose.yml`, `tsconfig.json`, `.env.example`, `.env.docker.example`, `prisma.config.ts`
-- `localloop.github.io`: `next.config.js`, `playwright.config.ts`, `scripts/check-domains.cjs`
+- `localloop-site`: `next.config.js`, `playwright.config.ts`, `scripts/check-domains.cjs`
 - `loop-protocol`: `package.json`, `package-lock.json`, `scripts/validate-schemas.js`
 
 ### D. Environment Variables Reference (Backend)
