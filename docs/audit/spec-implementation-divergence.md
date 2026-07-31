@@ -1,6 +1,8 @@
 # Protocol vs Implementation Divergence
 
 > CURRENT-USE WARNING: This is a historical divergence snapshot, not current implementation or conformance evidence. Use [CLAIMS-AND-MATURITY.md](../governance/CLAIMS-AND-MATURITY.md) and [RELEASE-CHECKLIST.md](../governance/RELEASE-CHECKLIST.md) for current decisions.
+>
+> **Partial refresh (2026-07-31, cycle 0045):** Spec §8 endpoint rows updated to reflect `localloop-backend` v0.4.0. For the authoritative live matrix see `localloop-backend/docs/SPEC-COMPLIANCE.md`.
 
 **Original snapshot date (historical):** 2026-03-09
 
@@ -15,12 +17,12 @@ The spec mandates `/api/v1/*` endpoints for core protocol operations.
 | --- | --- | --- | --- |
 | `POST /api/v1/material` | Implemented | `/api/v1/material` | Lab-only endpoint; path aligned with the spec. |
 | `GET /api/v1/material/{id}` | Implemented | `/api/v1/material/:id` | Read-by-id is available for lab materials. |
-| `POST /api/v1/material/search` | Missing | — | Not implemented. |
-| `GET /api/v1/node/info` | Partial | `/api/v1/node/info` | Implemented as a minimal lab metadata response; spec-style location/statistics fields are not exposed yet. |
-| `GET /api/v1/signals` | Missing | — | Not implemented. |
-| `POST /api/v1/transaction` | Missing | — | Not implemented. |
-| `POST /api/v1/federate/announce` | Missing | `/api/v1/relay` | Relay is lab event log; not spec announcement. |
-| `POST /api/v1/federate/offer` | Missing | `/api/v1/relay` | Relay is lab event log; not spec offer. |
+| `POST /api/v1/material/search` | Implemented | `/api/v1/material/search` | Dual protocol + Core-DP contract (v0.4.0). |
+| `GET /api/v1/node/info` | Implemented | `/api/v1/node/info` | Canonical node-info schema validation (v0.4.0). |
+| `GET /api/v1/signals` | Implemented | `/api/v1/signals` | LoopSignalConfig from seeded table (v0.4.0). |
+| `POST /api/v1/transaction` | Implemented | `/api/v1/transaction` | Canonical transaction schema; responds TransactionStatus (v0.4.0). |
+| `POST /api/v1/federate/announce` | Implemented | `/api/v1/federate/announce` | §9.2 headers enforced; 202 `{status, id}` (no canonical JSON-LD response schema). |
+| `POST /api/v1/federate/offer` | Implemented | `/api/v1/federate/offer` | §9.2 headers enforced; material must be hosted locally (v0.4.0). |
 
 ### Implemented endpoints not in spec
 | Backend Endpoint | Purpose | Notes |
@@ -39,7 +41,7 @@ The spec mandates `/api/v1/*` endpoints for core protocol operations.
 ## 3) Content-Type & Schema Enforcement
 - Spec mandates `application/ld+json` and strict JSON-LD context usage.
 - Backend lab endpoints accept JSON schemas but do not enforce `@context` values beyond schema-level `const` checks.
-- `/api/v1/relay` now limits relayed traffic to the current lab event/entity families, but it still does not validate cryptographic signatures or full spec announce/offer payloads.
+- `/api/v1/relay` remains a lab-only event log; spec announce/offer traffic uses `/api/v1/federate/*` (v0.4.0).
 
 ## 4) Federation Handshake
 - Spec documents federation endpoints (`/api/v1/federate/*`), while backend provides a lab-only registry at `/api/v1/federation/handshake`.
@@ -51,6 +53,6 @@ The spec mandates `/api/v1/*` endpoints for core protocol operations.
 - Protocol OpenAPI artifact is now published as `loop-protocol/openapi.json` and mirrored at `https://localloop.urbnia.com/projects/loop-protocol/openapi.json` (corrected from a stale docs-hub path; canonical repo is `localloop-site`; see `DOMAIN-POLICY.md`).
 
 ## 6) Resolution Plan
-- Keep documenting the lab-only compatibility surface until `/api/v1/material/search`, `/api/v1/signals`, `/api/v1/transaction`, and `/api/v1/federate/*` are implemented.
-- Add signature validation if federation moves beyond controlled demos.
+- Spec §8 openapi.json surface is implemented in `localloop-backend` v0.4.0; remaining work is hardening (signature verification) and out-of-scope flows (LoopCoin, LoopSignal voting, LoopCost).
+- Add cryptographic signature validation if federation moves beyond controlled demos.
 - Align auth model (Bearer token vs API key) and document deviations.

@@ -1,6 +1,8 @@
 # State of Development
 
 > CURRENT-USE WARNING: This is a historical audit snapshot, not current implementation, readiness, or claim evidence. Use [CLAIMS-AND-MATURITY.md](../governance/CLAIMS-AND-MATURITY.md) and [RELEASE-CHECKLIST.md](../governance/RELEASE-CHECKLIST.md) for current decisions. TD-001 and TD-002 are recorded below as **open as observed in this snapshot**; that does not resolve the conflicting historical observation in [technical-debt.md](technical-debt.md).
+>
+> **Partial refresh (2026-07-31, cycle 0045):** Spec §8 endpoint status updated to reflect `localloop-backend` v0.4.0. For the authoritative live matrix see `localloop-backend/docs/SPEC-COMPLIANCE.md`.
 
 **Original snapshot date (historical):** 2026-03-09
 **Historical analyzed commits:**
@@ -12,17 +14,17 @@
 
 ## Executive Summary
 
-localLOOP is a multi-repo system with a clear lab-only posture: the protocol specification is mature enough to define a minimal interop flow, while the backend implements a limited demo API and the docs hub mirrors protocol artifacts. The documentation set is strong (specs, governance, compliance), but the protocol’s required API surface is largely unimplemented in the backend. The site and backend are aligned around lab demo flows and interest capture rather than full protocol compliance.
+localLOOP is a multi-repo system with a clear lab-only posture: the protocol specification defines a minimal interop flow, and the backend implements the full openapi.json §8 surface (v0.4.0) alongside lab demo extensions. The documentation set is strong (specs, governance, compliance), and the docs hub mirrors protocol artifacts. Remaining gaps are intentional lab boundaries (signature verification, LoopCoin settlement) rather than missing spec endpoints.
 
-The primary blockers to production readiness are protocol/API alignment (spec endpoints, authentication semantics, and federation flows) and infra automation (resource limits, rollback, automated backups). Infrastructure hardening has begun (non-root execution, pinned images, health checks), and an OpenAPI artifact is now published for the protocol.
+The primary blockers to production readiness are federation hardening (cryptographic signature verification), LoopCoin/settlement flows, and infra automation (backup restore drills, alerting). Infrastructure hardening has begun (non-root execution, pinned images, health checks), and an OpenAPI artifact is published for the protocol.
 
-Recommended priorities are: implement or explicitly scope the protocol endpoints for v0.1.1, complete infra automation (backup scheduling + rollback runbook), and close the remaining gaps between spec and implementation.
+Recommended priorities are: harden federation authentication beyond lab presence-only checks, complete infra automation (restore drill + alerting), and close LoopCoin/LoopSignal governance flows or mark as future scope.
 
 ### Health Indicators
 
 | Metric | Status | Notes |
 | --- | --- | --- |
-| Feature Completeness | ~30% | Lab demo flow implemented; most spec endpoints missing. |
+| Feature Completeness | ~70% | Full openapi.json §8 surface implemented (v0.4.0); LoopCoin/settlement/governance flows remain out of scope. |
 | Test Coverage | N/A | No coverage report; tests exist for backend routes + site e2e. |
 | Technical Debt Items | 7 | 2 high, 4 medium, 1 low (see registry). |
 | Production Readiness | 5/10 | Spec/API alignment + automation gaps remain; infra hardening partially addressed. |
@@ -42,8 +44,9 @@ Recommended priorities are: implement or explicitly scope the protocol endpoints
 
 | Feature | Completeness | Blocking Issues | Priority |
 | --- | --- | --- | --- |
-| MaterialDNA → Offer → Match → Transfer (lab flow) | 50% | Spec endpoints missing; lab-only payloads | High |
-| Federation handshake (lab registry) | 40% | No signatures, different endpoint path | High |
+| MaterialDNA → Offer → Match → Transfer (lab flow) | 90% | Core flow + lifecycle DB invariants enforced | Medium |
+| Spec §8 endpoints (search, signals, transaction, federate) | 100% | Implemented v0.4.0; federate signature verification is lab boundary | Medium |
+| Federation handshake (lab registry) | 60% | No signatures; lab-only endpoint path | Medium |
 | Payments intake | 40% | No provider integrations, disabled by default | Medium |
 | Auth (Better Auth) | 30% | Disabled by default; not wired to spec auth | Medium |
 
@@ -51,11 +54,6 @@ Recommended priorities are: implement or explicitly scope the protocol endpoints
 
 | Feature | PRD Reference | Dependencies | Estimated Effort |
 | --- | --- | --- | --- |
-| Node info endpoint | Spec §8.1 | Response expansion (location/statistics) | S |
-| Material search endpoint | Spec §8.1 | Search index + query API | M |
-| LoopSignal config endpoint | Spec §8.1 | Data model + storage | M |
-| Transaction endpoint | Spec §8.1 | Data model + settlement flow | L |
-| Federation announce/offer endpoints | Spec §8.2 | Messaging + signature validation | M |
 | LoopCoin issuance/transfer | Spec §5 | Ledger + rules | L |
 | LoopSignal voting | Spec §6 | Governance flow | L |
 | LoopCost calculation | Spec §7 | Algorithm + inputs | M |
@@ -131,6 +129,11 @@ No TODO/FIXME markers found in source files.
 | POST | `/api/v1/relay` | ✅ | ✅ | ✅ | API Key (optional) |
 | GET | `/api/v1/federation/nodes` | ✅ | ✅ | ✅ | None |
 | POST | `/api/v1/federation/handshake` | ✅ | ✅ | ✅ | API Key (optional) |
+| GET | `/api/v1/signals` | ✅ | ✅ | ✅ | None |
+| POST | `/api/v1/transaction` | ✅ | ✅ | ✅ | API Key (optional) |
+| POST | `/api/v1/material/search` | ✅ | ✅ | ✅ | None |
+| POST | `/api/v1/federate/announce` | ✅ | ✅ | ✅ | API Key (optional) + §9.2 headers |
+| POST | `/api/v1/federate/offer` | ✅ | ✅ | ✅ | API Key (optional) + §9.2 headers |
 | GET | `/api/cities` | ✅ | ✅ | ✅ | None |
 | GET | `/api/cities/:slug` | ❌ | ✅ | ✅ | None |
 | GET | `/api/cities/geojson` | ✅ | ✅ | ✅ | None |
@@ -143,11 +146,7 @@ No TODO/FIXME markers found in source files.
 
 ### 4.2 Missing Endpoints (Per Spec)
 
-- `/api/v1/material/search` (POST)
-- `/api/v1/signals` (GET)
-- `/api/v1/transaction` (POST)
-- `/api/v1/federate/announce` (POST)
-- `/api/v1/federate/offer` (POST)
+None — all openapi.json §8 paths implemented in v0.4.0 (see `localloop-backend/docs/SPEC-COMPLIANCE.md`).
 
 ### 4.3 Undocumented Endpoints
 
@@ -233,8 +232,9 @@ Not assessed; consider running `depcheck` per repo.
 2. [x] Add health checks + backup/restore runbook.
 
 ### Medium-term (1-3 Months)
-1. [ ] Implement remaining core spec endpoints (Material search, Signals, Transactions, Federation announce/offer).
+1. [x] Implement remaining core spec endpoints (Material search, Signals, Transactions, Federation announce/offer) — done v0.4.0.
 2. [ ] Implement LoopCost + LoopSignal/LoopCoin flows or mark as future scope.
+3. [ ] Add cryptographic X-Node-Signature verification for production federation.
 
 ---
 
