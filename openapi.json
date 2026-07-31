@@ -140,6 +140,9 @@
         },
         "required": ["@context", "@type", "material", "from", "base_price", "loop_cost", "valid_until"]
       },
+      "FederateAcceptedResponse": {
+        "$ref": "https://localloop.urbnia.com/projects/loop-protocol/schemas/v0.2.0/federate-accepted.schema.json"
+      },
       "ErrorResponse": {
         "type": "object",
         "properties": {
@@ -392,7 +395,14 @@
           }
         },
         "responses": {
-          "202": { "description": "Accepted" }
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/FederateAcceptedResponse" }
+              }
+            }
+          }
         }
       }
     },
@@ -409,7 +419,14 @@
           }
         },
         "responses": {
-          "202": { "description": "Accepted" }
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/FederateAcceptedResponse" }
+              }
+            }
+          }
         }
       }
     }

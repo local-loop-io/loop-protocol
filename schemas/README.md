@@ -10,6 +10,7 @@ JSON Schema definitions for LOOP payloads.
 - `transfer.schema.json` — Transfer payload definition (v0.2.0, supports material_id or product_id)
 - `material-status.schema.json` — Material status updates (v0.2.0)
 - `handshake.schema.json` — Federation handshake protocol (v0.2.0)
+- `federate-accepted.schema.json` — 202 Accepted response for federate announce/offer (v0.2.0)
 - `loopcoin.schema.json`
 - `loopsignal.schema.json`
 - `transaction.schema.json`
