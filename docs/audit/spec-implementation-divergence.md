@@ -3,6 +3,8 @@
 > CURRENT-USE WARNING: This is a historical divergence snapshot, not current implementation or conformance evidence. Use [CLAIMS-AND-MATURITY.md](../governance/CLAIMS-AND-MATURITY.md) and [RELEASE-CHECKLIST.md](../governance/RELEASE-CHECKLIST.md) for current decisions.
 >
 > **Partial refresh (2026-07-31, cycle 0045):** Spec §8 endpoint rows updated to reflect `localloop-backend` v0.4.0. For the authoritative live matrix see `localloop-backend/docs/SPEC-COMPLIANCE.md`.
+>
+> **Partial refresh (2026-07-31, cycle 0048):** Federate 202 response rows updated for canonical `FederateAcceptedResponse` (`schemas/federate-accepted.schema.json`; plain JSON, not JSON-LD).
 
 **Original snapshot date (historical):** 2026-03-09
 
@@ -21,8 +23,8 @@ The spec mandates `/api/v1/*` endpoints for core protocol operations.
 | `GET /api/v1/node/info` | Implemented | `/api/v1/node/info` | Canonical node-info schema validation (v0.4.0). |
 | `GET /api/v1/signals` | Implemented | `/api/v1/signals` | LoopSignalConfig from seeded table (v0.4.0). |
 | `POST /api/v1/transaction` | Implemented | `/api/v1/transaction` | Canonical transaction schema; responds TransactionStatus (v0.4.0). |
-| `POST /api/v1/federate/announce` | Implemented | `/api/v1/federate/announce` | §9.2 headers enforced; 202 `{status, id}` (no canonical JSON-LD response schema). |
-| `POST /api/v1/federate/offer` | Implemented | `/api/v1/federate/offer` | §9.2 headers enforced; material must be hosted locally (v0.4.0). |
+| `POST /api/v1/federate/announce` | Implemented | `/api/v1/federate/announce` | §9.2 headers enforced; 202 `FederateAcceptedResponse` (canonical plain JSON schema; not JSON-LD). |
+| `POST /api/v1/federate/offer` | Implemented | `/api/v1/federate/offer` | §9.2 headers enforced; material must be hosted locally; 202 `FederateAcceptedResponse` (v0.4.0). |
 
 ### Implemented endpoints not in spec
 | Backend Endpoint | Purpose | Notes |

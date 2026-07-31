@@ -3,6 +3,8 @@
 > CURRENT-USE WARNING: This is a historical audit snapshot, not current implementation or conformance evidence. Its original snapshot date and analyzed commits were not recorded in this source; do not infer them. It is a historical spec-feature evaluation and is superseded as the current requirements inventory by the Core-DP profile requirements at `loop-protocol/profiles/core-dp/requirements/core-dp-requirements.json`. Use [CLAIMS-AND-MATURITY.md](../governance/CLAIMS-AND-MATURITY.md) and [RELEASE-CHECKLIST.md](../governance/RELEASE-CHECKLIST.md) for current decisions.
 >
 > **Partial refresh (2026-07-31, cycle 0045):** Implementation-status rows for spec §8 endpoints updated to reflect `localloop-backend` v0.4.0. For the authoritative live matrix see `localloop-backend/docs/SPEC-COMPLIANCE.md`.
+>
+> **Partial refresh (2026-07-31, cycle 0048):** Federate 202 response rows updated for canonical `FederateAcceptedResponse` (`schemas/federate-accepted.schema.json`; plain JSON, not JSON-LD).
 
 ## 2.1 Feature Matrix (Derived from `loop-protocol/SPECIFICATION.md`)
 
@@ -17,7 +19,7 @@
 | F-007 | Node info endpoint | Required | Implemented | 100% | `/api/v1/node/info` validates against canonical node-info schema (v0.4.0). |
 | F-008 | LoopSignal config endpoint | Required | Implemented | 100% | `/api/v1/signals` implemented (v0.4.0); seeded LoopSignalConfig. |
 | F-009 | Transaction creation | Required | Implemented | 100% | `/api/v1/transaction` implemented (v0.4.0); canonical transaction schema. |
-| F-010 | Federation announce/offer | Required | Implemented | 100% | `/api/v1/federate/announce` + `/offer` implemented (v0.4.0); §9.2 headers enforced (signature verification lab boundary). |
+| F-010 | Federation announce/offer | Required | Implemented | 100% | `/api/v1/federate/announce` + `/offer` implemented (v0.4.0); §9.2 headers; 202 `FederateAcceptedResponse` (signature verification lab boundary). |
 | F-011 | Federation handshake protocol | Required | Partial | 40% | Implemented as `/api/v1/federation/handshake` (lab-only); no signature validation; schema differs from spec endpoint. |
 | F-012 | LoopCoin issuance/transfer | Required | Not implemented | 0% | Schemas exist; no API/service implementation. |
 | F-013 | LoopSignal voting | Required | Not implemented | 0% | Schemas exist; no API/service implementation. |
@@ -44,8 +46,8 @@
 | GET | `/api/v1/node/info` | ✅ | `/api/v1/node/info` | Implemented (v0.4.0); canonical node-info schema validation. |
 | GET | `/api/v1/signals` | ✅ | `/api/v1/signals` | Implemented (v0.4.0). |
 | POST | `/api/v1/transaction` | ✅ | `/api/v1/transaction` | Implemented (v0.4.0); responds TransactionStatus. |
-| POST | `/api/v1/federate/announce` | ✅ | `/api/v1/federate/announce` | Implemented (v0.4.0); §9.2 headers; 202 `{status, id}` (no canonical JSON-LD response schema). |
-| POST | `/api/v1/federate/offer` | ✅ | `/api/v1/federate/offer` | Implemented (v0.4.0); §9.2 headers; material must be hosted locally. |
+| POST | `/api/v1/federate/announce` | ✅ | `/api/v1/federate/announce` | Implemented (v0.4.0); §9.2 headers; 202 `FederateAcceptedResponse` (canonical plain JSON schema). |
+| POST | `/api/v1/federate/offer` | ✅ | `/api/v1/federate/offer` | Implemented (v0.4.0); §9.2 headers; material must be hosted locally; 202 `FederateAcceptedResponse`. |
 
 ### Backend Docs vs Actual Routes
 
