@@ -1,0 +1,318 @@
+{
+  "suite": "battery-extension-guidance-0.1.0-lab",
+  "vectors": [
+    {
+      "id": "battery-valid-material-end-of-life-001",
+      "title": "Valid MaterialDNA battery pack at end of life with full passport block",
+      "requirement_ids": [
+        "BATTERY-REQ-CATEGORY-MAPPING",
+        "BATTERY-REQ-PASSPORT-IDENTIFIER",
+        "BATTERY-REQ-REGIME-TAGGING",
+        "BATTERY-REQ-DUE-DILIGENCE-REF",
+        "BATTERY-REQ-ACCESS-TIER",
+        "BATTERY-REQ-HAZARD-AND-DECLARED-VALUES"
+      ],
+      "expected": "valid",
+      "coverage_tags": ["positive:material-end-of-life-industrial"],
+      "payload_schema": "schemas/material-dna.schema.json",
+      "semantic_checks": ["battery-category-implies-ewaste-category"],
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "MaterialDNA",
+        "schema_version": "0.2.0",
+        "id": "MAT-DE-MUC-2026-BATTERY-7F2A91",
+        "category": "ewaste-batteries",
+        "quantity": { "value": 12, "unit": "piece" },
+        "origin_city": "Munich",
+        "current_city": "Munich",
+        "available_from": "2026-08-10T08:00:00Z",
+        "classification": {
+          "battery_category": "industrial",
+          "ewc_code": "16 06 05"
+        },
+        "passport": {
+          "passport_id": "BATT-DPP-DE-MUC-2026-0007",
+          "passport_url": "https://example.com/dpp/battery/DE-MUC-2026-0007",
+          "backup_copy_url": "https://example.com/dpp/battery/DE-MUC-2026-0007/backup",
+          "passport_status": "available",
+          "data_carrier_id": "urn:epc:id:sgtin:426001.123456.2026BATT0007",
+          "access_scope": "role-based",
+          "visible_to": "operator",
+          "supported_regimes": ["battery-passport"],
+          "carbon_footprint_kg_co2e": 62.5,
+          "carbon_footprint_unit": "per_unit",
+          "recycled_content_percent": 18,
+          "hazardous": true,
+          "material_safety_info_url": "https://example.com/msds/battery-pack-industrial-2026-0007.pdf"
+        },
+        "traceability": {
+          "due_diligence_ref": "DD-DE-MUC-2026-BAT-0007",
+          "retention_until": "2033-08-10T00:00:00Z"
+        }
+      }
+    },
+    {
+      "id": "battery-valid-product-in-use-001",
+      "title": "Valid ProductDNA industrial battery pack still in service",
+      "requirement_ids": [
+        "BATTERY-REQ-PASSPORT-IDENTIFIER",
+        "BATTERY-REQ-REGIME-TAGGING",
+        "BATTERY-REQ-ACCESS-TIER",
+        "BATTERY-REQ-HAZARD-AND-DECLARED-VALUES"
+      ],
+      "expected": "valid",
+      "coverage_tags": ["positive:product-in-use"],
+      "payload_schema": "schemas/product-dna.schema.json",
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "ProductDNA",
+        "schema_version": "0.2.0",
+        "id": "PRD-DE-MUC-2026-BATTPACK-9C4E21",
+        "product_category": "equipment-industrial",
+        "name": "Industrial Battery Pack — In Service",
+        "condition": "good",
+        "lifecycle_stage": "in-use",
+        "quantity": { "value": 1, "unit": "piece" },
+        "origin_city": "Munich",
+        "current_city": "Munich",
+        "available_from": "2026-08-10T08:00:00Z",
+        "passport": {
+          "passport_id": "BATT-DPP-DE-MUC-2026-0100",
+          "passport_url": "https://example.com/dpp/battery/DE-MUC-2026-0100",
+          "passport_status": "available",
+          "access_scope": "role-based",
+          "visible_to": "operator",
+          "supported_regimes": ["battery-passport"],
+          "hazardous": true,
+          "material_safety_info_url": "https://example.com/msds/battery-pack-2026-0100.pdf",
+          "carbon_footprint_kg_co2e": 58.2,
+          "carbon_footprint_unit": "per_unit"
+        }
+      }
+    },
+    {
+      "id": "battery-valid-category-portable-001",
+      "title": "Valid MaterialDNA portable battery category maps to ewaste-batteries",
+      "requirement_ids": ["BATTERY-REQ-CATEGORY-MAPPING"],
+      "expected": "valid",
+      "coverage_tags": ["positive:battery-category-portable"],
+      "payload_schema": "schemas/material-dna.schema.json",
+      "semantic_checks": ["battery-category-implies-ewaste-category"],
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "MaterialDNA",
+        "schema_version": "0.2.0",
+        "id": "MAT-DE-BER-2026-BATTERY-1A2B3C",
+        "category": "ewaste-batteries",
+        "quantity": { "value": 500, "unit": "piece" },
+        "origin_city": "Berlin",
+        "current_city": "Berlin",
+        "available_from": "2026-08-11T09:00:00Z",
+        "classification": {
+          "battery_category": "portable"
+        }
+      }
+    },
+    {
+      "id": "battery-valid-category-lmt-001",
+      "title": "Valid MaterialDNA light-means-of-transport battery category maps to ewaste-batteries",
+      "requirement_ids": [
+        "BATTERY-REQ-CATEGORY-MAPPING",
+        "BATTERY-REQ-REGIME-TAGGING",
+        "BATTERY-REQ-ACCESS-TIER"
+      ],
+      "expected": "valid",
+      "coverage_tags": ["positive:battery-category-lmt"],
+      "payload_schema": "schemas/material-dna.schema.json",
+      "semantic_checks": ["battery-category-implies-ewaste-category"],
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "MaterialDNA",
+        "schema_version": "0.2.0",
+        "id": "MAT-DE-MUC-2026-BATTERY-4D5E6F",
+        "category": "ewaste-batteries",
+        "quantity": { "value": 80, "unit": "piece" },
+        "origin_city": "Munich",
+        "current_city": "Munich",
+        "available_from": "2026-08-12T09:00:00Z",
+        "classification": {
+          "battery_category": "lmt",
+          "ewc_code": "16 06 05"
+        },
+        "passport": {
+          "supported_regimes": ["battery-passport"],
+          "visible_to": "operator"
+        }
+      }
+    },
+    {
+      "id": "battery-valid-visible-to-regulator-001",
+      "title": "Valid MaterialDNA EV battery with regulator-tier restricted access and due-diligence reference",
+      "requirement_ids": [
+        "BATTERY-REQ-CATEGORY-MAPPING",
+        "BATTERY-REQ-ACCESS-TIER",
+        "BATTERY-REQ-DUE-DILIGENCE-REF"
+      ],
+      "expected": "valid",
+      "coverage_tags": ["positive:battery-access-tier-regulator"],
+      "payload_schema": "schemas/material-dna.schema.json",
+      "semantic_checks": ["battery-category-implies-ewaste-category"],
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "MaterialDNA",
+        "schema_version": "0.2.0",
+        "id": "MAT-DE-MUC-2026-BATTERY-7A8B9C",
+        "category": "ewaste-batteries",
+        "quantity": { "value": 6, "unit": "piece" },
+        "origin_city": "Munich",
+        "current_city": "Munich",
+        "available_from": "2026-08-13T09:00:00Z",
+        "classification": {
+          "battery_category": "ev"
+        },
+        "passport": {
+          "access_scope": "restricted",
+          "visible_to": "regulator",
+          "supported_regimes": ["battery-passport"]
+        },
+        "traceability": {
+          "due_diligence_ref": "DD-DE-MUC-2026-EV-0009",
+          "document_refs": ["https://example.com/docs/ev-battery-due-diligence-0009.pdf"]
+        }
+      }
+    },
+    {
+      "id": "battery-invalid-category-mismatch-001",
+      "title": "Reject MaterialDNA battery_category set on a non-ewaste-batteries category",
+      "requirement_ids": ["BATTERY-REQ-CATEGORY-MAPPING"],
+      "expected": "invalid",
+      "expected_failure_contains": "not \"ewaste-batteries\"",
+      "payload_schema": "schemas/material-dna.schema.json",
+      "semantic_checks": ["battery-category-implies-ewaste-category"],
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "MaterialDNA",
+        "schema_version": "0.2.0",
+        "id": "MAT-DE-MUC-2026-METAL-1F2E3D",
+        "category": "metal-mixed",
+        "quantity": { "value": 300, "unit": "kg" },
+        "origin_city": "Munich",
+        "current_city": "Munich",
+        "available_from": "2026-08-10T08:00:00Z",
+        "classification": {
+          "battery_category": "sli"
+        }
+      }
+    },
+    {
+      "id": "battery-invalid-battery-category-enum-001",
+      "title": "Reject classification.battery_category outside the Annex I five-value enum",
+      "requirement_ids": ["BATTERY-REQ-CATEGORY-MAPPING"],
+      "expected": "invalid",
+      "expected_failure_contains": "allowed values",
+      "payload_schema": "schemas/material-dna.schema.json",
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "MaterialDNA",
+        "schema_version": "0.2.0",
+        "id": "MAT-DE-MUC-2026-BATTERY-2B3C4D",
+        "category": "ewaste-batteries",
+        "quantity": { "value": 10, "unit": "piece" },
+        "origin_city": "Munich",
+        "current_city": "Munich",
+        "available_from": "2026-08-10T08:00:00Z",
+        "classification": {
+          "battery_category": "consumer"
+        }
+      }
+    },
+    {
+      "id": "battery-invalid-visible-to-enum-001",
+      "title": "Reject passport.visible_to outside the three-tier enum",
+      "requirement_ids": ["BATTERY-REQ-ACCESS-TIER"],
+      "expected": "invalid",
+      "expected_failure_contains": "allowed values",
+      "payload_schema": "schemas/material-dna.schema.json",
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "MaterialDNA",
+        "schema_version": "0.2.0",
+        "id": "MAT-DE-MUC-2026-BATTERY-3C4D5E",
+        "category": "ewaste-batteries",
+        "quantity": { "value": 10, "unit": "piece" },
+        "origin_city": "Munich",
+        "current_city": "Munich",
+        "available_from": "2026-08-10T08:00:00Z",
+        "passport": {
+          "visible_to": "internal"
+        }
+      }
+    },
+    {
+      "id": "battery-invalid-supported-regimes-enum-001",
+      "title": "Reject passport.supported_regimes entry outside the five-value enum",
+      "requirement_ids": ["BATTERY-REQ-REGIME-TAGGING"],
+      "expected": "invalid",
+      "expected_failure_contains": "allowed values",
+      "payload_schema": "schemas/material-dna.schema.json",
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "MaterialDNA",
+        "schema_version": "0.2.0",
+        "id": "MAT-DE-MUC-2026-BATTERY-4D5E6A",
+        "category": "ewaste-batteries",
+        "quantity": { "value": 10, "unit": "piece" },
+        "origin_city": "Munich",
+        "current_city": "Munich",
+        "available_from": "2026-08-10T08:00:00Z",
+        "passport": {
+          "supported_regimes": ["battery-passport-v2"]
+        }
+      }
+    },
+    {
+      "id": "battery-invalid-carbon-footprint-negative-001",
+      "title": "Reject negative carbon_footprint_kg_co2e",
+      "requirement_ids": ["BATTERY-REQ-HAZARD-AND-DECLARED-VALUES"],
+      "expected": "invalid",
+      "expected_failure_contains": ">=",
+      "payload_schema": "schemas/material-dna.schema.json",
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "MaterialDNA",
+        "schema_version": "0.2.0",
+        "id": "MAT-DE-MUC-2026-BATTERY-5E6A7B",
+        "category": "ewaste-batteries",
+        "quantity": { "value": 10, "unit": "piece" },
+        "origin_city": "Munich",
+        "current_city": "Munich",
+        "available_from": "2026-08-10T08:00:00Z",
+        "passport": {
+          "carbon_footprint_kg_co2e": -5
+        }
+      }
+    },
+    {
+      "id": "battery-invalid-recycled-content-range-001",
+      "title": "Reject recycled_content_percent above 100",
+      "requirement_ids": ["BATTERY-REQ-HAZARD-AND-DECLARED-VALUES"],
+      "expected": "invalid",
+      "expected_failure_contains": "<=",
+      "payload_schema": "schemas/material-dna.schema.json",
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "MaterialDNA",
+        "schema_version": "0.2.0",
+        "id": "MAT-DE-MUC-2026-BATTERY-6A7B8C",
+        "category": "ewaste-batteries",
+        "quantity": { "value": 10, "unit": "piece" },
+        "origin_city": "Munich",
+        "current_city": "Munich",
+        "available_from": "2026-08-10T08:00:00Z",
+        "passport": {
+          "recycled_content_percent": 150
+        }
+      }
+    }
+  ]
+}

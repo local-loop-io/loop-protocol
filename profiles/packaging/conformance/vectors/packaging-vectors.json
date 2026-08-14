@@ -1,0 +1,303 @@
+{
+  "suite": "packaging-extension-guidance-0.1.0-lab",
+  "vectors": [
+    {
+      "id": "packaging-valid-product-reusable-001",
+      "title": "Valid ProductDNA reusable transport crate tagged ppwr",
+      "requirement_ids": [
+        "PACKAGING-REQ-CATEGORY-MAPPING",
+        "PACKAGING-REQ-REGIME-TAGGING",
+        "PACKAGING-REQ-POOL-TRACKING",
+        "PACKAGING-REQ-PASSPORT-IDENTIFIER"
+      ],
+      "expected": "valid",
+      "coverage_tags": ["positive:product-reusable-packaging"],
+      "payload_schema": "schemas/product-dna.schema.json",
+      "semantic_checks": ["packaging-ppwr-regime-implies-reusable-category"],
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "ProductDNA",
+        "schema_version": "0.2.0",
+        "id": "PRD-DE-MUC-2026-CRATE-4F8B21",
+        "product_category": "packaging-reusable",
+        "name": "Reusable Transport Crate — Pooled PPWR Asset",
+        "condition": "good",
+        "quantity": { "value": 40, "unit": "piece" },
+        "origin_city": "Munich",
+        "current_city": "Munich",
+        "available_from": "2026-08-13T07:00:00Z",
+        "passport": {
+          "passport_id": "PPWR-DE-MUC-2026-0014",
+          "passport_url": "https://example.com/dpp/packaging/DE-MUC-2026-0014",
+          "data_carrier_id": "POOL-ASSET-DE-MUC-0014",
+          "access_scope": "role-based",
+          "visible_to": "operator",
+          "supported_regimes": ["ppwr"]
+        },
+        "traceability": {
+          "batch_id": "POOL-CRATE-2026-CYCLE-014"
+        }
+      }
+    },
+    {
+      "id": "packaging-valid-transfer-001",
+      "title": "Valid Transfer for a pooled reusable-packaging cycle",
+      "requirement_ids": ["PACKAGING-REQ-POOL-TRACKING", "PACKAGING-REQ-PASSPORT-IDENTIFIER"],
+      "expected": "valid",
+      "coverage_tags": ["positive:transfer-reusable-packaging"],
+      "payload_schema": "schemas/transfer.schema.json",
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "Transfer",
+        "schema_version": "0.2.0",
+        "id": "TRF-PKG7A2B9C",
+        "product_id": "PRD-DE-MUC-2026-CRATE-4F8B21",
+        "match_id": "MCH-PKG3D9E01",
+        "status": "completed",
+        "handoff_at": "2026-08-13T07:30:00Z",
+        "received_at": "2026-08-13T14:00:00Z",
+        "route": { "from_city": "Munich", "to_city": "Augsburg", "mode": "road" },
+        "traceability": {
+          "batch_id": "POOL-CRATE-2026-CYCLE-014",
+          "facility_id": "FAC-DE-MUC-PKG-01",
+          "retention_until": "2029-08-13T00:00:00Z",
+          "document_refs": ["https://example.com/docs/packaging-pool-cycle-014.pdf"]
+        },
+        "passport": {
+          "passport_id": "PPWR-DE-MUC-2026-0014",
+          "passport_url": "https://example.com/dpp/packaging/DE-MUC-2026-0014",
+          "access_scope": "role-based",
+          "visible_to": "operator"
+        }
+      }
+    },
+    {
+      "id": "packaging-valid-material-waste-stream-001",
+      "title": "Valid MaterialDNA packaging waste stream tagged ppwr without the ProductDNA category rule applying",
+      "requirement_ids": ["PACKAGING-REQ-WASTE-STREAM-CLASSIFICATION", "PACKAGING-REQ-REGIME-TAGGING"],
+      "expected": "valid",
+      "coverage_tags": ["positive:material-packaging-waste-stream"],
+      "payload_schema": "schemas/material-dna.schema.json",
+      "semantic_checks": ["packaging-ppwr-regime-implies-reusable-category"],
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "MaterialDNA",
+        "schema_version": "0.2.0",
+        "id": "MAT-DE-MUC-2026-CARDBOARD-8D2E71",
+        "category": "cardboard",
+        "quantity": { "value": 850, "unit": "kg" },
+        "origin_city": "Munich",
+        "current_city": "Munich",
+        "available_from": "2026-08-13T07:00:00Z",
+        "classification": {
+          "ewc_code": "15 01 01"
+        },
+        "passport": {
+          "supported_regimes": ["ppwr"],
+          "visible_to": "operator"
+        }
+      }
+    },
+    {
+      "id": "packaging-valid-economic-operator-001",
+      "title": "Valid ProductDNA reusable packaging with national EPR economic-operator identity",
+      "requirement_ids": ["PACKAGING-REQ-CATEGORY-MAPPING", "PACKAGING-REQ-ECONOMIC-OPERATOR-AND-CONFORMITY"],
+      "expected": "valid",
+      "coverage_tags": ["positive:product-economic-operator"],
+      "payload_schema": "schemas/product-dna.schema.json",
+      "semantic_checks": ["packaging-ppwr-regime-implies-reusable-category"],
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "ProductDNA",
+        "schema_version": "0.2.0",
+        "id": "PRD-DE-AUG-2026-PALLET-2C7F93",
+        "product_category": "packaging-reusable",
+        "name": "Reusable Pallet — Pooled Asset",
+        "condition": "good",
+        "quantity": { "value": 120, "unit": "piece" },
+        "origin_city": "Augsburg",
+        "current_city": "Augsburg",
+        "available_from": "2026-08-13T07:00:00Z",
+        "passport": {
+          "supported_regimes": ["ppwr"],
+          "economic_operator_id": "DE-EPR-PKG-00931",
+          "economic_operator_name": "Augsburg Pooling Logistics GmbH"
+        }
+      }
+    },
+    {
+      "id": "packaging-valid-conformity-claim-001",
+      "title": "Valid ProductDNA reusable packaging with a PPWR conformity claim",
+      "requirement_ids": ["PACKAGING-REQ-CATEGORY-MAPPING", "PACKAGING-REQ-ECONOMIC-OPERATOR-AND-CONFORMITY"],
+      "expected": "valid",
+      "coverage_tags": ["positive:product-conformity-claim"],
+      "payload_schema": "schemas/product-dna.schema.json",
+      "semantic_checks": ["packaging-ppwr-regime-implies-reusable-category"],
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "ProductDNA",
+        "schema_version": "0.2.0",
+        "id": "PRD-DE-MUC-2026-CRATE-9A1B44",
+        "product_category": "packaging-reusable",
+        "name": "Reusable Crate — Conformity Documented",
+        "condition": "good",
+        "quantity": { "value": 60, "unit": "piece" },
+        "origin_city": "Munich",
+        "current_city": "Munich",
+        "available_from": "2026-08-13T07:00:00Z",
+        "passport": {
+          "supported_regimes": ["ppwr"]
+        },
+        "conformity_claims": [
+          {
+            "claim_id": "CLM-PPWR-2025-40-001",
+            "description": "Reusable packaging asset tracked under a pooling system ahead of PPWR's still-pending Art. 12 data-carrier format",
+            "reference_regulation": "Regulation (EU) 2025/40",
+            "conformity_topic": "environment",
+            "conformance": false,
+            "assessment_date": "2026-08-13T07:00:00Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": "packaging-invalid-regime-category-mismatch-001",
+      "title": "Reject ProductDNA tagged ppwr whose product_category is not packaging-reusable",
+      "requirement_ids": ["PACKAGING-REQ-CATEGORY-MAPPING"],
+      "expected": "invalid",
+      "expected_failure_contains": "not \"packaging-reusable\"",
+      "payload_schema": "schemas/product-dna.schema.json",
+      "semantic_checks": ["packaging-ppwr-regime-implies-reusable-category"],
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "ProductDNA",
+        "schema_version": "0.2.0",
+        "id": "PRD-DE-MUC-2026-DESK-3E8C12",
+        "product_category": "furniture-office",
+        "name": "Standing Desk",
+        "condition": "good",
+        "quantity": { "value": 5, "unit": "piece" },
+        "origin_city": "Munich",
+        "current_city": "Munich",
+        "available_from": "2026-08-13T07:00:00Z",
+        "passport": {
+          "supported_regimes": ["ppwr"]
+        }
+      }
+    },
+    {
+      "id": "packaging-invalid-product-category-enum-001",
+      "title": "Reject product_category outside the ProductDNA enum",
+      "requirement_ids": ["PACKAGING-REQ-CATEGORY-MAPPING"],
+      "expected": "invalid",
+      "expected_failure_contains": "allowed values",
+      "payload_schema": "schemas/product-dna.schema.json",
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "ProductDNA",
+        "schema_version": "0.2.0",
+        "id": "PRD-DE-MUC-2026-CRATE-1B2C3D",
+        "product_category": "packaging-flexible",
+        "name": "Flexible Packaging Unit",
+        "condition": "good",
+        "quantity": { "value": 10, "unit": "piece" },
+        "origin_city": "Munich",
+        "current_city": "Munich",
+        "available_from": "2026-08-13T07:00:00Z"
+      }
+    },
+    {
+      "id": "packaging-invalid-recycled-content-range-001",
+      "title": "Reject negative recycled_content_percent",
+      "requirement_ids": ["PACKAGING-REQ-PASSPORT-IDENTIFIER"],
+      "expected": "invalid",
+      "expected_failure_contains": ">=",
+      "payload_schema": "schemas/product-dna.schema.json",
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "ProductDNA",
+        "schema_version": "0.2.0",
+        "id": "PRD-DE-MUC-2026-CRATE-2C3D4E",
+        "product_category": "packaging-reusable",
+        "name": "Reusable Crate",
+        "condition": "good",
+        "quantity": { "value": 10, "unit": "piece" },
+        "origin_city": "Munich",
+        "current_city": "Munich",
+        "available_from": "2026-08-13T07:00:00Z",
+        "passport": {
+          "recycled_content_percent": -10
+        }
+      }
+    },
+    {
+      "id": "packaging-invalid-supported-regimes-enum-001",
+      "title": "Reject passport.supported_regimes entry outside the five-value enum",
+      "requirement_ids": ["PACKAGING-REQ-REGIME-TAGGING"],
+      "expected": "invalid",
+      "expected_failure_contains": "allowed values",
+      "payload_schema": "schemas/product-dna.schema.json",
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "ProductDNA",
+        "schema_version": "0.2.0",
+        "id": "PRD-DE-MUC-2026-CRATE-3D4E5F",
+        "product_category": "packaging-reusable",
+        "name": "Reusable Crate",
+        "condition": "good",
+        "quantity": { "value": 10, "unit": "piece" },
+        "origin_city": "Munich",
+        "current_city": "Munich",
+        "available_from": "2026-08-13T07:00:00Z",
+        "passport": {
+          "supported_regimes": ["ppwr-2025"]
+        }
+      }
+    },
+    {
+      "id": "packaging-invalid-passport-url-format-001",
+      "title": "Reject a non-URI passport_url",
+      "requirement_ids": ["PACKAGING-REQ-PASSPORT-IDENTIFIER"],
+      "expected": "invalid",
+      "expected_failure_contains": "must match format",
+      "payload_schema": "schemas/product-dna.schema.json",
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "ProductDNA",
+        "schema_version": "0.2.0",
+        "id": "PRD-DE-MUC-2026-CRATE-4E5F6A",
+        "product_category": "packaging-reusable",
+        "name": "Reusable Crate",
+        "condition": "good",
+        "quantity": { "value": 10, "unit": "piece" },
+        "origin_city": "Munich",
+        "current_city": "Munich",
+        "available_from": "2026-08-13T07:00:00Z",
+        "passport": {
+          "passport_url": "not-a-url"
+        }
+      }
+    },
+    {
+      "id": "packaging-invalid-batch-id-too-long-001",
+      "title": "Reject traceability.batch_id longer than 120 characters",
+      "requirement_ids": ["PACKAGING-REQ-POOL-TRACKING"],
+      "expected": "invalid",
+      "expected_failure_contains": "more than 120 characters",
+      "payload_schema": "schemas/transfer.schema.json",
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "Transfer",
+        "schema_version": "0.2.0",
+        "id": "TRF-PKG5F6A7B",
+        "product_id": "PRD-DE-MUC-2026-CRATE-4F8B21",
+        "match_id": "MCH-PKG5F6A7B",
+        "status": "in_transit",
+        "handoff_at": "2026-08-13T07:30:00Z",
+        "traceability": {
+          "batch_id": "POOL-CRATE-2026-CYCLE-014-EXTENDED-IDENTIFIER-THAT-DELIBERATELY-EXCEEDS-THE-ONE-HUNDRED-TWENTY-CHARACTER-SCHEMA-LIMIT-BY-A-COMFORTABLE-MARGIN-0001"
+        }
+      }
+    }
+  ]
+}

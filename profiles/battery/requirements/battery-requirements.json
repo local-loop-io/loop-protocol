@@ -1,0 +1,70 @@
+{
+  "profile": "battery",
+  "profile_status": "extension-guidance-with-scoped-conformance-vectors",
+  "base_specification": {
+    "path": "SPECIFICATION.md",
+    "version": "0.2.0"
+  },
+  "scope_note": "These requirement IDs capture claims documented in profiles/battery/README.md's field-mapping table — not RFC2119 normative clauses from SPECIFICATION.md the way profiles/core-dp/requirements/core-dp-requirements.json does. A pass in this harness means 'this profile's documented field usage validates against the core v0.2.0 schemas and is internally consistent,' not full LOOP conformance (see profiles/core-dp/ for that) and not regulatory compliance or Battery Passport certification (see docs/governance/CLAIMS-AND-MATURITY.md). Article 77's implementing/delegated acts remain unadopted; nothing here depends on their still-pending mechanics.",
+  "requirements": [
+    {
+      "id": "BATTERY-REQ-CATEGORY-MAPPING",
+      "contract_location": "profiles/battery/README.md#field-mapping (Battery category row; End-of-life material recovery row)",
+      "summary": "A MaterialDNA record that sets classification.battery_category is a battery at end of life, and category must be ewaste-batteries.",
+      "rationale": "profiles/battery/README.md and docs/category-classification-mapping.md both document that the same physical battery moves from ProductDNA (in use) to MaterialDNA category ewaste-batteries at end of life — battery_category has no other MaterialDNA category to attach to.",
+      "testability_statement": "Vector-testable: schema-shape check that classification.battery_category only accepts the five Annex I enum values (portable/lmt/sli/industrial/ev), plus a semantic check that classification.battery_category implies category=ewaste-batteries on MaterialDNA.",
+      "positive_test_location": "profiles/battery/conformance/vectors/battery-vectors.json",
+      "negative_test_location": "profiles/battery/conformance/vectors/battery-vectors.json",
+      "evidence_output": "profiles/battery/conformance/run-conformance.js semantic check battery-category-implies-ewaste-category"
+    },
+    {
+      "id": "BATTERY-REQ-PASSPORT-IDENTIFIER",
+      "contract_location": "profiles/battery/README.md#field-mapping (Passport identifier and resolvable location row; Data carrier reference row)",
+      "summary": "passport.passport_id, passport_url, backup_copy_url, and data_carrier_id carry the battery passport's identifier, resolvable location, and physical data-carrier reference.",
+      "rationale": "The Regulation requires passport data to survive the economic operator's own discontinuation (hence backup_copy_url); LOOP stores the data carrier's identifier only, not the encoding itself.",
+      "testability_statement": "Vector-testable: schema-shape checks on passport_id/passport_url/backup_copy_url/data_carrier_id field types, formats, and length limits.",
+      "positive_test_location": "profiles/battery/conformance/vectors/battery-vectors.json",
+      "negative_test_location": "profiles/battery/conformance/vectors/battery-vectors.json",
+      "evidence_output": "schemas/material-dna.schema.json and schemas/product-dna.schema.json passport block"
+    },
+    {
+      "id": "BATTERY-REQ-REGIME-TAGGING",
+      "contract_location": "profiles/battery/README.md#field-mapping (Marking this regime explicitly row)",
+      "summary": "passport.supported_regimes includes \"battery-passport\" to mark a record as Battery Passport-relevant.",
+      "rationale": "Gives federation peers a consistent hint that a record carries battery-passport-relevant fields, without implying conformance to Article 77's still-unadopted mechanics.",
+      "testability_statement": "Vector-testable: supported_regimes only accepts its five enum values (espr-dpp/battery-passport/ppwr/waste-shipment/nkws).",
+      "positive_test_location": "profiles/battery/conformance/vectors/battery-vectors.json",
+      "negative_test_location": "profiles/battery/conformance/vectors/battery-vectors.json",
+      "evidence_output": "schemas/material-dna.schema.json and schemas/product-dna.schema.json passport.supported_regimes enum"
+    },
+    {
+      "id": "BATTERY-REQ-DUE-DILIGENCE-REF",
+      "contract_location": "profiles/battery/README.md#field-mapping (Due diligence (supply-chain) documentation row)",
+      "summary": "traceability.due_diligence_ref points at supply-chain due-diligence documentation, independent of the passport obligation's own timeline.",
+      "rationale": "The critical-raw-materials due-diligence obligation was separately postponed to August 18, 2027 (Regulation (EU) 2025/1561) — this field is a reference only, not a due-diligence status or verification result.",
+      "testability_statement": "Vector-testable: due_diligence_ref is a bounded-length string field.",
+      "positive_test_location": "profiles/battery/conformance/vectors/battery-vectors.json",
+      "evidence_output": "schemas/material-dna.schema.json traceability.due_diligence_ref"
+    },
+    {
+      "id": "BATTERY-REQ-ACCESS-TIER",
+      "contract_location": "profiles/battery/README.md#field-mapping (Audience tiering row)",
+      "summary": "passport.visible_to expresses the intended minimum audience tier (public/operator/regulator), echoing Annex XIII's three-way split without implementing its still-pending access mechanics.",
+      "rationale": "See docs/access-scope-model.md — this is LOOP's own generalized vocabulary, not a literal implementation of Annex XIII.",
+      "testability_statement": "Vector-testable: visible_to only accepts its three enum values.",
+      "positive_test_location": "profiles/battery/conformance/vectors/battery-vectors.json",
+      "negative_test_location": "profiles/battery/conformance/vectors/battery-vectors.json",
+      "evidence_output": "schemas/material-dna.schema.json and schemas/product-dna.schema.json passport.visible_to enum"
+    },
+    {
+      "id": "BATTERY-REQ-HAZARD-AND-DECLARED-VALUES",
+      "contract_location": "profiles/battery/README.md#field-mapping (Hazard and safety information row; Carbon footprint declaration row; Recycled content row)",
+      "summary": "passport.hazardous, material_safety_info_url, carbon_footprint_kg_co2e, and recycled_content_percent carry declared (not verified or per-substance) values.",
+      "rationale": "profiles/battery/README.md flags recycled_content_percent as a known gap: a single aggregate percentage cannot represent the Regulation's eventual per-substance minimums — this requirement only covers the aggregate field LOOP actually has today.",
+      "testability_statement": "Vector-testable: carbon_footprint_kg_co2e and recycled_content_percent numeric ranges (minimum 0; recycled_content_percent maximum 100).",
+      "positive_test_location": "profiles/battery/conformance/vectors/battery-vectors.json",
+      "negative_test_location": "profiles/battery/conformance/vectors/battery-vectors.json",
+      "evidence_output": "schemas/material-dna.schema.json and schemas/product-dna.schema.json passport block"
+    }
+  ]
+}

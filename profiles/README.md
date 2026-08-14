@@ -8,14 +8,20 @@ Applicability profiles narrow the draft LOOP specification for a specific intero
 
 ### Regulatory extension guidance
 
-The three directories below are **extension guidance, not conformance profiles**: no
-schemas, conformance vectors, or harness — just documentation of how to use existing
-v0.2.0 fields for a specific regulatory use case, per the
+The three directories below are **extension guidance with scoped conformance vectors, not
+full conformance profiles** like `core-dp/`: they document how to use existing v0.2.0
+fields for a specific regulatory use case, per the
 [Regulatory Alignment Roadmap](../docs/regulatory-alignment-roadmap.md)'s Horizon 2 scope.
-Conformance tests for these, if any, are a Horizon 3 item, not current work.
+Each now also includes a lightweight conformance harness (Horizon 3) that checks the
+profile's own documented field-usage claims — schema shape plus one or two grounded
+cross-field rules — against the core schemas. None of the three defines its own schemas;
+none claims full LOOP conformance or regulatory compliance.
 
-- `battery/`: EU Battery Passport (Regulation (EU) 2023/1542) field mapping.
-- `packaging/`: EU Packaging and Packaging Waste Regulation (PPWR, (EU) 2025/40) field mapping.
-- `waste-shipment/`: EU Waste Shipment Regulation / DIWASS ((EU) 2024/1157) field mapping.
+- `battery/`: EU Battery Passport (Regulation (EU) 2023/1542) field mapping, with
+  conformance vectors scoped to that mapping (`npm run conformance:battery`).
+- `packaging/`: EU Packaging and Packaging Waste Regulation (PPWR, (EU) 2025/40) field
+  mapping, with conformance vectors scoped to that mapping (`npm run conformance:packaging`).
+- `waste-shipment/`: EU Waste Shipment Regulation / DIWASS ((EU) 2024/1157) field mapping,
+  with conformance vectors scoped to that mapping (`npm run conformance:waste-shipment`).
 
 Profiles do not imply production readiness, public pilot status, legal DPP certification, payment safety, or full LOOP conformance unless a profile states that explicitly.

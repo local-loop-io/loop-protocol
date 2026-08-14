@@ -33,9 +33,13 @@ The immediate goal is to make v0.1.1 payloads easier to extend without breaking 
   unique identifiers and metadata only — full passport content stays with the
   decentralized holder, which is directionally consistent with LOOP's own node-held,
   reference-by-ID design. CEN-CENELEC also published six of eight horizontal DPP
-  standards (EN 18216 and EN 18219–18223) on May 27, 2026 under EC mandate M/604; two more
-  (draft EN 18239, EN 18246) were still pending. Source:
-  https://single-market-economy.ec.europa.eu/single-market/digital-product-passport_en
+  standards (EN 18216 and EN 18219–18223) on May 27, 2026 under EC mandate M/604, cited as
+  harmonised standards in the Official Journal on July 15, 2026. The remaining two (EN 18239,
+  EN 18246 — access-rights/confidentiality and data-authentication/integrity) completed their
+  formal CEN-CENELEC vote on July 16, 2026 and are now expected published around September
+  2026, which would complete all eight M/604 standards. Source:
+  https://single-market-economy.ec.europa.eu/single-market/digital-product-passport_en and
+  https://eudigitalproductpassport.org/updates/cencenelec-dpp-standards
   Separately, UN/CEFACT's UNTP (the technical framework several LOOP passport fields are
   loosely inspired by — see field-level notes in the schemas) is itself still pre-v1.0: its
   v0.7.0 build finished public review July 13, 2026, with v1.0 targeted September 1, 2026.
@@ -71,9 +75,11 @@ The immediate goal is to make v0.1.1 payloads easier to extend without breaking 
   no general delay. However, the Article 12 implementing act defining the harmonized
   label and data-carrier format was itself due that same date and had not been adopted as
   of this writing (Commission Guidance Notice C/2026/3084, OJ June 10, 2026, is
-  interpretive only). This is the clearest current case for this roadmap's "without
-  assuming a single passport format yet" guardrail. See
-  [profiles/packaging](../profiles/packaging/README.md).
+  interpretive only). A draft implementing act was not expected until after summer 2026, with
+  Waste Expert Group discussion and public consultation still to follow before adoption —
+  putting realistic adoption closer to late 2026 or 2027 than a near-term date. This is the
+  clearest current case for this roadmap's "without assuming a single passport format yet"
+  guardrail. See [profiles/packaging](../profiles/packaging/README.md).
 
 ### EU Waste Shipment and Traceability
 
@@ -145,13 +151,48 @@ This pass is deliberately guidance- and metadata-only: no `schema_version` bump,
 required fields, no `@context` change. All additions are optional properties inside
 existing `additionalProperties: true` blocks, so v0.1.1 and v0.2.0 payloads that predate
 this work remain valid without modification. Conformance tests for these three profiles
-remain a Horizon 3 item.
+were added under Horizon 3 (see below).
 
-### Horizon 3: 12 to 24 months
+### Horizon 3: 12 to 24 months — initial pass complete
 
-- Add conformance tests for additive patch releases and profile-specific extensions.
-- Prototype adapter layers for battery passport and DPP service-provider integrations once implementing acts mature.
-- Add reusable packaging and municipal reuse scenarios to lab flows.
+- Add conformance tests for profile-specific extensions: `battery`, `packaging`, and
+  `waste-shipment` each now have a scoped conformance harness (`npm run
+  conformance:battery` / `:packaging` / `:waste-shipment`) checking that profile's own
+  documented field-usage claims — schema shape plus one or two grounded cross-field rules —
+  against the core v0.2.0 schemas. This is profile-specific conformance, not full LOOP
+  conformance (see [profiles/core-dp](../profiles/core-dp/README.md) for that) and not a
+  regulatory-compliance claim. See
+  [profiles/battery/conformance](../profiles/battery/conformance/README.md),
+  [profiles/packaging/conformance](../profiles/packaging/conformance/README.md), and
+  [profiles/waste-shipment/conformance](../profiles/waste-shipment/conformance/README.md).
+  Conformance for additive patch-release behavior itself (v0.1.1/v0.2.0 payload interop)
+  continues to be covered by the existing example/schema validation in
+  `scripts/validate-schemas.js`, run via `npm test`.
+- Prototype an adapter layer for DIWASS specifically, ahead of Battery Passport or ESPR DPP,
+  since DIWASS is the only regime tracked in this roadmap with a live (if access-gated)
+  published API. `localloop-backend`'s `src/adapters/diwass/` maps LOOP `Transfer`/
+  `MaterialDNA` waste-shipment fields to and from DIWASS-shaped document types (notification,
+  movement, Annex VII reference, treatment-completion certificate) per the ID-format and role
+  rules in Commission Implementing Regulation (EU) 2025/1290 Articles 10, 13, 14, and 15. This
+  is a data-shape prototype only, with **no live transport**: DIWASS's API is SOAP/XML
+  (Annex II), gated behind an existing DIWASS operator registration plus Commission
+  Helpdesk-mediated credential issuance, with no public sandbox, test operator IDs, or
+  published OpenAPI/WSDL — so a real network integration is not possible today, and the
+  adapter does not attempt one. Battery Passport and ESPR DPP adapters remain deliberately
+  un-built: they stay gated behind Article 77's still-unadopted implementing/delegated acts
+  (expected ~Q4 2026, adopted piecemeal rather than as one act) and behind the first ESPR
+  product-group delegated act (iron & steel furthest along, indicative Q4 2026 adoption)
+  respectively — revisit once either lands.
+- Add reusable-packaging and municipal-reuse scenarios to lab flows: `localloop-backend`'s
+  `lab:demo` (`scripts/simulate-lab.ts`) now includes a reusable-packaging pooling-cycle flow
+  (PPWR-tagged `ProductDNA`, see [profiles/packaging](../profiles/packaging/README.md)) and a
+  municipal reuse-depot flow tied to the Germany National Circular Economy Strategy signal
+  rather than a specific EU passport regime; `localloop-site`'s DEMO City page documents both
+  as illustrative lab scenarios.
+
+As with Horizon 2, this pass stays additive: no `schema_version` bump, no new required
+fields, no `@context` change, and no new profile schemas — the three conformance harnesses
+and the DIWASS adapter validate and map existing v0.2.0 optional fields; they do not add any.
 
 ### Horizon 4: 24 months and beyond
 

@@ -1,0 +1,69 @@
+{
+  "profile": "packaging",
+  "profile_status": "extension-guidance-with-scoped-conformance-vectors",
+  "base_specification": {
+    "path": "SPECIFICATION.md",
+    "version": "0.2.0"
+  },
+  "scope_note": "These requirement IDs capture claims documented in profiles/packaging/README.md's field-mapping table — not RFC2119 normative clauses from SPECIFICATION.md the way profiles/core-dp/requirements/core-dp-requirements.json does. A pass in this harness means 'this profile's documented field usage validates against the core v0.2.0 schemas and is internally consistent,' not full LOOP conformance (see profiles/core-dp/ for that) and not PPWR regulatory compliance (see docs/governance/CLAIMS-AND-MATURITY.md). PPWR's Article 12 data-carrier implementing act remains unadopted; nothing here assumes a single packaging data-carrier format.",
+  "requirements": [
+    {
+      "id": "PACKAGING-REQ-CATEGORY-MAPPING",
+      "contract_location": "profiles/packaging/README.md#field-mapping (Identifying an item as reusable/grouped packaging row)",
+      "summary": "A ProductDNA record whose passport.supported_regimes includes \"ppwr\" identifies itself as reusable/grouped packaging, so product_category must be packaging-reusable.",
+      "rationale": "profiles/packaging/README.md's field-mapping table maps this PPWR need directly to product_category: packaging-reusable — the only ProductDNA category built for this. MaterialDNA packaging-waste-stream records (e.g. cardboard, plastic-pet) can independently carry supported_regimes: [ppwr] without this constraint; the check is scoped to ProductDNA only.",
+      "testability_statement": "Vector-testable: semantic check that supported_regimes containing ppwr on a ProductDNA implies product_category=packaging-reusable; a MaterialDNA counter-example with ppwr tagging and a non-packaging category is a valid vector proving the check does not over-fire.",
+      "positive_test_location": "profiles/packaging/conformance/vectors/packaging-vectors.json",
+      "negative_test_location": "profiles/packaging/conformance/vectors/packaging-vectors.json",
+      "evidence_output": "profiles/packaging/conformance/run-conformance.js semantic check packaging-ppwr-regime-implies-reusable-category"
+    },
+    {
+      "id": "PACKAGING-REQ-REGIME-TAGGING",
+      "contract_location": "profiles/packaging/README.md#field-mapping (Marking this regime explicitly row)",
+      "summary": "passport.supported_regimes includes \"ppwr\" to mark a record as Packaging and Packaging Waste Regulation-relevant.",
+      "rationale": "Gives federation peers a consistent hint without implying conformance to the still-pending Article 12 data-carrier format.",
+      "testability_statement": "Vector-testable: supported_regimes only accepts its five enum values.",
+      "positive_test_location": "profiles/packaging/conformance/vectors/packaging-vectors.json",
+      "negative_test_location": "profiles/packaging/conformance/vectors/packaging-vectors.json",
+      "evidence_output": "schemas/product-dna.schema.json and schemas/material-dna.schema.json passport.supported_regimes enum"
+    },
+    {
+      "id": "PACKAGING-REQ-POOL-TRACKING",
+      "contract_location": "profiles/packaging/README.md#field-mapping (Reusable-packaging pool / batch tracking row)",
+      "summary": "traceability.batch_id and lot_number carry reusable-packaging pool/batch tracking identifiers, e.g. a pooling-cycle id.",
+      "rationale": "PPWR's reuse-rotation delegated act (due February 12, 2027) is not yet adopted, so LOOP has no dedicated rotation-count field; batch_id stands in as the pooling-cycle identifier per the profile's worked example.",
+      "testability_statement": "Vector-testable: batch_id is a bounded-length string field on both ProductDNA and Transfer.",
+      "positive_test_location": "profiles/packaging/conformance/vectors/packaging-vectors.json",
+      "negative_test_location": "profiles/packaging/conformance/vectors/packaging-vectors.json",
+      "evidence_output": "schemas/product-dna.schema.json and schemas/transfer.schema.json traceability.batch_id"
+    },
+    {
+      "id": "PACKAGING-REQ-PASSPORT-IDENTIFIER",
+      "contract_location": "profiles/packaging/README.md#field-mapping (Passport-style identifier and resolvable location row)",
+      "summary": "passport.passport_id, passport_url, and data_carrier_id carry a node-chosen interim identifier scheme, not a claim of conformance with the still-pending Art. 12 format.",
+      "rationale": "There is currently no regulation-defined packaging data carrier to map to; LOOP does not prescribe a scheme.",
+      "testability_statement": "Vector-testable: schema-shape checks on passport_id/passport_url/data_carrier_id field types, formats, and length limits.",
+      "positive_test_location": "profiles/packaging/conformance/vectors/packaging-vectors.json",
+      "negative_test_location": "profiles/packaging/conformance/vectors/packaging-vectors.json",
+      "evidence_output": "schemas/product-dna.schema.json and schemas/transfer.schema.json passport block"
+    },
+    {
+      "id": "PACKAGING-REQ-ECONOMIC-OPERATOR-AND-CONFORMITY",
+      "contract_location": "profiles/packaging/README.md#field-mapping (Economic operator identity row; Document evidence row)",
+      "summary": "passport.economic_operator_id/economic_operator_name and conformity_claims[] carry economic-operator identity and conformity/compliance document evidence.",
+      "rationale": "PPWR's own EPR registers (Art. 44-47) are national, not EU-wide, so an economic_operator_id value is only as resolvable as the national register a receiving node has access to.",
+      "testability_statement": "Vector-testable: schema-shape checks on economic_operator_id/economic_operator_name length limits and conformity_claims[] required claim_id.",
+      "positive_test_location": "profiles/packaging/conformance/vectors/packaging-vectors.json",
+      "evidence_output": "schemas/product-dna.schema.json passport and conformity_claims blocks"
+    },
+    {
+      "id": "PACKAGING-REQ-WASTE-STREAM-CLASSIFICATION",
+      "contract_location": "profiles/packaging/README.md#field-mapping (End-of-life / waste-stream classification row)",
+      "summary": "MaterialDNA.classification.ewc_code and waste_framework_code classify packaging waste material at end of life, independent of the ProductDNA packaging-reusable mapping.",
+      "rationale": "Packaging waste commonly falls under List of Waste chapter 15 — see docs/category-classification-mapping.md. This is a MaterialDNA concept, distinct from PACKAGING-REQ-CATEGORY-MAPPING's ProductDNA scope.",
+      "testability_statement": "Vector-testable: ewc_code pattern validation on a MaterialDNA record tagged with supported_regimes: [ppwr].",
+      "positive_test_location": "profiles/packaging/conformance/vectors/packaging-vectors.json",
+      "evidence_output": "schemas/material-dna.schema.json classification block"
+    }
+  ]
+}

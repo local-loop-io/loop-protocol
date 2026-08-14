@@ -1,10 +1,13 @@
 # Packaging Extension Guidance
 
-**Status:** Extension guidance, not a conformance profile. Like `battery/`, this directory
-defines no schemas, conformance vectors, or harness of its own — it documents how to use
-fields that already exist in the pinned `SPECIFICATION.md` v0.2.0 schemas for reusable and
-grouped packaging flows. localLOOP remains a lab-demo project with no public pilots or
-production deployments. See
+**Status:** Extension guidance with scoped conformance vectors — not a full conformance
+profile like `core-dp/`. Like `battery/`, this directory defines no schemas of its own; it
+documents how to use fields that already exist in the pinned `SPECIFICATION.md` v0.2.0
+schemas for reusable and grouped packaging flows. [`conformance/`](conformance/README.md)
+(`npm run conformance:packaging`) checks that this documented field usage validates against
+the core schemas and is internally consistent — it does not check full LOOP conformance
+(see `core-dp/` for that) and is not a conformance or compliance claim. localLOOP remains a
+lab-demo project with no public pilots or production deployments. See
 [CLAIMS-AND-MATURITY.md](../../docs/governance/CLAIMS-AND-MATURITY.md).
 
 **Regulatory basis:** Regulation (EU) 2025/40 (the Packaging and Packaging Waste

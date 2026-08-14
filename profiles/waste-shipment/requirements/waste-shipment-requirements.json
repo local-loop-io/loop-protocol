@@ -1,0 +1,79 @@
+{
+  "profile": "waste-shipment",
+  "profile_status": "extension-guidance-with-scoped-conformance-vectors",
+  "base_specification": {
+    "path": "SPECIFICATION.md",
+    "version": "0.2.0"
+  },
+  "scope_note": "These requirement IDs capture claims documented in profiles/waste-shipment/README.md's field-mapping table — not RFC2119 normative clauses from SPECIFICATION.md the way profiles/core-dp/requirements/core-dp-requirements.json does. A pass in this harness means 'this profile's documented field usage validates against the core v0.2.0 schemas and is internally consistent,' not full LOOP conformance (see profiles/core-dp/ for that) and not DIWASS/Waste Shipment Regulation compliance (see docs/governance/CLAIMS-AND-MATURITY.md). This profile models no DIWASS/TRACES NT API integration; waste_shipment_doc_ref is a reference a human or downstream system resolves outside LOOP.",
+  "requirements": [
+    {
+      "id": "WASTE-SHIPMENT-REQ-DOC-REF",
+      "contract_location": "profiles/waste-shipment/README.md#field-mapping (Waste-shipment notification/movement document reference row)",
+      "summary": "Transfer.waste_shipment_doc_ref points at a stable reference into the shipping node's own DIWASS/TRACES NT record.",
+      "rationale": "This is the most direct existing mapping in this round of guidance — a dedicated top-level Transfer field, not a repurposed generic one.",
+      "testability_statement": "Vector-testable: waste_shipment_doc_ref is a URI-formatted field.",
+      "positive_test_location": "profiles/waste-shipment/conformance/vectors/waste-shipment-vectors.json",
+      "negative_test_location": "profiles/waste-shipment/conformance/vectors/waste-shipment-vectors.json",
+      "evidence_output": "schemas/transfer.schema.json waste_shipment_doc_ref"
+    },
+    {
+      "id": "WASTE-SHIPMENT-REQ-EVIDENCE-REFS",
+      "contract_location": "profiles/waste-shipment/README.md#field-mapping (General evidence references row; Due diligence row)",
+      "summary": "traceability.document_refs and due_diligence_ref carry supporting documents (pre-consent correspondence, financial guarantee references) alongside waste_shipment_doc_ref.",
+      "rationale": "These are references, not proof of access — DIWASS exposes no public lookup, so a document_refs entry is only resolvable by an authenticated, registered operator or competent authority. See docs/retention-and-evidence-guidance.md.",
+      "testability_statement": "Vector-testable: document_refs is a URI array (maxItems 20); due_diligence_ref is a bounded-length string.",
+      "positive_test_location": "profiles/waste-shipment/conformance/vectors/waste-shipment-vectors.json",
+      "evidence_output": "schemas/transfer.schema.json traceability block"
+    },
+    {
+      "id": "WASTE-SHIPMENT-REQ-OPERATOR-FACILITY",
+      "contract_location": "profiles/waste-shipment/README.md#field-mapping (Operator and facility identity row)",
+      "summary": "traceability.source_operator_id and facility_id correspond to WSR's notifier/consignee and facility concepts, as asserted values LOOP does not validate against any DIWASS or national register.",
+      "rationale": "profiles/waste-shipment/README.md is explicit that these are asserted, not validated, values.",
+      "testability_statement": "Vector-testable: source_operator_id and facility_id are bounded-length string fields.",
+      "positive_test_location": "profiles/waste-shipment/conformance/vectors/waste-shipment-vectors.json",
+      "negative_test_location": "profiles/waste-shipment/conformance/vectors/waste-shipment-vectors.json",
+      "evidence_output": "schemas/transfer.schema.json traceability block"
+    },
+    {
+      "id": "WASTE-SHIPMENT-REQ-CLASSIFICATION",
+      "contract_location": "profiles/waste-shipment/README.md#field-mapping (Waste classification row)",
+      "summary": "MaterialDNA.classification.ewc_code and waste_framework_code carry Green/Amber list and EWC-derived classification for shipment procedures.",
+      "rationale": "See docs/category-classification-mapping.md for candidate EWC chapters per LOOP category; this document does not validate a specific 6-digit EWC entry, which depends on a material's actual origin and process history.",
+      "testability_statement": "Vector-testable: ewc_code pattern validation (two-digit groups separated by single spaces).",
+      "positive_test_location": "profiles/waste-shipment/conformance/vectors/waste-shipment-vectors.json",
+      "negative_test_location": "profiles/waste-shipment/conformance/vectors/waste-shipment-vectors.json",
+      "evidence_output": "schemas/material-dna.schema.json classification block"
+    },
+    {
+      "id": "WASTE-SHIPMENT-REQ-RETENTION",
+      "contract_location": "profiles/waste-shipment/README.md#field-mapping (Retention of shipment documentation row)",
+      "summary": "traceability.retention_until carries the asserted retention window (WSR's confirmed minimum: 5 years from the recovery/disposal completion certificate date).",
+      "rationale": "See docs/retention-and-evidence-guidance.md — this is a plain data field the emitting node asserts; LOOP does not enforce it.",
+      "testability_statement": "Vector-testable: retention_until is a date-time formatted field.",
+      "positive_test_location": "profiles/waste-shipment/conformance/vectors/waste-shipment-vectors.json",
+      "negative_test_location": "profiles/waste-shipment/conformance/vectors/waste-shipment-vectors.json",
+      "evidence_output": "schemas/transfer.schema.json traceability.retention_until"
+    },
+    {
+      "id": "WASTE-SHIPMENT-REQ-ACCESS-TIER-NO-PUBLIC",
+      "contract_location": "profiles/waste-shipment/README.md#field-mapping (Audience tiering row); docs/access-scope-model.md",
+      "summary": "A Transfer with waste_shipment_doc_ref set should not be marked passport.visible_to: public, since DIWASS has no public access tier at all.",
+      "rationale": "docs/access-scope-model.md documents DIWASS's real access model (authenticated operators and competent authorities only) as mapping most directly to this model's operator/regulator tiers, explicitly excluding public.",
+      "testability_statement": "Vector-testable: semantic check that waste_shipment_doc_ref presence plus passport.visible_to=public is rejected; absence of passport, or visible_to=operator/regulator, must remain valid.",
+      "positive_test_location": "profiles/waste-shipment/conformance/vectors/waste-shipment-vectors.json",
+      "negative_test_location": "profiles/waste-shipment/conformance/vectors/waste-shipment-vectors.json",
+      "evidence_output": "profiles/waste-shipment/conformance/run-conformance.js semantic check waste-shipment-doc-ref-visibility-not-public"
+    },
+    {
+      "id": "WASTE-SHIPMENT-REQ-REGIME-TAGGING",
+      "contract_location": "profiles/waste-shipment/README.md#field-mapping (Marking this regime explicitly row)",
+      "summary": "passport.supported_regimes includes \"waste-shipment\" to mark a MaterialDNA/ProductDNA record as Waste Shipment Regulation-relevant.",
+      "rationale": "Gives federation peers a consistent hint without implying a DIWASS/TRACES NT API integration.",
+      "testability_statement": "Vector-testable: supported_regimes only accepts its five enum values.",
+      "positive_test_location": "profiles/waste-shipment/conformance/vectors/waste-shipment-vectors.json",
+      "evidence_output": "schemas/material-dna.schema.json passport.supported_regimes enum"
+    }
+  ]
+}

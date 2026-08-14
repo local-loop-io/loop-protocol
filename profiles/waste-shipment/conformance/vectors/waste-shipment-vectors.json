@@ -1,0 +1,271 @@
+{
+  "suite": "waste-shipment-extension-guidance-0.1.0-lab",
+  "vectors": [
+    {
+      "id": "waste-shipment-valid-transfer-001",
+      "title": "Valid cross-border e-waste Transfer with full DIWASS-adjacent fields",
+      "requirement_ids": [
+        "WASTE-SHIPMENT-REQ-DOC-REF",
+        "WASTE-SHIPMENT-REQ-EVIDENCE-REFS",
+        "WASTE-SHIPMENT-REQ-OPERATOR-FACILITY",
+        "WASTE-SHIPMENT-REQ-RETENTION",
+        "WASTE-SHIPMENT-REQ-ACCESS-TIER-NO-PUBLIC"
+      ],
+      "expected": "valid",
+      "coverage_tags": ["positive:transfer-cross-border-ewaste"],
+      "payload_schema": "schemas/transfer.schema.json",
+      "semantic_checks": ["waste-shipment-doc-ref-visibility-not-public"],
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "Transfer",
+        "schema_version": "0.2.0",
+        "id": "TRF-WSR5C1D82",
+        "material_id": "MAT-DE-MUC-2026-EWASTE-9C3F02",
+        "match_id": "MCH-WSR2A7B44",
+        "status": "in_transit",
+        "handoff_at": "2026-08-14T06:00:00Z",
+        "route": { "from_city": "Munich", "to_city": "Rotterdam", "mode": "road" },
+        "waste_shipment_doc_ref": "https://example.com/diwass/notifications/DE-MUC-2026-9C3F02",
+        "traceability": {
+          "source_operator_id": "OP-DE-MUC-WSR-005",
+          "facility_id": "FAC-NL-RTM-RCY-03",
+          "due_diligence_ref": "DD-DE-MUC-2026-WSR-0044",
+          "retention_until": "2031-08-14T00:00:00Z",
+          "document_refs": ["https://example.com/diwass/movement-documents/DE-MUC-2026-9C3F02.pdf"]
+        },
+        "passport": {
+          "access_scope": "restricted",
+          "visible_to": "regulator"
+        }
+      }
+    },
+    {
+      "id": "waste-shipment-valid-material-classification-001",
+      "title": "Valid MaterialDNA e-waste classification tagged waste-shipment",
+      "requirement_ids": ["WASTE-SHIPMENT-REQ-CLASSIFICATION", "WASTE-SHIPMENT-REQ-REGIME-TAGGING"],
+      "expected": "valid",
+      "coverage_tags": ["positive:material-classification"],
+      "payload_schema": "schemas/material-dna.schema.json",
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "MaterialDNA",
+        "schema_version": "0.2.0",
+        "id": "MAT-DE-MUC-2026-EWASTE-9C3F02",
+        "category": "ewaste-mixed",
+        "quantity": { "value": 640, "unit": "kg" },
+        "origin_city": "Munich",
+        "current_city": "Munich",
+        "available_from": "2026-08-14T05:00:00Z",
+        "classification": {
+          "ewc_code": "16 02 14",
+          "waste_framework_code": "WFD-16-02-14"
+        },
+        "passport": {
+          "supported_regimes": ["waste-shipment"],
+          "visible_to": "regulator"
+        }
+      }
+    },
+    {
+      "id": "waste-shipment-valid-transfer-operator-tier-001",
+      "title": "Valid Transfer with waste_shipment_doc_ref and operator-tier visibility",
+      "requirement_ids": ["WASTE-SHIPMENT-REQ-DOC-REF", "WASTE-SHIPMENT-REQ-ACCESS-TIER-NO-PUBLIC"],
+      "expected": "valid",
+      "coverage_tags": ["positive:transfer-operator-tier"],
+      "payload_schema": "schemas/transfer.schema.json",
+      "semantic_checks": ["waste-shipment-doc-ref-visibility-not-public"],
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "Transfer",
+        "schema_version": "0.2.0",
+        "id": "TRF-WSR6D2E93",
+        "material_id": "MAT-DE-MUC-2026-EWASTE-9C3F02",
+        "match_id": "MCH-WSR3B8C55",
+        "status": "scheduled",
+        "handoff_at": "2026-08-15T06:00:00Z",
+        "waste_shipment_doc_ref": "https://example.com/diwass/notifications/DE-MUC-2026-6D2E93",
+        "passport": {
+          "visible_to": "operator"
+        }
+      }
+    },
+    {
+      "id": "waste-shipment-valid-transfer-no-passport-001",
+      "title": "Valid Transfer with waste_shipment_doc_ref and no passport block at all",
+      "requirement_ids": ["WASTE-SHIPMENT-REQ-DOC-REF", "WASTE-SHIPMENT-REQ-ACCESS-TIER-NO-PUBLIC"],
+      "expected": "valid",
+      "coverage_tags": ["positive:transfer-no-passport-block"],
+      "payload_schema": "schemas/transfer.schema.json",
+      "semantic_checks": ["waste-shipment-doc-ref-visibility-not-public"],
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "Transfer",
+        "schema_version": "0.2.0",
+        "id": "TRF-WSR7E3F04",
+        "material_id": "MAT-DE-MUC-2026-EWASTE-9C3F02",
+        "match_id": "MCH-WSR4C9D66",
+        "status": "scheduled",
+        "handoff_at": "2026-08-16T06:00:00Z",
+        "waste_shipment_doc_ref": "https://example.com/diwass/notifications/DE-MUC-2026-7E3F04"
+      }
+    },
+    {
+      "id": "waste-shipment-valid-document-refs-001",
+      "title": "Valid completed Transfer with supporting document_refs alongside waste_shipment_doc_ref",
+      "requirement_ids": ["WASTE-SHIPMENT-REQ-EVIDENCE-REFS", "WASTE-SHIPMENT-REQ-RETENTION", "WASTE-SHIPMENT-REQ-DOC-REF"],
+      "expected": "valid",
+      "coverage_tags": ["positive:transfer-supporting-documents"],
+      "payload_schema": "schemas/transfer.schema.json",
+      "semantic_checks": ["waste-shipment-doc-ref-visibility-not-public"],
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "Transfer",
+        "schema_version": "0.2.0",
+        "id": "TRF-WSR8F4A15",
+        "material_id": "MAT-DE-MUC-2026-EWASTE-9C3F02",
+        "match_id": "MCH-WSR5D0E77",
+        "status": "completed",
+        "handoff_at": "2026-08-10T06:00:00Z",
+        "received_at": "2026-08-12T09:00:00Z",
+        "waste_shipment_doc_ref": "https://example.com/diwass/notifications/DE-MUC-2026-8F4A15",
+        "traceability": {
+          "document_refs": [
+            "https://example.com/diwass/pre-consent/DE-MUC-2026-8F4A15.pdf",
+            "https://example.com/diwass/financial-guarantee/DE-MUC-2026-8F4A15.pdf"
+          ],
+          "retention_until": "2031-08-12T00:00:00Z"
+        },
+        "passport": {
+          "visible_to": "regulator"
+        }
+      }
+    },
+    {
+      "id": "waste-shipment-invalid-doc-ref-visible-public-001",
+      "title": "Reject Transfer with waste_shipment_doc_ref marked visible_to public",
+      "requirement_ids": ["WASTE-SHIPMENT-REQ-ACCESS-TIER-NO-PUBLIC"],
+      "expected": "invalid",
+      "expected_failure_contains": "visible_to is \"public\"",
+      "payload_schema": "schemas/transfer.schema.json",
+      "semantic_checks": ["waste-shipment-doc-ref-visibility-not-public"],
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "Transfer",
+        "schema_version": "0.2.0",
+        "id": "TRF-WSR9A5B26",
+        "material_id": "MAT-DE-MUC-2026-EWASTE-9C3F02",
+        "match_id": "MCH-WSR6E1F88",
+        "status": "scheduled",
+        "handoff_at": "2026-08-17T06:00:00Z",
+        "waste_shipment_doc_ref": "https://example.com/diwass/notifications/DE-MUC-2026-9A5B26",
+        "passport": {
+          "visible_to": "public"
+        }
+      }
+    },
+    {
+      "id": "waste-shipment-invalid-doc-ref-format-001",
+      "title": "Reject a non-URI waste_shipment_doc_ref",
+      "requirement_ids": ["WASTE-SHIPMENT-REQ-DOC-REF"],
+      "expected": "invalid",
+      "expected_failure_contains": "must match format",
+      "payload_schema": "schemas/transfer.schema.json",
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "Transfer",
+        "schema_version": "0.2.0",
+        "id": "TRF-WSRAB6C37",
+        "material_id": "MAT-DE-MUC-2026-EWASTE-9C3F02",
+        "match_id": "MCH-WSR7F2A99",
+        "status": "scheduled",
+        "handoff_at": "2026-08-18T06:00:00Z",
+        "waste_shipment_doc_ref": "not-a-url"
+      }
+    },
+    {
+      "id": "waste-shipment-invalid-retention-until-format-001",
+      "title": "Reject a retention_until that is not a valid date-time",
+      "requirement_ids": ["WASTE-SHIPMENT-REQ-RETENTION"],
+      "expected": "invalid",
+      "expected_failure_contains": "must match format",
+      "payload_schema": "schemas/transfer.schema.json",
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "Transfer",
+        "schema_version": "0.2.0",
+        "id": "TRF-WSRBC7D48",
+        "material_id": "MAT-DE-MUC-2026-EWASTE-9C3F02",
+        "match_id": "MCH-WSR8A3B00",
+        "status": "scheduled",
+        "handoff_at": "2026-08-19T06:00:00Z",
+        "traceability": {
+          "retention_until": "2031"
+        }
+      }
+    },
+    {
+      "id": "waste-shipment-invalid-ewc-code-pattern-001",
+      "title": "Reject a MaterialDNA ewc_code that does not match the two-digit-group pattern",
+      "requirement_ids": ["WASTE-SHIPMENT-REQ-CLASSIFICATION"],
+      "expected": "invalid",
+      "expected_failure_contains": "must match pattern",
+      "payload_schema": "schemas/material-dna.schema.json",
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "MaterialDNA",
+        "schema_version": "0.2.0",
+        "id": "MAT-DE-MUC-2026-EWASTE-1D2E3F",
+        "category": "ewaste-mixed",
+        "quantity": { "value": 100, "unit": "kg" },
+        "origin_city": "Munich",
+        "current_city": "Munich",
+        "available_from": "2026-08-14T05:00:00Z",
+        "classification": {
+          "ewc_code": "160205"
+        }
+      }
+    },
+    {
+      "id": "waste-shipment-invalid-facility-id-too-long-001",
+      "title": "Reject traceability.facility_id longer than 120 characters",
+      "requirement_ids": ["WASTE-SHIPMENT-REQ-OPERATOR-FACILITY"],
+      "expected": "invalid",
+      "expected_failure_contains": "more than 120 characters",
+      "payload_schema": "schemas/transfer.schema.json",
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "Transfer",
+        "schema_version": "0.2.0",
+        "id": "TRF-WSRCD8E59",
+        "material_id": "MAT-DE-MUC-2026-EWASTE-9C3F02",
+        "match_id": "MCH-WSR9B4C11",
+        "status": "scheduled",
+        "handoff_at": "2026-08-20T06:00:00Z",
+        "traceability": {
+          "facility_id": "FAC-NL-RTM-RECYCLING-EXTENDED-IDENTIFIER-THAT-DELIBERATELY-EXCEEDS-THE-ONE-HUNDRED-TWENTY-CHARACTER-SCHEMA-LIMIT-BY-MARGIN-0001"
+        }
+      }
+    },
+    {
+      "id": "waste-shipment-invalid-visible-to-enum-001",
+      "title": "Reject Transfer.passport.visible_to outside the three-tier enum",
+      "requirement_ids": ["WASTE-SHIPMENT-REQ-ACCESS-TIER-NO-PUBLIC"],
+      "expected": "invalid",
+      "expected_failure_contains": "allowed values",
+      "payload_schema": "schemas/transfer.schema.json",
+      "payload": {
+        "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+        "@type": "Transfer",
+        "schema_version": "0.2.0",
+        "id": "TRF-WSRDE9F60",
+        "material_id": "MAT-DE-MUC-2026-EWASTE-9C3F02",
+        "match_id": "MCH-WSRAC5D22",
+        "status": "scheduled",
+        "handoff_at": "2026-08-21T06:00:00Z",
+        "passport": {
+          "visible_to": "authority"
+        }
+      }
+    }
+  ]
+}

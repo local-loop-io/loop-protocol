@@ -25,3 +25,9 @@ jobs:
         run: npm run test
       - name: Run Core-DP conformance vectors
         run: npm run conformance:core-dp
+      - name: Run battery extension-guidance conformance vectors
+        run: npm run conformance:battery
+      - name: Run packaging extension-guidance conformance vectors
+        run: npm run conformance:packaging
+      - name: Run waste-shipment extension-guidance conformance vectors
+        run: npm run conformance:waste-shipment

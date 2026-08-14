@@ -1,11 +1,14 @@
 # Battery Extension Guidance
 
-**Status:** Extension guidance, not a conformance profile. Unlike `core-dp/`, this
-directory defines no schemas, conformance vectors, or harness of its own — it documents
-how to use fields that already exist in the pinned `SPECIFICATION.md` v0.2.0 schemas for
-battery-related material and product flows. localLOOP remains a lab-demo project with no
-public pilots or production deployments; nothing here is a conformance or compliance
-claim. See [CLAIMS-AND-MATURITY.md](../../docs/governance/CLAIMS-AND-MATURITY.md).
+**Status:** Extension guidance with scoped conformance vectors — not a full conformance
+profile like `core-dp/`. This directory defines no schemas of its own; it documents how to
+use fields that already exist in the pinned `SPECIFICATION.md` v0.2.0 schemas for
+battery-related material and product flows. [`conformance/`](conformance/README.md)
+(`npm run conformance:battery`) checks that this documented field usage validates against
+the core schemas and is internally consistent — it does not check full LOOP conformance
+(see `core-dp/` for that) and is not a conformance or compliance claim. localLOOP remains a
+lab-demo project with no public pilots or production deployments. See
+[CLAIMS-AND-MATURITY.md](../../docs/governance/CLAIMS-AND-MATURITY.md).
 
 **Regulatory basis:** Regulation (EU) 2023/1542 (the Batteries Regulation). Digital
 battery passport obligations start applying February 18, 2027, for light means of
