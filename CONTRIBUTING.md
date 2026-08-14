@@ -41,7 +41,7 @@ cd loop-protocol
 npm install
 
 # Run tests
-npm test
+npm run test
 ```
 
 ## 📝 Style Guidelines

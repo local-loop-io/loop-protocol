@@ -18,9 +18,10 @@ This directory contains JSON examples that validate against the schemas in `sche
 - `13-conformity-claims.json`: MaterialDNA with multiple conformity claims (v0.2.0).
 - `14-product-reuse-registration.json`: ProductDNA registration for office furniture reuse (v0.2.0).
 - `15-product-offer-flow.json`: Complete Offer→Match→Transfer flow using product_id (v0.2.0).
+- `16-federate-accepted-response.json`: 202 Accepted response body for `POST /api/v1/federate/announce` and `POST /api/v1/federate/offer` (v0.2.0).
 
 ## Validation
-Run `npm test` from the repository root to validate all examples.
+Run `npm run test` from the repository root to validate all examples.
 
 ## How to Cite
 

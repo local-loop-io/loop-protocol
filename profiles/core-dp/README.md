@@ -32,9 +32,9 @@ Core-DP does not claim blockchain permanence, production security, public pilot 
 
 ## Version Reconciliation
 
-The repository package release is `0.2.3`, while the normative base specification remains pinned at `0.2.0`. Core-DP treats this as:
+The repository package release is `0.3.0`, while the normative base specification remains pinned at `0.2.0`. Core-DP treats this as:
 
-- package `0.2.3`: repository maintenance release containing docs, examples, schema corrections, and validation tooling;
+- package `0.3.0`: repository maintenance release containing docs, examples, schema corrections, and validation tooling;
 - spec `0.2.0`: pinned normative text inventoried by `profiles/core-dp/requirements/spec-v0.2.0-normative-manifest.json`;
 - profile `0.1.0-lab`: additive applicability profile that narrows v0.2.0 for lab delivery without changing v0.2.0 semantics or schema IDs.
 
