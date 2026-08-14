@@ -428,7 +428,17 @@ function extractNormativeEntries(specPath) {
   return entries;
 }
 
-function inferSchemaName(payload) {
+// Schemas without a JSON-LD @type wrapper can't be dispatched by the @type
+// map below. Today that's only federate-accepted.schema.json: it models a
+// plain REST 202 response body (`{status, id}` — see the real backend send
+// site in localloop-backend/src/routes/federate.ts), not a LOOP domain
+// object, so it intentionally has no @context/@type properties. Its example
+// is dispatched by filename instead.
+const FILENAME_SCHEMA_MAP = {
+  '16-federate-accepted-response.json': 'federate-accepted.schema.json',
+};
+
+function inferSchemaName(payload, examplePath) {
   if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
     return null;
   }
@@ -442,6 +452,7 @@ function inferSchemaName(payload) {
     MaterialStatusUpdate: 'material-status.schema.json',
     NodeHandshake: 'handshake.schema.json',
     NodeHandshakeResponse: 'handshake.schema.json',
+    FederateAcceptedResponse: 'federate-accepted.schema.json',
     LoopCoinTransfer: 'loopcoin.schema.json',
     LoopCoinConfig: 'loopcoin.schema.json',
     LoopSignalConfig: 'loopsignal.schema.json',
@@ -456,7 +467,12 @@ function inferSchemaName(payload) {
   };
 
   const type = payload['@type'];
-  return typeof type === 'string' ? schemaMap[type] || null : null;
+  if (typeof type === 'string' && schemaMap[type]) {
+    return schemaMap[type];
+  }
+
+  const basename = examplePath ? path.basename(examplePath) : undefined;
+  return (basename && FILENAME_SCHEMA_MAP[basename]) || null;
 }
 
 function validatePayload(payload, validators, label, failures) {
@@ -472,7 +488,7 @@ function validatePayload(payload, validators, label, failures) {
     return;
   }
 
-  const schemaName = inferSchemaName(payload);
+  const schemaName = inferSchemaName(payload, label);
   if (!schemaName) {
     failures.push(`${label}: could not infer schema from @type.`);
     return;
