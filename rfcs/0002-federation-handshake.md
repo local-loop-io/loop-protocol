@@ -1,5 +1,7 @@
 # RFC-0002: Federation Handshake (Lab Only)
 
+- **Status**: Implemented
+
 ## Summary
 Introduce a minimal federation handshake payload for lab environments to
 exchange node metadata and confirm protocol compatibility.

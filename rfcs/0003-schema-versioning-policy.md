@@ -1,6 +1,6 @@
 # RFC-0003: Schema Versioning Policy
 
-- **Status**: Draft
+- **Status**: Accepted
 - **Created**: 2026-03-08
 - **Author**: Mycel UG (haftungsbeschränkt)
 
@@ -59,6 +59,11 @@ This policy is implemented in v0.2.0 by:
 3. Changing `@context` from `const` to `enum`.
 4. Adding `schema_version` as optional to the four former-v1 schemas.
 5. Setting `additionalProperties: true` on all formerly-closed definitions.
+
+Status is `Accepted` rather than `Implemented`: `schemas/handshake.schema.json`
+still sets `additionalProperties: false` on both `HandshakeRequest` and
+`HandshakeResponse`, which item 5 above says should not be the case. The other
+four policy items hold across the current schema set.
 
 ## References
 
