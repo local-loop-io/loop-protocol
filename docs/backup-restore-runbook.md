@@ -1,8 +1,15 @@
 # Backup & Restore Runbook (VPS / Docker)
 
-**Generated:** 2025-12-24
+**Generated:** 2025-12-24. **Corrected 2026-08-14:** the object-storage
+service was renamed from `minio` to `seaweedfs` (with a `storage-proxy`
+nginx front end) at some point after this runbook was written; Section 3
+and 4.3 below referenced the old `minio` service/path name and would have
+failed if followed literally. Fixed after being caught by an actual drill
+run — see
+[localloop-agent evidence](https://github.com/local-loop-io/localloop-agent/tree/main/evidence/pilot-readiness-2026-08-14)
+for the drill record.
 
-This runbook covers backups for the localLOOP backend stack (Postgres, Redis, MinIO). Adjust paths if your compose file or data volumes differ.
+This runbook covers backups for the localLOOP backend stack (Postgres, Redis, object storage). Adjust paths if your compose file or data volumes differ.
 
 ## 0) Preconditions
 - Access to the VPS host running Docker + `localloop-backend/docker-compose.yml`.
@@ -40,15 +47,17 @@ cp ./data/redis/dump.rdb ./backups/redis/dump-$(date +%F).rdb
 
 If AOF is enabled, also back up `appendonly.aof`.
 
-## 3) MinIO Backup
+## 3) Object Storage Backup (seaweedfs)
 
-MinIO data lives in `./data/minio`.
+Object storage data lives in `./data/seaweedfs` (SeaweedFS, S3-compatible,
+fronted by the `storage-proxy` nginx service — service name in
+`docker-compose.yml` is `seaweedfs`, not `minio`).
 
 ```bash
 cd /root/code/local-loop-io/localloop-backend
-mkdir -p ./backups/minio
+mkdir -p ./backups/seaweedfs
 
-tar -czf ./backups/minio/minio-data-$(date +%F).tar.gz ./data/minio
+tar -czf ./backups/seaweedfs/seaweedfs-data-$(date +%F).tar.gz ./data/seaweedfs
 ```
 
 ## 4) Restore Procedures
@@ -71,22 +80,22 @@ cp ./backups/redis/dump-YYYY-MM-DD.rdb ./data/redis/dump.rdb
 docker compose start redis
 ```
 
-### 4.3 MinIO Restore
+### 4.3 Object Storage Restore (seaweedfs)
 ```bash
 cd /root/code/local-loop-io/localloop-backend
 
-docker compose stop minio
-rm -rf ./data/minio
-mkdir -p ./data/minio
+docker compose stop seaweedfs
+rm -rf ./data/seaweedfs
+mkdir -p ./data/seaweedfs
 
-tar -xzf ./backups/minio/minio-data-YYYY-MM-DD.tar.gz -C ./
-docker compose start minio
+tar -xzf ./backups/seaweedfs/seaweedfs-data-YYYY-MM-DD.tar.gz -C ./
+docker compose start seaweedfs
 ```
 
 ## 5) Verification Checklist
 - [ ] API health check: `curl -sf http://127.0.0.1:8088/health`
 - [ ] Interest list loads: `curl -sf http://127.0.0.1:8088/api/interest`
-- [ ] MinIO console reachable (if exposed)
+- [ ] Object storage (seaweedfs) reachable via `storage-proxy` (if exposed)
 
 ## 6) Scheduled Backup Automation
 
@@ -133,7 +142,7 @@ sudo systemctl restart localloop-backend
 ### 7.2 Database-safe rollback sequence
 1. Stop incoming writes: `sudo systemctl stop localloop-backend`
 2. Confirm a recent backup exists under `./backups/latest`
-3. Restore Postgres, Redis, and MinIO using Section 4
+3. Restore Postgres, Redis, and object storage using Section 4
 4. Restart the backend: `sudo systemctl start localloop-backend`
 5. Run the verification checklist below before reopening traffic
 
