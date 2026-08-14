@@ -199,7 +199,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Status | Key Changes |
 |---------|------|---------|------------|
-| 0.2.3 | 2026-05-26 | **Current** | City decision-maker docs, package-lock fix |
+| 0.3.0 | 2026-07-18 | **Current** | Core-DP 0.1.0-lab applicability profile, conformance harness |
+| 0.2.3 | 2026-05-26 | Superseded | City decision-maker docs, package-lock fix |
 | 0.2.2 | 2026-05-26 | Superseded | MAT- prefix fix, example v0.2.0 updates, §3.6 status transitions |
 | 0.2.1 | 2026-05-26 | Superseded | ProductDNA schema, spec expansion, glossary |
 | 0.2.0 | 2026-03-08 | Superseded | DPP extensions, schema consolidation, context completion |
