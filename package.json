@@ -6,7 +6,7 @@
   "author": "Mycel UG (haftungsbeschr\u00e4nkt) <dev@mycel-ai.de>",
   "license": "(MIT AND CC-BY-SA-4.0)",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=24.19.0"
   },
   "scripts": {
     "check:domains": "bash scripts/check-domains.sh",
@@ -22,7 +22,7 @@
     "fast-glob": "^3.3.3"
   },
   "overrides": {
-    "fast-uri": "^3.1.5",
-    "picomatch": "^2.3.2"
+    "fast-uri": "^4.1.2",
+    "picomatch": "^4.0.5"
   }
 }
