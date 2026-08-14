@@ -11,7 +11,7 @@ JSON Schema definitions for LOOP payloads.
 - `material-status.schema.json` — Material status updates (v0.2.0)
 - `handshake.schema.json` — Federation handshake protocol (v0.2.0)
 - `federate-accepted.schema.json` — 202 Accepted response for federate announce/offer (v0.2.0)
-- `loopcoin.schema.json`
+- `loopcoin.schema.json` — forward-looking/reserved schema; LoopCoin settlement has no corresponding route, schema, or data model in `localloop-backend` yet (see `localloop-backend/docs/SPEC-COMPLIANCE.md`'s LoopCoin settlement lab-boundary section for the current implementation-status boundary)
 - `loopsignal.schema.json`
 - `transaction.schema.json`
 - `node-info.schema.json`
