@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Horizon 2 of the regulatory alignment roadmap (profile-based extension guidance, access
+  scopes, retention/evidence guidance, category-classification mapping). All additions are
+  optional fields inside existing `additionalProperties: true` blocks — no `schema_version`
+  bump, no new required fields, no `@context` change; v0.1.1 and v0.2.0 payloads remain
+  valid unchanged.
+- `passport.visible_to` (`public` / `operator` / `regulator`) on `material-dna`,
+  `product-dna`, and `transfer` schemas — a cumulative audience-tier hint that refines
+  `access_scope` without replacing it. See `docs/access-scope-model.md`.
+- `docs/access-scope-model.md`, `docs/retention-and-evidence-guidance.md`, and
+  `docs/category-classification-mapping.md`.
+- `profiles/battery/`, `profiles/packaging/`, `profiles/waste-shipment/` — extension
+  guidance (not conformance profiles) mapping existing v0.2.0 fields to the EU Battery
+  Passport, PPWR, and Waste Shipment Regulation/DIWASS respectively.
+- Examples 17-19: `17-battery-passport-material.json`, `18-packaging-transfer.json`,
+  `19-waste-shipment-transfer.json`.
+- `status-updated` event type on the Core-DP `evidence-entry.schema.json` (subject type
+  `material`), so `MaterialStatusUpdate` changes reach the append-only evidence log
+  instead of only the mutable SSE feed. `localloop-backend` migration
+  `016_loop_evidence_status_updated.sql` widens the corresponding `CHECK` constraint.
+
 ### Changed
 - Consolidated the 21 per-cycle `check-cycle-NNN.js` guards into a single
   data-driven `scripts/check-agent-markers.js`. Cycles 035-040 and 027 pinned a

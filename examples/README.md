@@ -19,6 +19,9 @@ This directory contains JSON examples that validate against the schemas in `sche
 - `14-product-reuse-registration.json`: ProductDNA registration for office furniture reuse (v0.2.0).
 - `15-product-offer-flow.json`: Complete Offer→Match→Transfer flow using product_id (v0.2.0).
 - `16-federate-accepted-response.json`: 202 Accepted response body for `POST /api/v1/federate/announce` and `POST /api/v1/federate/offer` (v0.2.0).
+- `17-battery-passport-material.json`: MaterialDNA for an industrial battery pack, worked example for [profiles/battery](../profiles/battery/README.md) (v0.2.0).
+- `18-packaging-transfer.json`: Transfer of reusable transport packaging, worked example for [profiles/packaging](../profiles/packaging/README.md) (v0.2.0).
+- `19-waste-shipment-transfer.json`: Transfer with a DIWASS waste-shipment document reference, worked example for [profiles/waste-shipment](../profiles/waste-shipment/README.md) (v0.2.0).
 
 ## Validation
 Run `npm run test` from the repository root to validate all examples.

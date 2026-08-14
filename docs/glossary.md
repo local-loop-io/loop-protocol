@@ -26,6 +26,8 @@ Canonical definitions for the six key concepts are in SPECIFICATION.md §2.1. Th
 ## City Operations Terms
 
 - **Node Operator**: The municipality, cooperative, or authorised entity responsible for running and governing a LOOP node. Accountable for data governance, security configuration, and federation decisions.
+- **Access-Scope Tier**: One of `public` / `operator` / `regulator`, LOOP's cumulative audience-tier vocabulary for `passport.visible_to`. See [Access-Scope Model](access-scope-model.md). Not to be confused with Node Operator above — the `operator` tier means any supply-chain participant with a legitimate operational interest, a broader group than the entity running a given node.
+- **Regulator** (in the access-scope sense): An authority, notified body, or market-surveillance/customs entity — the widest `visible_to` tier. Echoes, without literally implementing, the Batteries Regulation Annex XIII "notified bodies and authorities" tier and DIWASS's competent-authority access.
 - **Audit Trail**: The immutable sequence of material registration, offer, match, and transfer events recorded by a node. Used for EPR reporting and traceability evidence.
 - **Federation**: The peer-to-peer mechanism by which LOOP nodes discover each other and exchange material-flow metadata across boundaries without central control.
 - **Data Residency**: The property that a city's material and product records remain stored within its own node infrastructure. Federation exchanges agreed anonymised metadata only, not raw records.

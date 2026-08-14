@@ -1,0 +1,30 @@
+{
+  "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+  "@type": "Transfer",
+  "schema_version": "0.2.0",
+  "id": "TRF-WSR5C1D82",
+  "material_id": "MAT-DE-MUC-2026-EWASTE-9C3F02",
+  "match_id": "MCH-WSR2A7B44",
+  "status": "in_transit",
+  "handoff_at": "2026-08-14T06:00:00Z",
+  "route": {
+    "from_city": "Munich",
+    "to_city": "Rotterdam",
+    "mode": "road"
+  },
+  "waste_shipment_doc_ref": "https://example.com/diwass/notifications/DE-MUC-2026-9C3F02",
+  "traceability": {
+    "source_operator_id": "OP-DE-MUC-WSR-005",
+    "facility_id": "FAC-NL-RTM-RCY-03",
+    "due_diligence_ref": "DD-DE-MUC-2026-WSR-0044",
+    "retention_until": "2031-08-14T00:00:00Z",
+    "document_refs": ["https://example.com/diwass/movement-documents/DE-MUC-2026-9C3F02.pdf"]
+  },
+  "passport": {
+    "access_scope": "restricted",
+    "visible_to": "regulator"
+  },
+  "metadata": {
+    "notes": "Lab-demo example for profiles/waste-shipment/README.md — waste_shipment_doc_ref points at a DIWASS/TRACES NT record resolvable only by authenticated operators and competent authorities; retention_until reflects WSR's 5-year minimum from completion certificate."
+  }
+}

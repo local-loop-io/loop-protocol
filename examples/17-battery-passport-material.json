@@ -1,0 +1,61 @@
+{
+  "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+  "@type": "MaterialDNA",
+  "schema_version": "0.2.0",
+  "id": "MAT-DE-MUC-2026-BATTERY-7F2A91",
+  "category": "ewaste-batteries",
+  "quantity": { "value": 12, "unit": "piece" },
+  "origin_city": "Munich",
+  "current_city": "Munich",
+  "available_from": "2026-08-10T08:00:00Z",
+  "classification": {
+    "battery_category": "industrial",
+    "ewc_code": "16 06 05"
+  },
+  "passport": {
+    "passport_id": "BATT-DPP-DE-MUC-2026-0007",
+    "passport_url": "https://example.com/dpp/battery/DE-MUC-2026-0007",
+    "passport_status": "available",
+    "access_scope": "role-based",
+    "visible_to": "operator",
+    "supported_regimes": ["battery-passport"],
+    "economic_operator_id": "DE-ECO-04471",
+    "economic_operator_name": "Munich Industrial Batteries GmbH",
+    "country_of_production": "DE",
+    "carbon_footprint_kg_co2e": 62.5,
+    "carbon_footprint_unit": "per_unit",
+    "recycled_content_percent": 18,
+    "hazardous": true,
+    "material_safety_info_url": "https://example.com/msds/battery-pack-industrial-2026-0007.pdf",
+    "verified_ratio": 0.6,
+    "verification_evidence_url": "https://example.com/verification/battery-2026-0007"
+  },
+  "traceability": {
+    "batch_id": "BATCH-2026-W32-IND-BAT-007",
+    "facility_id": "FAC-DE-MUC-BAT-02",
+    "source_operator_id": "OP-DE-MUC-BAT-002",
+    "due_diligence_ref": "DD-DE-MUC-2026-BAT-0007",
+    "retention_until": "2033-08-10T00:00:00Z",
+    "document_refs": ["https://example.com/docs/battery-due-diligence-2026-0007.pdf"]
+  },
+  "conformity_claims": [
+    {
+      "claim_id": "CLM-BATT-2023-1542-001",
+      "description": "Industrial battery pack at end of first use, entering material recovery ahead of Battery Passport obligations applying February 18, 2027",
+      "reference_regulation": "Regulation (EU) 2023/1542",
+      "conformity_topic": "environment",
+      "declared_value": {
+        "metric": "recycled_content",
+        "value": 18,
+        "unit": "percent"
+      },
+      "conformance": false,
+      "assessment_date": "2026-08-10T09:00:00Z",
+      "conformity_evidence_url": "https://example.com/conformity/battery-2026-0007"
+    }
+  ],
+  "metadata": {
+    "source": "industrial",
+    "notes": "Lab-demo example for profiles/battery/README.md — Article 77 acts not yet adopted; see roadmap."
+  }
+}

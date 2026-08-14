@@ -1,0 +1,31 @@
+{
+  "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+  "@type": "Transfer",
+  "schema_version": "0.2.0",
+  "id": "TRF-PKG7A2B9C",
+  "product_id": "PRD-DE-MUC-2026-CRATE-4F8B21",
+  "match_id": "MCH-PKG3D9E01",
+  "status": "completed",
+  "handoff_at": "2026-08-13T07:30:00Z",
+  "received_at": "2026-08-13T14:00:00Z",
+  "route": {
+    "from_city": "Munich",
+    "to_city": "Augsburg",
+    "mode": "road"
+  },
+  "traceability": {
+    "batch_id": "POOL-CRATE-2026-CYCLE-014",
+    "facility_id": "FAC-DE-MUC-PKG-01",
+    "retention_until": "2029-08-13T00:00:00Z",
+    "document_refs": ["https://example.com/docs/packaging-pool-cycle-014.pdf"]
+  },
+  "passport": {
+    "passport_id": "PPWR-DE-MUC-2026-0014",
+    "passport_url": "https://example.com/dpp/packaging/DE-MUC-2026-0014",
+    "access_scope": "role-based",
+    "visible_to": "operator"
+  },
+  "metadata": {
+    "notes": "Lab-demo example for profiles/packaging/README.md — PPWR Art. 12 data-carrier format not yet adopted; passport_url is an interim node-defined reference, not a conformant PPWR data carrier."
+  }
+}

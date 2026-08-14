@@ -99,6 +99,8 @@ The additive Product search OpenAPI operation keeps three authentication alterna
 
 `evidence-entry.schema.json` defines append-only evidence. The immutable subset is `event_id`, `sequence`, `subject`, `event_type`, and `payload_hash_sha256`. Redaction can remove mutable/export fields or create a tombstone, but it cannot rewrite the immutable subset. Retention/export/redaction fields are required so lab operators can test evidence export without claiming indefinite permanence.
 
+The `status-updated` event type records `MaterialStatusUpdate` (base protocol, `material-status.schema.json`) against its `material` subject. This keeps availability-status changes inside the same append-only, retention-bearing trail as register/offer/match/transfer events, even though `MaterialStatusUpdate` itself is a base-protocol lab-demo extension rather than a Core-DP choreography step. See [Retention and Evidence Guidance](../../docs/retention-and-evidence-guidance.md) for how retention windows and evidence references apply to transfer and status events.
+
 ## EPCIS and CBV Pin
 
 Core-DP pins **EPCIS 2.0.1** and **CBV 2.0** for conservative mapping fixtures only. Supported fixture mapping is limited to object-style lifecycle events for register, offer, match, and transfer evidence. Unsupported EPCIS features are listed in `epcis/unsupported-features.json`. No full EPCIS conformance is claimed.

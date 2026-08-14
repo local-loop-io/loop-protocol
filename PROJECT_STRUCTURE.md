@@ -15,6 +15,7 @@ loop-protocol/
 ├── PROJECT_STRUCTURE.md
 ├── package.json
 ├── package-lock.json
+├── bun.lock
 ├── contexts/
 │   ├── loop-v0.1.1.jsonld
 │   └── loop-v0.2.0.jsonld
@@ -27,6 +28,7 @@ loop-protocol/
 │   ├── transfer.schema.json
 │   ├── material-status.schema.json
 │   ├── handshake.schema.json
+│   ├── federate-accepted.schema.json
 │   ├── loopcoin.schema.json
 │   ├── loopsignal.schema.json
 │   ├── transaction.schema.json
@@ -47,42 +49,71 @@ loop-protocol/
 │   ├── 12-material-dna-dpp-extensions.json
 │   ├── 13-conformity-claims.json
 │   ├── 14-product-reuse-registration.json
-│   └── 15-product-offer-flow.json
+│   ├── 15-product-offer-flow.json
+│   ├── 16-federate-accepted-response.json
+│   ├── 17-battery-passport-material.json
+│   ├── 18-packaging-transfer.json
+│   └── 19-waste-shipment-transfer.json
 ├── profiles/
 │   ├── README.md
-│   └── core-dp/
-│       ├── README.md
-│       ├── conformance/
-│       │   ├── README.md
-│       │   ├── trust/
-│       │   │   └── accepted-peer-keys.json
-│       │   └── vectors/
-│       │       └── core-dp-vectors.json
-│       ├── epcis/
-│       │   ├── README.md
-│       │   ├── fixtures/
-│       │   │   └── core-dp-transfer-object-event.json
-│       │   └── unsupported-features.json
-│       ├── requirements/
-│       │   ├── core-dp-requirements.json
-│       │   └── spec-v0.2.0-normative-manifest.json
-│       └── schemas/
-│           ├── choreography-message.schema.json
-│           ├── dna-operation.schema.json
-│           ├── envelope.schema.json
-│           ├── epcis-mapping.schema.json
-│           ├── error.schema.json
-│           ├── evidence-entry.schema.json
-│           └── search-contract.schema.json
+│   ├── core-dp/
+│   │   ├── README.md
+│   │   ├── conformance/
+│   │   │   ├── README.md
+│   │   │   ├── trust/
+│   │   │   │   └── accepted-peer-keys.json
+│   │   │   └── vectors/
+│   │   │       └── core-dp-vectors.json
+│   │   ├── epcis/
+│   │   │   ├── README.md
+│   │   │   ├── fixtures/
+│   │   │   │   └── core-dp-transfer-object-event.json
+│   │   │   └── unsupported-features.json
+│   │   ├── requirements/
+│   │   │   ├── core-dp-requirements.json
+│   │   │   └── spec-v0.2.0-normative-manifest.json
+│   │   └── schemas/
+│   │       ├── choreography-message.schema.json
+│   │       ├── dna-operation.schema.json
+│   │       ├── envelope.schema.json
+│   │       ├── epcis-mapping.schema.json
+│   │       ├── error.schema.json
+│   │       ├── evidence-entry.schema.json
+│   │       └── search-contract.schema.json
+│   ├── battery/
+│   │   └── README.md
+│   ├── packaging/
+│   │   └── README.md
+│   └── waste-shipment/
+│       └── README.md
 ├── docs/
+│   ├── access-scope-model.md
+│   ├── backup-restore-runbook.md
+│   ├── category-classification-mapping.md
 │   ├── faq.md
 │   ├── federation-handshake.md
 │   ├── glossary.md
 │   ├── implementation-guide.md
 │   ├── incident-response.md
 │   ├── regulatory-alignment-roadmap.md
+│   ├── retention-and-evidence-guidance.md
 │   ├── secure-coding.md
-│   └── security-guide.md
+│   ├── security-guide.md
+│   ├── audit/
+│   │   ├── discovery.md
+│   │   ├── infrastructure-readiness.md
+│   │   ├── requirements-matrix.md
+│   │   ├── spec-implementation-divergence.md
+│   │   ├── state-of-development.md
+│   │   └── technical-debt.md
+│   ├── compliance/
+│   │   ├── dpia-lite.md
+│   │   └── threat-model.md
+│   └── governance/
+│       ├── CLAIMS-AND-MATURITY.md
+│       ├── GOVERNANCE.md
+│       ├── RELEASE-CHECKLIST.md
+│       └── rfc-process.md
 ├── rfcs/
 │   ├── README.md
 │   ├── 0000-template.md
@@ -92,9 +123,12 @@ loop-protocol/
 │   ├── 0004-smart-contract-integration.md
 │   └── template.md
 ├── scripts/
+│   ├── check-agent-markers.js
 │   ├── check-domains.sh
+│   ├── check-schemas-readme.js
 │   └── validate-schemas.js
 └── .github/
+    ├── dependabot.yml
     └── workflows/
         └── validate-schemas.yml
 ```
