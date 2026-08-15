@@ -1,6 +1,6 @@
 {
   "name": "@local-loop/loop-protocol",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "private": true,
   "description": "LOOP specification and schemas",
   "author": "Mycel UG (haftungsbeschr\u00e4nkt) <dev@mycel-ai.de>",
