@@ -8,6 +8,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Solo-operator governance override: `rfcs/0005-solo-operator-governance-override.md`
+  and `docs/governance/pilot-readiness/SOLO-OPERATOR-ADDENDUM.md`. GOVERNANCE.md's
+  two-person quorum was written for a 3-5 person project and, as literally written,
+  has no path for a genuinely solo maintainer — its own bootstrap exception keeps
+  releases and high-risk claims blocked until a second person independently
+  approves. The addendum narrowly supersedes the quorum/independent-reviewer
+  requirements in GOVERNANCE.md §2/§4 and CLAIMS-AND-MATURITY.md §3 — and nothing
+  else — with a mandatory self-review checklist, a recorded rationale, and a
+  mandatory public disclosure on every claim made under it. Sunsets automatically
+  once a second maintainer is appointed. A pointer was added to GOVERNANCE.md §4
+  itself so the override is discoverable from the document it narrows.
+- `docs/governance/pilot-readiness/PILOT-USE-CASE.md`: locks the single pilot
+  scope for city-outreach conversations to the existing municipal reuse-depot
+  flow (`ProductDNA`→`Offer`→`Match`→`Transfer`), chosen over reusable-packaging/
+  DIWASS/battery-passport candidates for lowest regulatory-drift risk. Explicitly
+  excludes LoopCoin/LoopSignal/LoopCost and cross-node federation.
+- `docs/governance/pilot-readiness/PILOT-READINESS-CLAIM.md`: the outward
+  pilot-readiness claim, evidence-backed status per item (not a blanket
+  "ready"), reviewed under the solo-operator addendum, with an explicit
+  non-claims section and a 30-day expiry.
+- `docs/governance/pilot-readiness/PILOT-TERMS.md`: draft pilot terms —
+  liability, data handling, lab-pilot framing, exit criteria — explicitly
+  marked not legal advice and not ready for signature.
+
+### Changed
+- `docs/compliance/dpia-lite.md` and `docs/compliance/threat-model.md`
+  rewritten from generic lab-baseline boilerplate to a reassessment against
+  the locked pilot flow's actual data paths. Corrected a stale claim
+  (dpia-lite.md previously described email "redaction"; the real mechanism
+  is conditional inclusion via a `share_email` opt-in flag). Surfaced that
+  enabling `AUTH_ENABLED` introduces a new PII store (name/email/IP/session
+  history) with no deletion path yet, and that no route ties a write to a
+  specific authenticated person — both carried forward as explicit
+  non-claims in `PILOT-READINESS-CLAIM.md`.
+
+### Fixed
+- `docs/backup-restore-runbook.md` referenced the retired `minio`
+  service/`data/minio` path (renamed to `seaweedfs` at some prior point in
+  `localloop-backend`'s `docker-compose.yml`); following it literally would
+  have failed at the object-storage backup step. Caught by an actual
+  backup/restore drill, not a documentation read — see
+  `localloop-agent` `evidence/pilot-readiness-2026-08-14/backup-restore-drill.md`.
+
+### Added
 - Horizon 2 of the regulatory alignment roadmap (profile-based extension guidance, access
   scopes, retention/evidence guidance, category-classification mapping). All additions are
   optional fields inside existing `additionalProperties: true` blocks — no `schema_version`
