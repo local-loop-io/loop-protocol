@@ -130,13 +130,13 @@ const corsOptions = {
 ### Version 0.1.x
 | Issue | Severity | Status | Mitigation |
 |-------|----------|---------|------------|
-| Example: No rate limiting on search endpoint | Medium | Fixed in 0.1.1 | Update to latest version |
+| None recorded | - | - | - |
 
 ## 🔍 Security Audit History
 
 | Date | Version | Auditor | Report |
 |------|---------|---------|---------|
-| TBD | - | - | - |
+| None yet | - | - | No third-party security audit has been performed; see the threat model in `docs/compliance/threat-model.md` |
 
 ## 📋 Security Checklist for Node Operators
 

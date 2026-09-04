@@ -10,4 +10,4 @@ This directory contains LOOP Request for Comments (RFCs).
 - RFC-0005: Solo-operator governance override for releases and high-risk claims (Self-enacted under documented necessity — see RFC for why this is not marked Accepted)
 
 ## How to submit
-Use `rfcs/template.md` to create a new RFC and open a PR.
+Copy `rfcs/0000-template.md` to `rfcs/NNNN-short-title.md` (next free number), fill in every section including `Status`, and open a PR.

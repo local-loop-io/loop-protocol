@@ -1,10 +1,9 @@
-# RFC 0004: Smart Contract Integration
+# RFC-0004: Smart Contract Integration
+
+- **Status**: Draft
 
 ## Summary
 Define optional smart-contract interfaces for automated settlement and auditability.
-
-## Status
-Draft
 
 ## Motivation
 Nodes have requested programmable settlement guarantees for cross-node exchanges.

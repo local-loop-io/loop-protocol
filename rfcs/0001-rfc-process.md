@@ -1,5 +1,7 @@
 # RFC-0001: RFC Process (v0.1)
 
+- **Status**: Active
+
 ## Summary
 Establish a lightweight RFC workflow for the LOOP protocol during lab-only
 development to document decisions and ensure traceability.

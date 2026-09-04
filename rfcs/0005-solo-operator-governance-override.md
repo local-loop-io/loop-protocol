@@ -1,21 +1,21 @@
 # RFC-0005: Solo-Operator Governance Override for Releases and High-Risk Claims
 
-**Status:** Self-enacted under documented necessity — **not** `Accepted`. No
+- **Status**: Self-enacted under documented necessity — **not** `Accepted`. No
 quorum was available to accept this RFC through the normal process; see
-Motivation. See [SOLO-OPERATOR-ADDENDUM.md](SOLO-OPERATOR-ADDENDUM.md) for the
+Motivation. See [SOLO-OPERATOR-ADDENDUM.md](../docs/governance/pilot-readiness/SOLO-OPERATOR-ADDENDUM.md) for the
 operative policy this RFC adopts.
 **Owner:** `alpha912` (project steward, sole active maintainer).
 **Date:** 2026-08-14.
 
 ## Summary
 
-[GOVERNANCE.md](GOVERNANCE.md) requires **exactly two distinct eligible,
+[GOVERNANCE.md](../docs/governance/GOVERNANCE.md) requires **exactly two distinct eligible,
 non-recused natural persons** for release, cross-area, and high-risk-claim
 decisions (§2), and its own bootstrap exception (§1) explicitly keeps
 releases and high-risk claims **blocked** until a second person is appointed
 and independently approves under normal quorum. Today the project has
 exactly one active, eligible maintainer. This RFC documents that impasse and
-adopts [SOLO-OPERATOR-ADDENDUM.md](SOLO-OPERATOR-ADDENDUM.md) — a narrow,
+adopts [SOLO-OPERATOR-ADDENDUM.md](../docs/governance/pilot-readiness/SOLO-OPERATOR-ADDENDUM.md) — a narrow,
 transparent, evidence-preserving substitute for the quorum requirement,
 scoped only to releases and high-risk claims, until a second real maintainer
 is appointed.
@@ -50,7 +50,7 @@ considered (see Alternatives).
 
 ## Proposal
 
-Adopt [SOLO-OPERATOR-ADDENDUM.md](SOLO-OPERATOR-ADDENDUM.md), which:
+Adopt [SOLO-OPERATOR-ADDENDUM.md](../docs/governance/pilot-readiness/SOLO-OPERATOR-ADDENDUM.md), which:
 
 1. Narrowly supersedes GOVERNANCE.md §2's two-person quorum requirement and
    §4's high-risk-claim quorum requirement, and CLAIMS-AND-MATURITY.md §3's

@@ -16,7 +16,7 @@ This section is for city procurement, IT, and sustainability leads assessing LOO
 
 **Data residency**: All city data stays on the city's own node. Federation exchanges anonymised material-flow metadata only — no raw records leave the node.
 
-**Compliance note**: LOOP is a lab-demo project — not a certified compliance product. See the [Regulatory Alignment Roadmap](/docs/regulatory-alignment) for how LOOP maps to EU regulations, and the [DPIA Lite](/docs/dpia-lite) for the baseline data protection assessment.
+**Compliance note**: LOOP is a lab-demo project — not a certified compliance product. See the [Regulatory Alignment Roadmap](https://localloop.urbnia.com/docs/regulatory-alignment/) for how LOOP maps to EU regulations, and the [DPIA Lite](https://localloop.urbnia.com/docs/dpia-lite/) for the baseline data protection assessment.
 
 ---
 

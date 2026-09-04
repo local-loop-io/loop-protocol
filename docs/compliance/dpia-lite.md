@@ -66,7 +66,7 @@ block). **Confirmed no personal data**: direct read of every field
 populated in this flow contains no name, email, or individual-identifying
 value. **Legal basis:** not applicable (no personal data). **Retention:**
 governed by the separate evidence-log retention discussed in
-[Retention and Evidence Guidance](retention-and-evidence-guidance.md), not a
+[Retention and Evidence Guidance](../retention-and-evidence-guidance.md), not a
 DPIA concern in itself.
 **Real risk:** low, for the flow as currently scoped. If a future extension
 added a named human contact per depot (e.g. "submitted by") to `ProductDNA`
@@ -118,7 +118,7 @@ unactionable for this flow specifically.
 carries — evidence entries for Flow 2 writes carry no personal data, by
 construction (Flow 2 carries none to log).
 **Data:** event type, subject id/type, timestamp, retention/export
-metadata — see [Retention and Evidence Guidance](retention-and-evidence-guidance.md)
+metadata — see [Retention and Evidence Guidance](../retention-and-evidence-guidance.md)
 for the full model. **Retention:** `retain_until` defaults to 2 years from
 `recorded_at` (`src/db/evidence.ts`), a lab default, not a compliance-derived
 figure.

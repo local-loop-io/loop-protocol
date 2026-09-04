@@ -15,26 +15,24 @@ loop-protocol/
 ├── PROJECT_STRUCTURE.md
 ├── package.json
 ├── package-lock.json
-├── bun.lock
 ├── contexts/
 │   ├── loop-v0.1.1.jsonld
 │   └── loop-v0.2.0.jsonld
 ├── schemas/
-│   ├── README.md
-│   ├── material-dna.schema.json
-│   ├── product-dna.schema.json
-│   ├── offer.schema.json
-│   ├── match.schema.json
-│   ├── transfer.schema.json
-│   ├── material-status.schema.json
-│   ├── handshake.schema.json
 │   ├── federate-accepted.schema.json
+│   ├── handshake.schema.json
 │   ├── loopcoin.schema.json
 │   ├── loopsignal.schema.json
-│   ├── transaction.schema.json
-│   └── node-info.schema.json
-├── examples/
+│   ├── match.schema.json
+│   ├── material-dna.schema.json
+│   ├── material-status.schema.json
+│   ├── node-info.schema.json
+│   ├── offer.schema.json
+│   ├── product-dna.schema.json
 │   ├── README.md
+│   ├── transaction.schema.json
+│   └── transfer.schema.json
+├── examples/
 │   ├── 01-material-registration.json
 │   ├── 02-loopcoin-transfer.json
 │   ├── 03-signal-voting.json
@@ -53,22 +51,33 @@ loop-protocol/
 │   ├── 16-federate-accepted-response.json
 │   ├── 17-battery-passport-material.json
 │   ├── 18-packaging-transfer.json
-│   └── 19-waste-shipment-transfer.json
+│   ├── 19-waste-shipment-transfer.json
+│   └── README.md
 ├── profiles/
 │   ├── README.md
+│   ├── battery/
+│   │   ├── README.md
+│   │   ├── conformance/
+│   │   │   ├── README.md
+│   │   │   ├── run-conformance.js
+│   │   │   └── vectors/
+│   │   │       └── battery-vectors.json
+│   │   └── requirements/
+│   │       └── battery-requirements.json
 │   ├── core-dp/
 │   │   ├── README.md
 │   │   ├── conformance/
 │   │   │   ├── README.md
+│   │   │   ├── run-conformance.js
 │   │   │   ├── trust/
 │   │   │   │   └── accepted-peer-keys.json
 │   │   │   └── vectors/
 │   │   │       └── core-dp-vectors.json
 │   │   ├── epcis/
 │   │   │   ├── README.md
-│   │   │   ├── fixtures/
-│   │   │   │   └── core-dp-transfer-object-event.json
-│   │   │   └── unsupported-features.json
+│   │   │   ├── unsupported-features.json
+│   │   │   └── fixtures/
+│   │   │       └── core-dp-transfer-object-event.json
 │   │   ├── requirements/
 │   │   │   ├── core-dp-requirements.json
 │   │   │   └── spec-v0.2.0-normative-manifest.json
@@ -79,13 +88,27 @@ loop-protocol/
 │   │       ├── epcis-mapping.schema.json
 │   │       ├── error.schema.json
 │   │       ├── evidence-entry.schema.json
-│   │       └── search-contract.schema.json
-│   ├── battery/
-│   │   └── README.md
+│   │       ├── peer-key-trust.schema.json
+│   │       ├── search-contract.schema.json
+│   │       └── trust-store.schema.json
 │   ├── packaging/
-│   │   └── README.md
+│   │   ├── README.md
+│   │   ├── conformance/
+│   │   │   ├── README.md
+│   │   │   ├── run-conformance.js
+│   │   │   └── vectors/
+│   │   │       └── packaging-vectors.json
+│   │   └── requirements/
+│   │       └── packaging-requirements.json
 │   └── waste-shipment/
-│       └── README.md
+│       ├── README.md
+│       ├── conformance/
+│       │   ├── README.md
+│       │   ├── run-conformance.js
+│       │   └── vectors/
+│       │       └── waste-shipment-vectors.json
+│       └── requirements/
+│           └── waste-shipment-requirements.json
 ├── docs/
 │   ├── access-scope-model.md
 │   ├── backup-restore-runbook.md
@@ -113,24 +136,34 @@ loop-protocol/
 │       ├── CLAIMS-AND-MATURITY.md
 │       ├── GOVERNANCE.md
 │       ├── RELEASE-CHECKLIST.md
-│       └── rfc-process.md
+│       ├── rfc-process.md
+│       └── pilot-readiness/
+│           ├── PILOT-READINESS-CLAIM.md
+│           ├── PILOT-TERMS.md
+│           ├── PILOT-USE-CASE.md
+│           ├── README.md
+│           └── SOLO-OPERATOR-ADDENDUM.md
 ├── rfcs/
-│   ├── README.md
 │   ├── 0000-template.md
 │   ├── 0001-rfc-process.md
 │   ├── 0002-federation-handshake.md
 │   ├── 0003-schema-versioning-policy.md
 │   ├── 0004-smart-contract-integration.md
-│   └── template.md
+│   ├── 0005-solo-operator-governance-override.md
+│   └── README.md
 ├── scripts/
 │   ├── check-agent-markers.js
 │   ├── check-domains.sh
 │   ├── check-schemas-readme.js
-│   └── validate-schemas.js
+│   ├── validate-schemas.js
+│   └── lib/
+│       └── profile-conformance-runner.js
 └── .github/
     ├── dependabot.yml
     └── workflows/
         └── validate-schemas.yml
 ```
+
+`bun.lock` (local, untracked) and `node_modules/` are generated and not part of the repository.
 
 <!-- agent-cycle-037: structure anchor -->

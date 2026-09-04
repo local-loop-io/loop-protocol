@@ -34,7 +34,7 @@ Applies to:
 5. **Superseded** – Replaced by a newer RFC.
 
 ## How to submit
-1. Copy `rfcs/template.md` → `rfcs/NNNN-title.md`.
+1. Copy `rfcs/0000-template.md` → `rfcs/NNNN-title.md`.
 2. Fill in all required sections.
 3. Open a PR with the RFC for review.
 4. The PI or designated reviewer approves or rejects the RFC.
