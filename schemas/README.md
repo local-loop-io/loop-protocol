@@ -18,7 +18,9 @@ JSON Schema definitions for LOOP payloads.
 
 ## Validation
 
-Run the validation suite from the repository root (agent-cycle-027):
+Run the validation suite from the repository root:
+
+<!-- agent-cycle-027: validation entrypoint anchor -->
 
 ```bash
 npm run test
@@ -40,9 +42,9 @@ Alphin C. Tom. "LOOP Schemas." localLOOP (Mycel), 2025-2026. https://github.com/
   author = {Alphin C. Tom},
   organization = {Mycel},
   title = {LOOP Schemas},
-  year = {2025},
+  year = {2026},
   howpublished = {GitHub repository},
   url = {https://github.com/local-loop-io/loop-protocol},
-  note = {Accessed 2025-12-19}
+  note = {Repository maintained by the author; version 0.5.x}
 }
 ```

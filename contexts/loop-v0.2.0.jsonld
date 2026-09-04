@@ -89,6 +89,9 @@
     "data_carrier_id": "loop:data_carrier_id",
     "issuer": "loop:issuer",
     "access_scope": "loop:access_scope",
+    "visible_to": "loop:visible_to",
+    "terms": "loop:terms",
+    "contact": "loop:contact",
     "supported_regimes": "loop:supported_regimes",
 
     "gtin": "loop:gtin",
