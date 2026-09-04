@@ -8,6 +8,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- `SPECIFICATION.md` §8.1 and `openapi.json` now define `POST /api/v1/offer`,
+  `POST /api/v1/match`, and `POST /api/v1/transfer` — the remaining steps of the
+  §3.5 minimal interop flow, which the spec made normative in 0.2.0 but never
+  listed as endpoints. Request bodies are the existing v0.2.0 schemas; the
+  response is a `CreateAccepted` (`id`, `created_at`) object; errors use the
+  §8.3 envelope. This matches what `localloop-backend` has served since 0.4.0.
+- `contexts/loop-v0.2.0.jsonld`: explicit term mappings for `visible_to`,
+  `terms`, and `contact` (previously reached only through the `@vocab` fallback).
+- `openapi.json` `ErrorResponse` now encodes §8.3: `error` is required, `code`
+  is the six-value enum, `message` is required.
+
+### Changed
+- `offer`, `match`, `transfer`, and `material-status` schemas state
+  `additionalProperties: true` explicitly (the previous implicit default), so
+  every top-level schema now declares its extensibility policy.
+- Examples `02`, `03`, `04` set `schema_version: "0.2.0"` as §3.5 recommends.
+- RFC status is recorded as a `- **Status**: …` bullet under the title in all
+  five RFCs (RFC-0001 previously had none); the duplicate `rfcs/template.md`
+  was removed in favour of `rfcs/0000-template.md`.
+- `.github/workflows/validate-schemas.yml` runs `npm audit --audit-level=high`
+  so low-severity dev-only advisories do not fail schema validation.
+
+### Fixed
+- `SPECIFICATION.md` §8.1 ProductDNA example used an `id` without the `PRD-`
+  prefix, `product_category: office-furniture` (enum value is
+  `furniture-office`), and `condition: used-good` (not in the enum) — a
+  conforming node rejected the spec's own example. §9.1 listed the capability
+  `interop-v0.1.1`, which `node-info.schema.json` does not allow. §8.3's
+  example used `MATERIAL_NOT_FOUND`, a code §8.3 itself does not define.
+- §4.4 described the material category list as "extensible by communities"
+  while the schema enumerates it as a closed set; the text now matches the
+  schema and points at RFC-0003 for additions.
+- Broken relative links in `rfcs/0005-solo-operator-governance-override.md`,
+  `docs/compliance/dpia-lite.md`, and `docs/implementation-guide.md`.
+- `SECURITY.md` shipped a template placeholder row ("Example: No rate limiting
+  on search endpoint") as if it were a real historical issue.
+- `examples/README.md` labelled `06`-`08` and `10` as v0.1.1 although the files
+  declare v0.2.0; `05-complete-flow.json` is described accurately.
+- CHANGELOG: releases 0.4.0 and 0.5.0 were tagged without their own sections
+  (all entries sat under `[Unreleased]` with duplicated headings); sections,
+  compare links, and the version-history table are now correct.
+- §12.1 "Complete Flow Example" MaterialDNA payload lacked the required
+  `schema_version`, `origin_city`, and `current_city` fields.
+- `PROJECT_STRUCTURE.md` regenerated from the tracked file list.
+- `profiles/core-dp/requirements/spec-v0.2.0-normative-manifest.json`
+  re-pinned to the updated `SPECIFICATION.md` (line numbers moved; the five new
+  Offer/Match/Transfer clauses are classified `OUT` of Core-DP).
+- `package-lock.json` root version matched 0.4.0 while `package.json` was 0.5.0.
+
+## [0.5.0] - 2026-08-15
+
+### Added
 - Solo-operator governance override: `rfcs/0005-solo-operator-governance-override.md`
   and `docs/governance/pilot-readiness/SOLO-OPERATOR-ADDENDUM.md`. GOVERNANCE.md's
   two-person quorum was written for a 3-5 person project and, as literally written,
@@ -50,6 +102,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   have failed at the object-storage backup step. Caught by an actual
   backup/restore drill, not a documentation read — see
   `localloop-agent` `evidence/pilot-readiness-2026-08-14/backup-restore-drill.md`.
+
+## [0.4.0] - 2026-08-14
 
 ### Added
 - Horizon 2 of the regulatory alignment roadmap (profile-based extension guidance, access
@@ -264,7 +318,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Status | Key Changes |
 |---------|------|---------|------------|
-| 0.3.0 | 2026-07-18 | **Current** | Core-DP 0.1.0-lab applicability profile, conformance harness |
+| 0.5.0 | 2026-08-15 | **Current** | Solo-operator governance override, pilot-readiness docs, DPIA/threat-model reassessment |
+| 0.4.0 | 2026-08-14 | Superseded | Horizon 2/3 regulatory extension guidance and profiles, consolidated agent-marker guard |
+| 0.3.0 | 2026-07-18 | Superseded | Core-DP 0.1.0-lab applicability profile, conformance harness |
 | 0.2.3 | 2026-05-26 | Superseded | City decision-maker docs, package-lock fix |
 | 0.2.2 | 2026-05-26 | Superseded | MAT- prefix fix, example v0.2.0 updates, §3.6 status transitions |
 | 0.2.1 | 2026-05-26 | Superseded | ProductDNA schema, spec expansion, glossary |
@@ -273,6 +329,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | 0.1.0 | 2025-05-27 | Superseded | Initial public release |
 | 0.0.9-draft | 2025-05-15 | Superseded | Internal draft |
 | 0.0.1-concept | 2025-04-01 | Archived | Concept document |
+
+Git tags exist from `v0.1.1-demo` onward (`v0.2.1`+ for the 0.2.x line); versions before that predate tagging and are recorded here only.
 
 ## Upgrade Guide
 
@@ -296,7 +354,7 @@ Future releases may include:
 
 ## Maintenance
 
-This changelog is maintained by the LOOP core team. 
+This changelog is maintained by the LOOP maintainer (see `docs/governance/GOVERNANCE.md` and RFC-0005).
 
 **How to contribute:**
 1. Fork the repository
@@ -314,7 +372,10 @@ This changelog is maintained by the LOOP core team.
 
 ---
 
-[Unreleased]: https://github.com/local-loop-io/loop-protocol/compare/v0.2.3...HEAD
+[Unreleased]: https://github.com/local-loop-io/loop-protocol/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/local-loop-io/loop-protocol/compare/v0.4.0...v0.5.0
+[0.4.0]: https://github.com/local-loop-io/loop-protocol/compare/v0.3.0...v0.4.0
+[0.3.0]: https://github.com/local-loop-io/loop-protocol/compare/v0.2.3...v0.3.0
 [0.2.3]: https://github.com/local-loop-io/loop-protocol/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/local-loop-io/loop-protocol/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/local-loop-io/loop-protocol/compare/v0.2.0...v0.2.1

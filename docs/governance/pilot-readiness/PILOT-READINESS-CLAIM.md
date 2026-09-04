@@ -2,10 +2,14 @@
 
 **Claim owner:** `alpha912`. **Review date:** 2026-08-14. **Reviewer:**
 self (`alpha912`), under the [Solo-Operator Addendum](SOLO-OPERATOR-ADDENDUM.md).
-**Expiry:** 2026-09-13 (30 days — shorter than CLAIMS-AND-MATURITY.md's
-90-day default, because several linked evidence items below are open,
-unmerged pull requests as of the review date; re-review immediately if any
-fails to merge as written, and re-review no later than 30 days regardless).
+**Expiry:** 2026-10-04. **Re-reviewed:** 2026-09-04 by `alpha912` (self,
+under the Solo-Operator Addendum): all evidence items cited below are merged
+and live; the compliance-matrix pointer for the reuse-depot flow was
+corrected the same day (see the table). Original expiry was 2026-09-13 (30
+days from the 2026-08-14 review — shorter than CLAIMS-AND-MATURITY.md's
+90-day default because the evidence was still in open pull requests at the
+time); this re-review extends it by 30 days, again shorter than the default
+because the pilot-readiness program has no second reviewer.
 
 > This claim was reviewed under the Solo-Operator Addendum
 > ([RFC-0005](../../../rfcs/0005-solo-operator-governance-override.md)):
@@ -26,7 +30,7 @@ data has entered the system, or that the platform is production-ready.
 
 | Item | Status | Evidence |
 | --- | --- | --- |
-| Municipal reuse-depot flow (`ProductDNA`→`Offer`→`Match`→`Transfer`) | **Demonstrated** | Runs end-to-end against a real lab node: `localloop-backend/scripts/simulate-lab.ts` municipal-reuse block; all 4 endpoints ✅ Implemented per `localloop-backend/docs/SPEC-COMPLIANCE.md`'s endpoint matrix; response shapes validated in `tests/specResponses.test.ts`; cross-repo schema/mirror parity enforced by `tests/conformance.test.ts` (verified green in this session) |
+| Municipal reuse-depot flow (`ProductDNA`→`Offer`→`Match`→`Transfer`) | **Demonstrated** | Runs end-to-end against a real lab node: `localloop-backend/scripts/simulate-lab.ts` municipal-reuse block; all 4 endpoints (`POST /api/v1/product`, `/offer`, `/match`, `/transfer`) ✅ Implemented per `localloop-backend/docs/SPEC-COMPLIANCE.md`'s endpoint matrix (the offer/match/transfer rows were missing from the matrix until 2026-09-04, when they were added together with their §8.1/`openapi.json` definitions); response shapes validated in `tests/specResponses.test.ts`; cross-repo schema/mirror parity enforced by `tests/conformance.test.ts` (verified green in this session) |
 | `API_KEY_ENABLED` protecting the pilot write surface | **Tested** | `tests/apiKey.routes.test.ts` — all 18 `requireApiKey` call sites covered except one low-priority conditional branch (search route's bearer-mode check), per the item-2 audit this claim is built on |
 | `AUTH_ENABLED` (better-auth) | **Tested** as a standalone capability, **not integrated** | `localloop-backend` PR #99: schema provisioned (migration 017), real sign-up/sign-in/session tests (`tests/auth.enabled.test.ts`). **Explicit non-claim:** no business route checks a logged-in session — enabling this flag today adds zero protection to the pilot write surface itself (see Non-Claims below) |
 | TD-002 credential-strength floor | **Tested** | Fixed same-day as this program began, commit `916a76b8`; `tests/config.security.test.ts`, 9 cases covering all 5 branches |
