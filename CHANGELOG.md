@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-09-04
+
 ### Added
 - `SPECIFICATION.md` §8.1 and `openapi.json` now define `POST /api/v1/offer`,
   `POST /api/v1/match`, and `POST /api/v1/transfer` — the remaining steps of the
@@ -318,7 +320,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Status | Key Changes |
 |---------|------|---------|------------|
-| 0.5.0 | 2026-08-15 | **Current** | Solo-operator governance override, pilot-readiness docs, DPIA/threat-model reassessment |
+| 0.5.1 | 2026-09-04 | **Current** | Offer/Match/Transfer endpoints in §8.1 and openapi.json; spec example and docs corrections |
+| 0.5.0 | 2026-08-15 | Superseded | Solo-operator governance override, pilot-readiness docs, DPIA/threat-model reassessment |
 | 0.4.0 | 2026-08-14 | Superseded | Horizon 2/3 regulatory extension guidance and profiles, consolidated agent-marker guard |
 | 0.3.0 | 2026-07-18 | Superseded | Core-DP 0.1.0-lab applicability profile, conformance harness |
 | 0.2.3 | 2026-05-26 | Superseded | City decision-maker docs, package-lock fix |
@@ -372,7 +375,8 @@ This changelog is maintained by the LOOP maintainer (see `docs/governance/GOVERN
 
 ---
 
-[Unreleased]: https://github.com/local-loop-io/loop-protocol/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/local-loop-io/loop-protocol/compare/v0.5.1...HEAD
+[0.5.1]: https://github.com/local-loop-io/loop-protocol/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/local-loop-io/loop-protocol/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/local-loop-io/loop-protocol/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/local-loop-io/loop-protocol/compare/v0.2.3...v0.3.0
