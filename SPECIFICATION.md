@@ -328,7 +328,7 @@ MAT-DE-MUC-2025-PLASTIC-B847F3
 
 ### 4.4 Standard Categories
 
-Base categories (extensible by communities):
+Base categories (a closed enumeration in `material-dna.schema.json`; additions follow RFC-0003 versioning):
 
 ```
 plastics/
@@ -824,9 +824,9 @@ Authorization: Bearer {token}
   "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
   "@type": "ProductDNA",
   "schema_version": "0.2.0",
-  "id": "DE-MUC-2026-FURNITURE-CHAIR-001",
-  "product_category": "office-furniture",
-  "condition": "used-good",
+  "id": "PRD-DE-MUC-2026-CHAIR-001",
+  "product_category": "furniture-office",
+  "condition": "good",
   ...
 }
 
@@ -835,7 +835,7 @@ Response: 201 Created
   "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
   "@type": "ProductDNA",
   "schema_version": "0.2.0",
-  "id": "DE-MUC-2026-FURNITURE-CHAIR-001",
+  "id": "PRD-DE-MUC-2026-CHAIR-001",
   "status": "registered",
   ...
 }
@@ -844,17 +844,112 @@ Response: 201 Created
 **GET /api/v1/product/{id}**
 
 ```http
-GET /api/v1/product/DE-MUC-2026-FURNITURE-CHAIR-001
+GET /api/v1/product/PRD-DE-MUC-2026-CHAIR-001
 
 Response: 200 OK
 {
   "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
   "@type": "ProductDNA",
   "schema_version": "0.2.0",
-  "id": "DE-MUC-2026-FURNITURE-CHAIR-001",
+  "id": "PRD-DE-MUC-2026-CHAIR-001",
   ...
 }
 ```
+
+#### Minimal Interop Flow (Offer, Match, Transfer)
+
+These endpoints complete the §3.5 baseline flow after MaterialDNA/ProductDNA registration.
+Each accepts the corresponding v0.2.0 schema as the request body and returns the created record's `id` and `created_at`.
+Errors use the §8.3 envelope: `INVALID_REQUEST` (400) for schema failures, unknown referenced material/product, or an invalid state transition;
+`NOT_FOUND` (404) when a referenced offer or match does not exist; `CONFLICT` (409) when the id already exists, an offer is already reserved, or a match already has an active transfer.
+Nodes SHOULD honour an `Idempotency-Key` request header so a retried write returns the original response.
+
+**POST /api/v1/offer**
+
+```http
+POST /api/v1/offer
+Content-Type: application/ld+json
+Authorization: Bearer {token}
+
+{
+  "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+  "@type": "Offer",
+  "schema_version": "0.2.0",
+  "id": "OFR-2F7A6B9C",
+  "material_id": "MAT-DE-MUC-2025-PLASTIC-B847F3",
+  "from_city": "Munich",
+  "to_city": "Berlin",
+  "quantity": { "value": 800, "unit": "kg" },
+  "status": "open",
+  "available_until": "2025-06-05T10:00:00Z"
+}
+
+Response: 201 Created
+{
+  "id": "OFR-2F7A6B9C",
+  "created_at": "2025-06-01T12:00:00Z"
+}
+```
+
+The offer quantity MUST NOT exceed the referenced material's quantity.
+
+**POST /api/v1/match**
+
+```http
+POST /api/v1/match
+Content-Type: application/ld+json
+Authorization: Bearer {token}
+
+{
+  "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+  "@type": "Match",
+  "schema_version": "0.2.0",
+  "id": "MCH-9B3C8A12",
+  "material_id": "MAT-DE-MUC-2025-PLASTIC-B847F3",
+  "offer_id": "OFR-2F7A6B9C",
+  "from_city": "Munich",
+  "to_city": "Berlin",
+  "status": "accepted",
+  "matched_at": "2025-06-01T12:15:00Z"
+}
+
+Response: 201 Created
+{
+  "id": "MCH-9B3C8A12",
+  "created_at": "2025-06-01T12:15:00Z"
+}
+```
+
+The referenced offer MUST be `open`; accepting a match moves it to `reserved`.
+
+**POST /api/v1/transfer**
+
+```http
+POST /api/v1/transfer
+Content-Type: application/ld+json
+Authorization: Bearer {token}
+
+{
+  "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.2.0.jsonld",
+  "@type": "Transfer",
+  "schema_version": "0.2.0",
+  "id": "TRF-5D8A23F1",
+  "material_id": "MAT-DE-MUC-2025-PLASTIC-B847F3",
+  "match_id": "MCH-9B3C8A12",
+  "status": "completed",
+  "handoff_at": "2025-06-02T09:00:00Z",
+  "received_at": "2025-06-02T18:00:00Z",
+  "route": { "from_city": "Munich", "to_city": "Berlin", "mode": "road" }
+}
+
+Response: 201 Created
+{
+  "id": "TRF-5D8A23F1",
+  "created_at": "2025-06-02T18:00:00Z"
+}
+```
+
+The referenced match MUST be `accepted` and MUST NOT already have an active (non-cancelled) transfer.
 
 #### Material Management (Lab Demo Extensions)
 
@@ -1009,7 +1104,7 @@ Standard error format:
 ```json
 {
   "error": {
-    "code": "MATERIAL_NOT_FOUND",
+    "code": "NOT_FOUND",
     "message": "Material with ID MAT-DE-MUC-2025-PLASTIC-B847F3 not found",
     "details": {
       "searched_id": "MAT-DE-MUC-2025-PLASTIC-B847F3",
@@ -1046,7 +1141,7 @@ Nodes maintain a registry of peers:
       "id": "munich.loop",
       "endpoint": "https://munich.loop/api/v1",
       "public_key": "-----BEGIN PUBLIC KEY-----...",
-      "capabilities": ["interop-v0.1.1", "loopcoin", "loopsignal"],
+      "capabilities": ["material-registry", "loopcoin", "loopsignal"],
       "location": {"lat": 48.1351, "lon": 11.5820},
       "status": "active",
       "last_seen": "2025-05-27T15:00:00Z"
@@ -1170,8 +1265,11 @@ POST munich.loop/api/v1/material
 {
   "@context": "https://localloop.urbnia.com/projects/loop-protocol/contexts/loop-v0.1.1.jsonld",
   "@type": "MaterialDNA",
+  "schema_version": "0.1.1",
   "id": "MAT-DE-MUC-2025-FOOD-B847F3",
   "category": "organic-food",
+  "origin_city": "Munich",
+  "current_city": "Munich",
   "quantity": {"value": 500, "unit": "kg"},
   "quality": 0.90,
   "location": {

@@ -19,6 +19,9 @@
   "tags": [
     { "name": "Material" },
     { "name": "Product" },
+    { "name": "Offer" },
+    { "name": "Match" },
+    { "name": "Transfer" },
     { "name": "Node" },
     { "name": "Signals" },
     { "name": "Transactions" },
@@ -145,15 +148,29 @@
       },
       "ErrorResponse": {
         "type": "object",
+        "required": ["error"],
         "properties": {
           "error": {
             "type": "object",
+            "required": ["code", "message"],
             "properties": {
-              "code": { "type": "string" },
-              "message": { "type": "string" },
-              "details": { "type": "object" }
+              "code": {
+                "type": "string",
+                "description": "SPECIFICATION.md §8.3 error code",
+                "enum": ["INVALID_REQUEST", "UNAUTHORIZED", "FORBIDDEN", "NOT_FOUND", "CONFLICT", "INTERNAL_ERROR"]
+              },
+              "message": { "type": "string", "description": "Human-readable explanation" },
+              "details": { "type": "object", "description": "Optional structured context" }
             }
           }
+        }
+      },
+      "CreateAccepted": {
+        "type": "object",
+        "required": ["id", "created_at"],
+        "properties": {
+          "id": { "type": "string", "description": "Identifier of the created record (echoes the payload id)" },
+          "created_at": { "type": "string", "format": "date-time" }
         }
       },
       "CoreDpEnvelope": {
@@ -323,6 +340,89 @@
             }
           },
           "400": { "description": "Invalid request", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/api/v1/offer": {
+      "post": {
+        "tags": ["Offer"],
+        "summary": "Publish an Offer for a registered MaterialDNA or ProductDNA",
+        "description": "Step 2 of the SPECIFICATION.md §3.5 minimal interop flow. The offer quantity MUST NOT exceed the referenced material quantity.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/ld+json": {
+              "schema": { "$ref": "#/components/schemas/Offer" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CreateAccepted" }
+              }
+            }
+          },
+          "400": { "description": "Invalid request, unknown referenced material/product, or invalid state transition", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "409": { "description": "Offer id already exists", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/api/v1/match": {
+      "post": {
+        "tags": ["Match"],
+        "summary": "Accept a Match against an open Offer",
+        "description": "Step 3 of the SPECIFICATION.md §3.5 minimal interop flow. The referenced offer MUST be open; accepting a match reserves it.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/ld+json": {
+              "schema": { "$ref": "#/components/schemas/Match" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CreateAccepted" }
+              }
+            }
+          },
+          "400": { "description": "Invalid request, unknown referenced material/product, or invalid state transition", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "404": { "description": "Referenced offer does not exist", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "409": { "description": "Match id already exists, or the offer is already reserved by another match", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/api/v1/transfer": {
+      "post": {
+        "tags": ["Transfer"],
+        "summary": "Record a Transfer for an accepted Match",
+        "description": "Step 4 of the SPECIFICATION.md §3.5 minimal interop flow. The referenced match MUST be accepted and MUST NOT already have an active transfer.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/ld+json": {
+              "schema": { "$ref": "#/components/schemas/Transfer" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/CreateAccepted" }
+              }
+            }
+          },
+          "400": { "description": "Invalid request, unknown referenced material/product, or invalid state transition", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "404": { "description": "Referenced match does not exist", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "409": { "description": "Transfer id already exists, or the match already has an active transfer", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
         }
       }
     },
