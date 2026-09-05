@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.2] - 2026-09-05
+
+### Added
+- Core-DP `evidence-entry.schema.json`: `transaction` is an allowed
+  `subject.type`, so `POST /api/v1/transaction` writes reach the append-only
+  evidence log like every other lifecycle write (it was the only create path
+  without an evidence entry; the schema had no subject type for it).
+
+### Changed
+- `docs/governance/pilot-readiness/PILOT-READINESS-CLAIM.md` re-reviewed
+  2026-09-05 with the addendum's self-review checklist recorded inline; expiry
+  moves to the 90-day default (2026-12-04) now that all cited evidence is
+  merged, tagged and live.
+
 ## [0.5.1] - 2026-09-04
 
 ### Added
@@ -320,7 +334,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Status | Key Changes |
 |---------|------|---------|------------|
-| 0.5.1 | 2026-09-04 | **Current** | Offer/Match/Transfer endpoints in §8.1 and openapi.json; spec example and docs corrections |
+| 0.5.2 | 2026-09-05 | **Current** | `transaction` evidence subject type; pilot claim re-review |
+| 0.5.1 | 2026-09-04 | Superseded | Offer/Match/Transfer endpoints in §8.1 and openapi.json; spec example and docs corrections |
 | 0.5.0 | 2026-08-15 | Superseded | Solo-operator governance override, pilot-readiness docs, DPIA/threat-model reassessment |
 | 0.4.0 | 2026-08-14 | Superseded | Horizon 2/3 regulatory extension guidance and profiles, consolidated agent-marker guard |
 | 0.3.0 | 2026-07-18 | Superseded | Core-DP 0.1.0-lab applicability profile, conformance harness |
@@ -375,7 +390,8 @@ This changelog is maintained by the LOOP maintainer (see `docs/governance/GOVERN
 
 ---
 
-[Unreleased]: https://github.com/local-loop-io/loop-protocol/compare/v0.5.1...HEAD
+[Unreleased]: https://github.com/local-loop-io/loop-protocol/compare/v0.5.2...HEAD
+[0.5.2]: https://github.com/local-loop-io/loop-protocol/compare/v0.5.1...v0.5.2
 [0.5.1]: https://github.com/local-loop-io/loop-protocol/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/local-loop-io/loop-protocol/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/local-loop-io/loop-protocol/compare/v0.3.0...v0.4.0

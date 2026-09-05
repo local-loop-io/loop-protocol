@@ -19,6 +19,6 @@ this order:
 5. [PILOT-TERMS.md](PILOT-TERMS.md) — draft pilot terms (not legal advice,
    not ready for signature).
 
-Every claim in this directory expires 2026-10-04 (re-reviewed 2026-09-04) or sooner per
+Every claim in this directory expires 2026-12-04 (re-reviewed 2026-09-05) or sooner per
 PILOT-READINESS-CLAIM.md's own expiry note — do not treat any of it as
 current past that date without re-review.

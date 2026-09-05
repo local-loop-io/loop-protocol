@@ -2,14 +2,31 @@
 
 **Claim owner:** `alpha912`. **Review date:** 2026-08-14. **Reviewer:**
 self (`alpha912`), under the [Solo-Operator Addendum](SOLO-OPERATOR-ADDENDUM.md).
-**Expiry:** 2026-10-04. **Re-reviewed:** 2026-09-04 by `alpha912` (self,
-under the Solo-Operator Addendum): all evidence items cited below are merged
-and live; the compliance-matrix pointer for the reuse-depot flow was
-corrected the same day (see the table). Original expiry was 2026-09-13 (30
-days from the 2026-08-14 review — shorter than CLAIMS-AND-MATURITY.md's
-90-day default because the evidence was still in open pull requests at the
-time); this re-review extends it by 30 days, again shorter than the default
-because the pilot-readiness program has no second reviewer.
+**Expiry:** 2026-12-04 (CLAIMS-AND-MATURITY.md's 90-day default).
+**Re-reviewed:** 2026-09-05 by `alpha912` (self, under the Solo-Operator
+Addendum), superseding the 2026-09-04 interim re-review. Review record:
+
+- *Scope check* — the claim still says only that an evidenced outreach
+  conversation about the narrow reuse-depot flow is possible; no wording
+  implies a pilot happened or that the platform is production-ready.
+- *Evidence check* — every item in the table below points at merged,
+  tagged, live code: `localloop-backend` v0.6.3 (`docs/SPEC-COMPLIANCE.md`
+  now lists all four flow endpoints), `loop-protocol` v0.5.1 (§8.1 and
+  `openapi.json` define offer/match/transfer), site v0.5.2 mirror. The
+  earlier expiries (2026-09-13, then 2026-10-04) were shortened because the
+  evidence sat in open pull requests; that no longer applies.
+- *Disconfirmation check* — the 2026-09-04/05 estate sweep actively looked
+  for evidence against the claim and found real defects on the pilot path
+  that are now fixed and covered by tests: the duplicate-transfer 409→400
+  regression in backend 0.6.1, an idempotency cache keyed on `key` alone, a
+  pool-exhaustion path under concurrent keyed writes, and a nightly backup
+  whose Redis snapshot was silently stale (`redis-cli SAVE` without auth).
+  Record: `localloop-agent/LEDGER.md`, "Estate defect sweep". Nothing found
+  contradicts the claim as worded; the fixes strengthen it.
+- *Disclosure* — this remains a self-review (one active maintainer); see
+  the addendum note below.
+
+Original review 2026-08-14; original expiry 2026-09-13.
 
 > This claim was reviewed under the Solo-Operator Addendum
 > ([RFC-0005](../../../rfcs/0005-solo-operator-governance-override.md)):
