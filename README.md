@@ -1,5 +1,9 @@
 # LOOP
 
+> [!IMPORTANT]
+> **Archived 2026-10-14.** localLOOP development has moved to a private monorepo and this repository is read-only.
+> The lab demo now lives at **https://loop.urbnia.com** (API under `/api/`); `localloop.urbnia.com` and `loop-api.urbnia.com` redirect there.
+
 [![Spec version](https://img.shields.io/badge/spec-v0.2.0-blue.svg)](SPECIFICATION.md)
 [![Release](https://img.shields.io/github/v/tag/local-loop-io/loop-protocol?label=release&sort=semver)](https://github.com/local-loop-io/loop-protocol/releases)
 [![License](https://img.shields.io/badge/license-MIT%20%2B%20CC--BY--SA--4.0-green.svg)](LICENSE)
