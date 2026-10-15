@@ -1,7 +1,7 @@
 # LOOP
 
 > [!IMPORTANT]
-> **Archived 2026-10-14.** localLOOP development has moved to a private monorepo and this repository is read-only.
+> **Archived 2026-10-14.** localLOOP is now developed in the open at **[MycelAI/LocalLOOP](https://github.com/MycelAI/LocalLOOP)**; this repository's history continues there in [`protocol`](https://github.com/MycelAI/LocalLOOP/tree/main/protocol). This repository is read-only.
 > The lab demo now lives at **https://loop.urbnia.com** (API under `/api/`); `localloop.urbnia.com` and `loop-api.urbnia.com` redirect there.
 
 [![Spec version](https://img.shields.io/badge/spec-v0.2.0-blue.svg)](SPECIFICATION.md)
